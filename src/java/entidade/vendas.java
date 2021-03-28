@@ -9,7 +9,7 @@ package entidade;
  *
  * @author Usuario
  */
-public class vendas {
+public class Vendas {
 
     private int id;
     private double valor;
