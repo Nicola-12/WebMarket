@@ -2,7 +2,7 @@
 package entidade;
 
 public class Produto {
-        
+
     private int id;
     private String descricao;
     private double valor;
@@ -57,6 +57,5 @@ public class Produto {
     public void setId_categoria(Categoria id_categoria) {
         this.id_categoria = id_categoria;
     }
-    
-    
+
 }
