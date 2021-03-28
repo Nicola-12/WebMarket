@@ -77,13 +77,13 @@ public class CategoriaDao implements IDAO<Categoria> {
             String sql = " DELETE FROM TABLE categoria"
                     + "WHERE id = '" + id + "'";
 
-           int retorno = stm.executeUpdate(sql);
-            
+            int retorno = stm.executeUpdate(sql);
+
             return sql;
-            
+
         } catch (Exception e) {
-           return e.toString();
-           
+            return e.toString();
+
         }
     }
 
@@ -123,7 +123,7 @@ public class CategoriaDao implements IDAO<Categoria> {
 
     @Override
     public ArrayList<Categoria> consultar(String criterio) {
-         ArrayList<Categoria> categorias = new ArrayList();
+        ArrayList<Categoria> categorias = new ArrayList();
 
         try {
             Statement st = ConexaoBD.getInstance().getConnection().createStatement();
