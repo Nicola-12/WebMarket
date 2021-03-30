@@ -20,7 +20,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                color: white;
+                color: #D3D3D3;
                 margin-left: 7px;
             }
             .bd-placeholder-img {
