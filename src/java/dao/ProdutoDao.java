@@ -10,6 +10,8 @@ import apoio.IDAO;
 import entidade.Produto;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,10 +28,12 @@ public class ProdutoDao implements IDAO<Produto> {
 
             String sql = "INSERT INTO produto VALUES"
                     + "default,"
-                    + "'" + o.getDescricao() + "',"
-                    + "'" + o.getValor() + "',"
-                    + "'" + o.getUnidade() + "',"
-                    + "'" + o.getId_categoria() + "',"
+                    + "'" + o.descricao + "',"
+                    + "'" + o.valor + "',"
+                    + "'" + o.estoque + "',"
+                    + "'" + o.unidade + "',"
+                    + "'" + o.id_categoria + "',"
+                    + "'" + o.ativo + "',"
                     + " 'now()',"
                     + "' null '";
 
@@ -39,24 +43,72 @@ public class ProdutoDao implements IDAO<Produto> {
 
             return null;
         } catch (Exception e) {
-            System.out.println("ERRO AO SALVAR PRODUTO: " + e);
+            System.out.println("Erro ao salvar produto: " + e);
             return e.toString();
         }
     }
 
     @Override
     public String atualizar(Produto o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        try {
+            Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
+
+            String sql = "UPDATE produto SET "
+                    + "descricao=" + o.descricao + ","
+                    + "valor=" + o.valor + ","
+                    + "quantidade=" + o.estoque + ","
+                    + "unidade=" + o.unidade + ","
+                    + "id_categoria=" + o.id_categoria + ","
+                    + "ativo=" + o.ativo + " "
+                    + "WHERE id= " + o.id;
+
+            System.out.println("SQL: " + sql);
+
+            int resultado = stm.executeUpdate(sql);
+
+            return null;
+
+        } catch (Exception e) {
+            System.out.println("Erro ao atualizar produto: " + e);
+            return e.toString();
+        }
     }
 
     @Override
     public String excluir(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        try {
+            Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
 
-    @Override
+            String sql = "UPDATE produto SET ativo = false WHERE id=" + id;
+            System.out.println("SQL: " + sql);
+
+            int resultado = stm.executeUpdate(sql);
+
+            return null;
+
+        } catch (Exception e) {
+            System.out.println("Erro ao excluir produto: " + e);
+            return e.toString();
+        }
+    }
+    
     public ArrayList<Produto> consultarTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "SELECT * FROM produto WHERE status <> false";
+        try {
+            ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
+            ArrayList<Produto> produto = new ArrayList<>();
+            while (result.next()) {
+                produto.add(Produto.from(result));
+            }
+            if (produto.isEmpty()) {
+                return null;
+            }
+            return produto;
+        } catch (Exception e) {
+            System.out.println("Erro ao consultar produtos: " + e);
+        }
+        return null;
     }
 
     @Override
@@ -66,12 +118,36 @@ public class ProdutoDao implements IDAO<Produto> {
 
     @Override
     public ArrayList<Produto> consultar(String criterio) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "SELECT * FROM produto WHERE '%" + criterio + "%' ORDER BY descricao";
+        try {
+            ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
+            ArrayList<Produto> produto = new ArrayList<>();
+            while (result.next()) {
+                produto.add(Produto.from(result));
+            }
+            if (produto.isEmpty()) {
+                return null;
+            }
+            return produto;
+        } catch (Exception e) {
+            System.out.println("Erro ao consultar produtos: " + e);
+        }
+        return null;
     }
 
     @Override
-    public Object consultarId(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Produto consultarId(int id) {
+    String sql = "SELECT * FROM produto WHERE id=" + id;
+        try {
+            ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
+            if (result.next()) {
+                return Produto.from(result);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Erro ao consultar produtos por ID: " + e);
+        }
+        return null;
     }
 
     @Override

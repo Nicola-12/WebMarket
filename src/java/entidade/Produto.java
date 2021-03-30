@@ -1,61 +1,44 @@
 
 package entidade;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Produto {
 
-    private int id;
-    private String descricao;
-    private double valor;
-    private int quantidade;
-    private String unidade;
-    private Categoria id_categoria;
+    public Integer id;
+    public String descricao; //nome
+    public double valor; //valor unitário
+    public Integer estoque; //quantidade de produtos disponíveis
+    public String unidade; //kilos ou unidades
+    public Integer id_categoria; //puxa o nome da categoria baseado no id
+    public boolean ativo; //ativo (visível) ou inativo (invisível)
 
-    public int getId() {
-        return id;
+    public static Produto from(ResultSet resultSet) throws SQLException {
+        Produto prod = new Produto();
+
+        prod.id = resultSet.getInt("id");
+        prod.descricao = resultSet.getString("descricao");
+        prod.valor = resultSet.getDouble("valor");
+        prod.estoque = resultSet.getInt("estoque");
+        prod.unidade = resultSet.getString("unidade");
+        prod.id_categoria = resultSet.getInt("id_categoria");
+        prod.ativo = resultSet.getBoolean("ativo");
+
+        return prod;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("produto{id=").append(id);
+        sb.append("', descricao='").append(descricao);
+        sb.append(", valor=").append(valor);
+        sb.append(", estoque=").append(estoque);
+        sb.append(", unidade=").append(unidade);
+        sb.append(", id_categoria=").append(id_categoria);
+        sb.append(", ativo=").append(ativo);
+        sb.append('}');
+        return sb.toString();
     }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public double getValor() {
-        return valor;
-    }
-
-    public void setValor(double valor) {
-        this.valor = valor;
-    }
-
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
-
-    public String getUnidade() {
-        return unidade;
-    }
-
-    public void setUnidade(String unidade) {
-        this.unidade = unidade;
-    }
-
-    public Categoria getId_categoria() {
-        return id_categoria;
-    }
-
-    public void setId_categoria(Categoria id_categoria) {
-        this.id_categoria = id_categoria;
-    }
-
 }
