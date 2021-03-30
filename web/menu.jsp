@@ -9,9 +9,20 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" 
+              integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" 
+              crossorigin="anonymous" />
         <title>JSP Page</title>
 
         <style>
+            
+            .center {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: white;
+                margin-left: 7px;
+            }
             .bd-placeholder-img {
                 font-size: 1.125rem;
                 text-anchor: middle;
@@ -63,6 +74,19 @@
                     <form>
                         <input class="form-control" type="text" placeholder="Search" aria-label="Search">
                     </form>
+                    <div>
+                        <li class="nav-item dropdown center">
+                            <a class="nav-link dropdown-toggle center" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user-alt center"></i></a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdown04">
+                                <!-- 
+                                FAZER O CADASTRO DE PESSOA
+                                -->
+                                <li><a class="dropdown-item" href="login.jsp">Login</a></li>
+                                <li><a class="dropdown-item" href="cadastroPessoa.jsp">Cadastro</a></li>
+                            </ul>
+                        </li>
+                    </div>
                 </div>
             </div>
         </nav>
