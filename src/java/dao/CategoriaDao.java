@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import apoio.ConexaoBD;
@@ -11,24 +6,21 @@ import entidade.Categoria;
 import java.sql.*;
 import java.util.ArrayList;
 
-/**
- *
- * @author Usuario
- */
 public class CategoriaDao implements IDAO<Categoria> {
 
     ResultSet result;
 
     @Override
-    public String salvar(Categoria categoria) {
+    public String salvar(Categoria cat) {
         try {
             Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
 
             String sql = "INSERT INTO categoria VALUES"
                     + "(default,"
-                    + "'" + categoria.getDescricao() + "',"
+                    + "'" + cat.descricao + "',"
                     + " now(),"
-                    + " now())";
+                    + " now(),"
+                    + "'" + cat.ativo + "')";
 
             System.out.println("SQL: " + sql);
 
@@ -37,7 +29,7 @@ public class CategoriaDao implements IDAO<Categoria> {
             return null;
 
         } catch (Exception e) {
-            System.out.println("ERRO AO SALVAR CATEGORIA: " + e);
+            System.out.println("Erro ao salvar categoria: " + e);
             return e.toString();
         }
     }
@@ -50,8 +42,9 @@ public class CategoriaDao implements IDAO<Categoria> {
             Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
 
             String sql = "UPDATE TABLE categoria"
-                    + "SET descricao = '" + categoria.getDescricao() + "'"
-                    + "WHERE id = '" + categoria.getId() + "'";
+                    + "SET descricao = '" + categoria.descricao + "'"
+                    + "SET atualizado_em = 'now()'"
+                    + "WHERE id = '" + categoria.id + "'";
 
             int retorno = stm.executeUpdate(sql);
 
@@ -61,7 +54,7 @@ public class CategoriaDao implements IDAO<Categoria> {
                 saida = "ERRO";
             }
         } catch (Exception e) {
-            System.out.println("ERRO AO SALVAR A CATEGORIA: " + e);
+            System.out.println("Erro ao salvar a categoria: " + e);
             saida = e.toString();
         }
 
@@ -71,49 +64,38 @@ public class CategoriaDao implements IDAO<Categoria> {
     @Override
     public String excluir(int id) {
         try {
-
             Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
 
-            String sql = " DELETE FROM TABLE categoria"
-                    + "WHERE id = '" + id + "'";
+            String sql = "UPDATE categoria SET ativo = false WHERE id=" + id;
+            System.out.println("SQL: " + sql);
 
-            int retorno = stm.executeUpdate(sql);
+            int resultado = stm.executeUpdate(sql);
 
-            return sql;
+            return null;
 
         } catch (Exception e) {
+            System.out.println("Erro ao excluir categoria: " + e);
             return e.toString();
-
         }
     }
 
     @Override
     public ArrayList<Categoria> consultarTodos() {
-        ArrayList<Categoria> categorias = new ArrayList();
-
+        String sql = "SELECT * FROM categoria WHERE status <> false";
         try {
-            Statement st = ConexaoBD.getInstance().getConnection().createStatement();
-
-            String sql = "select * "
-                    + "from "
-                    + "categoria ";
-
-            ResultSet resultado = st.executeQuery(sql);
-
-            while (resultado.next()) {
-                Categoria c = new Categoria();
-
-                c.setId(resultado.getInt("id"));
-                c.setDescricao(resultado.getString("descricao"));
-
-                categorias.add(c);
+            ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
+            ArrayList<Categoria> categoria = new ArrayList<>();
+            while (result.next()) {
+                categoria.add(Categoria.from(result));
             }
-
+            if (categoria.isEmpty()) {
+                return null;
+            }
+            return categoria;
         } catch (Exception e) {
-            System.out.println("Erro ao consultar Categorias: " + e);
+            System.out.println("Erro ao consultar categoria: " + e);
         }
-
-        return categorias;
+        return null;
     }
 
     @Override
@@ -123,64 +105,36 @@ public class CategoriaDao implements IDAO<Categoria> {
 
     @Override
     public ArrayList<Categoria> consultar(String criterio) {
-        ArrayList<Categoria> categorias = new ArrayList();
-
+        String sql = "SELECT * FROM categoria WHERE '%" + criterio + "%' ORDER BY descricao";
         try {
-            Statement st = ConexaoBD.getInstance().getConnection().createStatement();
-
-            String sql = "select * "
-                    + "from "
-                    + "categoria "
-                    + "where "
-                    + "descricao ilike '%" + criterio + "%' "
-                    + "order by descricao";
-
-            ResultSet resultado = st.executeQuery(sql);
-
-            while (resultado.next()) {
-                Categoria c = new Categoria();
-
-                c.setId(resultado.getInt("id"));
-                c.setDescricao(resultado.getString("descricao"));
-
-                categorias.add(c);
+            ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
+            ArrayList<Categoria> categoria = new ArrayList<>();
+            while (result.next()) {
+                categoria.add(Categoria.from(result));
             }
-
+            if (categoria.isEmpty()) {
+                return null;
+            }
+            return categoria;
         } catch (Exception e) {
-            System.out.println("Erro ao consultar Categorias: " + e);
+            System.out.println("Erro ao consultar categorias: " + e);
         }
-
-        return categorias;
+        return null;
     }
 
     @Override
     public Object consultarId(int id) {
-        Categoria c = null;
-
+        String sql = "SELECT * FROM categoria WHERE id=" + id;
         try {
-            Statement st = ConexaoBD.getInstance().getConnection().createStatement();
-
-            String sql = "select * "
-                    + "from "
-                    + "categoria "
-                    + "where "
-                    + "id = " + id;
-
-            ResultSet resultado = st.executeQuery(sql);
-
-            while (resultado.next()) {
-                c = new Categoria();
-
-                c.setId(resultado.getInt("id"));
-                c.setDescricao(resultado.getString("descricao"));
-
+            ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
+            if (result.next()) {
+                return Categoria.from(result);
             }
 
         } catch (Exception e) {
-            System.out.println("Erro ao consultar Categoria por ID: " + e);
+            System.out.println("Erro ao consultar categorias por ID: " + e);
         }
-
-        return c;
+        return null;
     }
 
     @Override
