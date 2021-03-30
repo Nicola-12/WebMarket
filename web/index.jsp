@@ -3,8 +3,9 @@
     Created on : 15 de mar. de 2021, 19:35:50
     Author     : Usuario
 --%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="apoio.Formatacao"%>
+<%@page contentType="text/html" pageEncoding="ISO8859-1"%>
+<%@include file="menu.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>

@@ -25,10 +25,10 @@ public class CategoriaDao implements IDAO<Categoria> {
             Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
 
             String sql = "INSERT INTO categoria VALUES"
-                    + "default,"
+                    + "(default,"
                     + "'" + categoria.getDescricao() + "',"
-                    + "' now()',"
-                    + "' null '";
+                    + " now(),"
+                    + " now())";
 
             System.out.println("SQL: " + sql);
 
