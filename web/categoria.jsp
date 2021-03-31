@@ -22,8 +22,8 @@
         if(categ == null){
             categ = new Categoria();
             
-            categ.setId(0);
-            categ.setDescricao("");
+            categ.id = 0;
+            categ.descricao = "";
         }
         
         %>
@@ -31,10 +31,10 @@
         <h1>Cadastro de Categorias</h1>
         
         <form name='formCateg' method='post' action='/WebMarket/acao?param=salvarCategoria'>
-            <input type="hidden" name="id" value=<%= categ.getId() %>>
+            <input type="hidden" name="id" value=<%= categ.id %>>
             
             
-            <input type="text" name="descricao" placeholder="Descrição" value=<%= categ.getDescricao() %>>
+            <input type="text" name="descricao" placeholder="Descrição" value=<%= categ.descricao %>>
             
             <input type="submit" value="Salvar">
         </form>
