@@ -5,67 +5,49 @@
  */
 package entidade;
 
+import java.sql.*;
+
 /**
  *
  * @author Usuario
  */
 public class Pessoa {
-        
-    private int id;
-    private String nome;
-    private String senha;
-    private String email;
-    private String endereco;
-    private String telefone;
 
-    public int getId() {
-        return id;
+    public Integer id;
+    public String nome;
+    public String senha;
+    public String email;
+    public String endereco;
+    public String telefone;
+
+    public static Pessoa from(ResultSet resultSet) throws SQLException {
+
+        Pessoa p = new Pessoa();
+
+        p.id = (resultSet.getInt("id"));
+        p.nome = (resultSet.getString("nome"));
+        p.senha = (resultSet.getString("senha"));
+        p.email = (resultSet.getString("email"));
+        p.endereco = (resultSet.getString("endereco"));
+        p.telefone = (resultSet.getString("telefone"));
+
+        return p;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    @Override
+    public String toString() {
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("pessoa{id=").append(id);
+        sb.append("', nome='").append(nome);
+        sb.append("', senha='").append(senha);
+        sb.append("', email='").append(email);
+        sb.append("', endereco='").append(endereco);
+        sb.append("', telefone='").append(telefone);
+        sb.append('}');
+
+        return sb.toString();
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-    
-    
-    
 }

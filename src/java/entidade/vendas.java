@@ -5,56 +5,43 @@
  */
 package entidade;
 
+import java.sql.*;
+
 /**
  *
  * @author Usuario
  */
 public class Vendas {
 
-    private int id;
-    private double valor;
-    private int parcelas;
-    private Pessoa idPessoa;
-    private Carrinho idCarrinho;
+    public Integer id;
+    public double valor;
+    public Integer parcelas;
+    public Integer id_pessoa;
+    public Integer id_carrinho;
 
-    public int getId() {
-        return id;
+    public static Vendas from(ResultSet resultSet) throws SQLException {
+        Vendas v = new Vendas();
+
+        v.id = (resultSet.getInt("id"));
+        v.valor = (resultSet.getDouble("valor"));
+        v.parcelas = (resultSet.getInt("parcelas"));
+        v.id_pessoa = (resultSet.getInt("id_pessoa"));
+        v.id_carrinho = (resultSet.getInt("id_carrinho"));
+
+        return v;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public String toStrig() {
+        StringBuilder sb = new StringBuilder();
 
-    public double getValor() {
-        return valor;
-    }
+        sb.append("vendas{id=").append(id);
+        sb.append("', valor='").append(valor);
+        sb.append("', parcelas='").append(parcelas);
+        sb.append("', id_pessoa='").append(id_pessoa);
+        sb.append("', id_produto'").append(id_carrinho);
+        sb.append('}');
 
-    public void setValor(double valor) {
-        this.valor = valor;
-    }
-
-    public int getParcelas() {
-        return parcelas;
-    }
-
-    public void setParcelas(int parcelas) {
-        this.parcelas = parcelas;
-    }
-
-    public Pessoa getIdPessoa() {
-        return idPessoa;
-    }
-
-    public void setIdPessoa(Pessoa idPessoa) {
-        this.idPessoa = idPessoa;
-    }
-
-    public Carrinho getIdCarrinho() {
-        return idCarrinho;
-    }
-
-    public void setIdCarrinho(Carrinho idCarrinho) {
-        this.idCarrinho = idCarrinho;
+        return sb.toString();
     }
 
 }

@@ -1,4 +1,3 @@
-
 package entidade;
 
 import java.sql.ResultSet;
@@ -33,11 +32,11 @@ public class Produto {
         StringBuilder sb = new StringBuilder();
         sb.append("produto{id=").append(id);
         sb.append("', descricao='").append(descricao);
-        sb.append(", valor=").append(valor);
-        sb.append(", estoque=").append(estoque);
-        sb.append(", unidade=").append(unidade);
-        sb.append(", id_categoria=").append(id_categoria);
-        sb.append(", ativo=").append(ativo);
+        sb.append("', valor='").append(valor);
+        sb.append("', estoque='").append(estoque);
+        sb.append("', unidade='").append(unidade);
+        sb.append("', id_categoria='").append(id_categoria);
+        sb.append("', ativo='").append(ativo);
         sb.append('}');
         return sb.toString();
     }

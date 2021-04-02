@@ -5,47 +5,39 @@
  */
 package entidade;
 
+import java.sql.*;
+
 /**
  *
  * @author Usuario
  */
 public class Carrinho {
 
-    private int id;
-    private double quant;
-    private double precoTotal;
-    private Produto idProduto;
+    public Integer id;
+    public double quant;
+    public double precoTotal;
+    public Integer id_produto;
 
-    public int getId() {
-        return id;
+    public static Carrinho from(ResultSet resultSet) throws SQLException {
+        Carrinho car = new Carrinho();
+
+        car.id = (resultSet.getInt("id"));
+        car.quant = (resultSet.getDouble("quant"));
+        car.precoTotal = (resultSet.getDouble("precoTotal"));
+        car.id_produto = (resultSet.getInt("id_produto"));
+
+        return car;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("carrinho{id=").append(id);
+        sb.append("', quant='").append(quant);
+        sb.append("', precoTotal='").append(precoTotal);
+        sb.append("', id_produto='").append(id_produto);
+        sb.append('}');
 
-    public double getQuant() {
-        return quant;
+        return sb.toString();
     }
-
-    public void setQuant(double quant) {
-        this.quant = quant;
-    }
-
-    public double getPrecoTotal() {
-        return precoTotal;
-    }
-
-    public void setPrecoTotal(double precoTotal) {
-        this.precoTotal = precoTotal;
-    }
-
-    public Produto getIdProduto() {
-        return idProduto;
-    }
-
-    public void setIdProduto(Produto idProduto) {
-        this.idProduto = idProduto;
-    }
-
 }

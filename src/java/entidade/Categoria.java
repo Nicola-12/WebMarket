@@ -38,9 +38,9 @@ public class Categoria {
         StringBuilder sb = new StringBuilder();
         sb.append("categoria{id=").append(id);
         sb.append("', descricao='").append(descricao);
-        sb.append(", criado_em=").append(criado_em);
-        sb.append(", atualizado_em=").append(atualizado_em);
-        sb.append(", ativo=").append(ativo);
+        sb.append("', criado_em='").append(criado_em);
+        sb.append("', atualizado_em='").append(atualizado_em);
+        sb.append("', ativo='").append(ativo);
         sb.append('}');
         return sb.toString();
     }
