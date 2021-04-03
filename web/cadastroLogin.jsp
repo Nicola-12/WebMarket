@@ -4,6 +4,7 @@
     Author     : Usuario
 --%>
 
+<%@page import="entidade.Pessoa"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -54,9 +55,24 @@
     </head>
     <body class="text-center">
 
+        <%
+            Pessoa p = (Pessoa) request.getAttribute("objetoPessoa");
+
+            if (p == null) {
+                p = new Pessoa();
+
+                p.id = 0;
+                p.nome = "";
+                p.senha = "";
+                p.email = "";
+                p.endereco = "";
+                p.telefone = "";
+            }
+
+        %>
+
         <main class="form-signin">
             <form method="post" action="/WebMarket/acao?param=cadastroPessoa">            
-                <img class="mb-4" src="img/logo.png" alt="" width="72">
 
                 <h1 class="h3 mb-3 fw-normal">Cadastro de Pessoa</h1>
 
@@ -64,22 +80,24 @@
 
                 <h6>Campos com o "*" são obrigatórios</h6>
 
+                <input type="hidden" name="id" value=<%= p.id%>>
+
                 <label for="inputNome" class="visually-hidden">Nome</label>
-                <input type="name" id="inputName" class="form-control" placeholder="Nome*" required autofocus > 
+                <input type="name" name="nome" id="inputName" class="form-control"  value=<%= p.nome%> required autofocus placeholder="Nome*"> 
 
                 <label for="inputEmail" class="visually-hidden">Email address</label>
-                <input type="email" id="inputEmail" class="form-control" placeholder="E-mail*" required >
+                <input type="email" name="email" id="inputEmail" class="form-control"  value=<%= p.email%> required  placeholder="E-mail*">
 
                 <label for="inputPassword" class="visually-hidden">Password</label>
-                <input type="password" id="inputPassword" class="form-control" placeholder="Senha*" required>
+                <input type="password" name="senha" id="inputPassword" class="form-control"  value=<%= p.senha%> required placeholder="Senha*">
 
                 <label for="inputEndereco" class="visually-hidden">Endereco</label>
-                <input type="endereco" id="inputEndereco" class="form-control" placeholder="Endereço" >
+                <input type="endereco" name="endereco" id="inputEndereco" class="form-control" placeholder="Endereço" value=<%= p.endereco%> >
 
                 <label for="inputTelefone" class="visually-hidden">Telefone</label>
-                <input type="telefone" id="inputTelefone" class="form-control" placeholder="Telefone*" required>
+                <input type="telefone" name="telefone" id="inputTelefone" class="form-control"   value=<%= p.telefone%> required placeholder="Telefone*">
 
-                <button class="w-100 btn btn-lg btn-dark" type="submit">Cadastrar</button>
+                <button class="w-100 btn btn-lg btn-dark" type="submit" value="Salvar" >Cadastrar</button>
 
                 <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
             </form>

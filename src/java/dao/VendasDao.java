@@ -26,10 +26,10 @@ public class VendasDao implements IDAO<Vendas> {
 
             String sql = "INSERT INTO vendas"
                     + "default,"
-                    + "'" + o.getValor() + "',"
-                    + "'" + o.getParcelas() + "',"
-                    + "'" + o.getIdPessoa() + "',"
-                    + "'" + o.getIdCarrinho() + "'";
+                    + "'" + o.valor + "',"
+                    + "'" + o.parcelas + "',"
+                    + "'" + o.id_pessoa + "',"
+                    + "'" + o.id_carrinho + "'";
 
             System.out.println("SQL: " + sql);
 

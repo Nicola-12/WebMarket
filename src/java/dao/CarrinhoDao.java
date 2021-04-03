@@ -26,9 +26,9 @@ public class CarrinhoDao implements IDAO<Carrinho> {
 
             String sql = "INSERT INTO carrinho "
                     + "default,"
-                    + "'" + o.getQuant() + "',"
-                    + "'" + o.getPrecoTotal() + "',"
-                    + "'" + o.getIdProduto() + "',"
+                    + "'" + o.quant + "',"
+                    + "'" + o.precoTotal + "',"
+                    + "'" + o.id_produto + "',"
                     + "'now()'";
 
             System.out.println("SQL: " + sql);

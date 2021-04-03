@@ -24,15 +24,15 @@ public class PessoaDao implements IDAO<Pessoa> {
         try {
             Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
 
-            String sql = "INSERT INTO pessoa"
-                    + "default,"
-                    + "'" + o.getNome() + "',"
-                    + "'" + o.getSenha() + "',"
-                    + "'" + o.getEmail() + "',"
-                    + "'" + o.getEndereco() + "',"
-                    + "'" + o.getTelefone() + "',"
+            String sql = "INSERT INTO pessoa values"
+                    + "(default,"
+                    + "'" + o.nome + "',"
+                    + "'" + o.senha + "',"
+                    + "'" + o.email + "',"
+                    + "'" + o.endereco + "',"
+                    + "'" + o.telefone + "',"
                     + "'now()',"
-                    + "'null'";
+                    + "'now()')";
 
             System.out.println("SQL: " + sql);
 

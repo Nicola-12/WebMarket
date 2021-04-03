@@ -1,8 +1,10 @@
-
 package servlet;
 
+import apoio.Cripto;
 import dao.CategoriaDao;
+import dao.PessoaDao;
 import entidade.Categoria;
+import entidade.Pessoa;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -70,6 +72,18 @@ public class srvAcao extends HttpServlet {
         } else {
             encaminharPagina("error.jsp", request, response);
         }
+
+        // PESSOA
+        Pessoa pessoa = new Pessoa();
+
+        if (pessoa != null) {
+            request.setAttribute("objetoPessoa", pessoa);
+
+            encaminharPagina("cadastroLogin", request, response);
+        } else {
+            encaminharPagina("error.jsp", request, response);
+        }
+
     }
 
     /**
@@ -87,8 +101,7 @@ public class srvAcao extends HttpServlet {
 
         String param = request.getParameter("param");
 
-        // SALVAR CATEGORIA
-        
+        // SALVAR CATEGORIA        
         if (param.equals("salvarCategoria")) {
             Categoria c = new Categoria();
             int id = Integer.parseInt(request.getParameter("id"));
@@ -98,7 +111,6 @@ public class srvAcao extends HttpServlet {
                 encaminharPagina("error.jsp", request, response);
             } else {
 
-                
                 c.id = id;
                 c.descricao = descricao;
                 encaminharPagina("sucesso.jsp", request, response);
@@ -109,6 +121,36 @@ public class srvAcao extends HttpServlet {
                 retorno = new CategoriaDao().salvar(c);
             } else {
                 // ATUALIZA A CATEGORIA
+            }
+        }
+
+        // SALVAR PESSOA
+        //----------------- FALTA IMPLEMENTAR AS VALIDAÇÕES DOS CAMPOS -------------- 
+        if (param.equals("cadastroPessoa")) {
+            Pessoa p = new Pessoa();
+            int id = Integer.parseInt(request.getParameter("id"));
+            String nome = request.getParameter("nome");
+            String email = request.getParameter("email");
+            String password = request.getParameter("senha");
+            String endereco = request.getParameter("endereco");
+            String telefone = request.getParameter("telefone");
+
+            if (!nome.matches("^[A-Za-z ]{5,45}$") || nome.isEmpty()) {
+                encaminharPagina("error.jsp", request, response);
+            } else if (!password.matches("^[A-Za-z ]{8,22}$")) {
+                encaminharPagina("error.jsp", request, response);
+            } else {
+                p.id = id;
+                p.nome = nome;
+                p.email = email;
+                p.senha = Cripto.criptografar(password);
+                p.endereco = endereco;
+                p.telefone = telefone;
+                encaminharPagina("sucesso.jsp", request, response);
+            }
+            String retorno = null;
+            if (id == 0) {
+                retorno = new PessoaDao().salvar(p);
             }
         }
     }
