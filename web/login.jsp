@@ -60,7 +60,7 @@
 
                 <h1 class="h3 mb-3 fw-normal">Autenticação</h1>
 
-                <h2>Mercadin do Jusé</h2>
+                <h2>STR de Roca</h2>
                 <br>
                 <label for="inputEmail" class="visually-hidden">Email address</label>
                 <input type="email" name="email" id="inputEmail" class="form-control" placeholder="E-mail" required autofocus>

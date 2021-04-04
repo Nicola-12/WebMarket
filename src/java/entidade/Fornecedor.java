@@ -2,7 +2,7 @@ package entidade;
 
 import java.sql.*;
 
-public class Pessoa {
+public class Fornecedor {
 
     public Integer id;
     public String nome;
@@ -12,19 +12,19 @@ public class Pessoa {
     public String telefone;
     public String ativo;
 
-    public static Pessoa from(ResultSet resultSet) throws SQLException {
+    public static Fornecedor from(ResultSet resultSet) throws SQLException {
 
-        Pessoa p = new Pessoa();
+        Fornecedor fornec = new Fornecedor();
 
-        p.id = resultSet.getInt("id");
-        p.nome = resultSet.getString("nome");
-        p.senha = resultSet.getString("senha");
-        p.email = resultSet.getString("email");
-        p.endereco = resultSet.getString("endereco");
-        p.telefone = resultSet.getString("telefone");
-        p.ativo = resultSet.getString("ativo");
+        fornec.id = resultSet.getInt("id");
+        fornec.nome = resultSet.getString("nome");
+        fornec.senha = resultSet.getString("senha");
+        fornec.email = resultSet.getString("email");
+        fornec.endereco = resultSet.getString("endereco");
+        fornec.telefone = resultSet.getString("telefone");
+        fornec.ativo = resultSet.getString("ativo");
 
-        return p;
+        return fornec;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class Pessoa {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("pessoa{id=").append(id);
+        sb.append("fornecedor{id=").append(id);
         sb.append("', nome='").append(nome);
         sb.append("', senha='").append(senha);
         sb.append("', email='").append(email);

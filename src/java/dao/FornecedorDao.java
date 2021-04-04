@@ -2,20 +2,21 @@ package dao;
 
 import apoio.ConexaoBD;
 import apoio.IDAO;
+import entidade.Fornecedor;
 import entidade.Pessoa;
 import java.util.ArrayList;
 import java.sql.*;
 
-public class PessoaDao implements IDAO<Pessoa> {
+public class FornecedorDao implements IDAO<Fornecedor> {
 
     ResultSet result;
 
     @Override
-    public String salvar(Pessoa o) {
+    public String salvar(Fornecedor o) {
         try {
             Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
 
-            String sql = "INSERT INTO pessoa values"
+            String sql = "INSERT INTO fornecedor values"
                     + "(default,"
                     + "'" + o.nome + "',"
                     + "'" + o.senha + "',"
@@ -33,17 +34,17 @@ public class PessoaDao implements IDAO<Pessoa> {
             return null;
 
         } catch (Exception e) {
-            System.out.println("ERRO AO SALVAR PESSOA: " + e);
+            System.out.println("Erro ao salvar fornecedor: " + e);
             return e.toString();
         }
     }
 
     @Override
-    public String atualizar(Pessoa o) {
+    public String atualizar(Fornecedor o) {
         try {
             Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
 
-            String sql = "UPDATE pessoa SET "
+            String sql = "UPDATE fornecedor SET "
                     + "descricao=" + o.nome + ","
                     + "valor=" + o.senha + ","
                     + "quantidade=" + o.email + ","
@@ -60,7 +61,7 @@ public class PessoaDao implements IDAO<Pessoa> {
             return null;
 
         } catch (Exception e) {
-            System.out.println("Erro ao atualizar pessoa: " + e);
+            System.out.println("Erro ao atualizar fornecedor: " + e);
             return e.toString();
         }
     }
@@ -70,7 +71,7 @@ public class PessoaDao implements IDAO<Pessoa> {
         try {
             Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
 
-            String sql = "UPDATE pessoa SET ativo = false WHERE id=" + id;
+            String sql = "UPDATE fornecedor SET ativo = false WHERE id=" + id;
             System.out.println("SQL: " + sql);
 
             int resultado = stm.executeUpdate(sql);
@@ -78,57 +79,57 @@ public class PessoaDao implements IDAO<Pessoa> {
             return null;
 
         } catch (Exception e) {
-            System.out.println("Erro ao excluir pessoa: " + e);
+            System.out.println("Erro ao excluir fornecedor: " + e);
             return e.toString();
         }
     }
 
     @Override
-    public ArrayList<Pessoa> consultarTodos() {
-        String sql = "SELECT * FROM pessoa WHERE status <> false";
+    public ArrayList<Fornecedor> consultarTodos() {
+        String sql = "SELECT * FROM fornecedor WHERE status <> false";
         try {
             ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
-            ArrayList<Pessoa> pessoa = new ArrayList<>();
+            ArrayList<Fornecedor> fornecedor = new ArrayList<>();
             while (result.next()) {
-                pessoa.add(Pessoa.from(result));
+                fornecedor.add(Fornecedor.from(result));
             }
-            if (pessoa.isEmpty()) {
+            if (fornecedor.isEmpty()) {
                 return null;
             }
-            return pessoa;
+            return fornecedor;
         } catch (Exception e) {
-            System.out.println("Erro ao consultar pessoas: " + e);
+            System.out.println("Erro ao consultar fornecedores: " + e);
         }
         return null;
     }
 
     @Override
-    public boolean registroUnico(Pessoa o) {
+    public boolean registroUnico(Fornecedor o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<Pessoa> consultar(String criterio) {
-        String sql = "SELECT * FROM pessoa WHERE '%" + criterio + "%' ORDER BY descricao";
+    public ArrayList<Fornecedor> consultar(String criterio) {
+        String sql = "SELECT * FROM fornecedor WHERE '%" + criterio + "%' ORDER BY descricao";
         try {
             ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
-            ArrayList<Pessoa> pessoa = new ArrayList<>();
+            ArrayList<Fornecedor> fornecedor = new ArrayList<>();
             while (result.next()) {
-                pessoa.add(Pessoa.from(result));
+                fornecedor.add(Fornecedor.from(result));
             }
-            if (pessoa.isEmpty()) {
+            if (fornecedor.isEmpty()) {
                 return null;
             }
-            return pessoa;
+            return fornecedor;
         } catch (Exception e) {
-            System.out.println("Erro ao consultar pessoas: " + e);
+            System.out.println("Erro ao consultar fornecedores: " + e);
         }
         return null;
     }
 
     @Override
     public Object consultarId(int id) {
-        String sql = "SELECT * FROM pessoa WHERE id=" + id;
+        String sql = "SELECT * FROM fornecedor WHERE id=" + id;
         try {
             ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
             if (result.next()) {
@@ -136,14 +137,14 @@ public class PessoaDao implements IDAO<Pessoa> {
             }
 
         } catch (Exception e) {
-            System.out.println("Erro ao consultar pessoas por ID: " + e);
+            System.out.println("Erro ao consultar fornecedor por ID: " + e);
         }
         return null;
     }
 
     @Override
-    public boolean consultar(Pessoa o) {
+    public boolean consultar(Fornecedor o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 }
+

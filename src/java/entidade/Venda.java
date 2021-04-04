@@ -1,17 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entidade;
 
 import java.sql.*;
 
-/**
- *
- * @author Usuario
- */
-public class Vendas {
+public class Venda {
 
     public Integer id;
     public double valor;
@@ -19,8 +10,8 @@ public class Vendas {
     public Integer id_pessoa;
     public Integer id_carrinho;
 
-    public static Vendas from(ResultSet resultSet) throws SQLException {
-        Vendas v = new Vendas();
+    public static Venda from(ResultSet resultSet) throws SQLException {
+        Venda v = new Venda();
 
         v.id = (resultSet.getInt("id"));
         v.valor = (resultSet.getDouble("valor"));

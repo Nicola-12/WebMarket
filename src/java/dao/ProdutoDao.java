@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import apoio.ConexaoBD;
@@ -10,13 +5,7 @@ import apoio.IDAO;
 import entidade.Produto;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-/**
- *
- * @author Usuario
- */
 public class ProdutoDao implements IDAO<Produto> {
 
     ResultSet result;
@@ -50,7 +39,6 @@ public class ProdutoDao implements IDAO<Produto> {
 
     @Override
     public String atualizar(Produto o) {
-
         try {
             Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
 

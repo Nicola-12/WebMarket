@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entidade;
 
 import java.sql.*;
 
-/**
- *
- * @author Usuario
- */
 public class Carrinho {
 
     public Integer id;
@@ -21,10 +12,10 @@ public class Carrinho {
     public static Carrinho from(ResultSet resultSet) throws SQLException {
         Carrinho car = new Carrinho();
 
-        car.id = (resultSet.getInt("id"));
-        car.quant = (resultSet.getDouble("quant"));
-        car.precoTotal = (resultSet.getDouble("precoTotal"));
-        car.id_produto = (resultSet.getInt("id_produto"));
+        car.id = resultSet.getInt("id");
+        car.quant = resultSet.getDouble("quant");
+        car.precoTotal = resultSet.getDouble("precoTotal");
+        car.id_produto = resultSet.getInt("id_produto");
 
         return car;
     }

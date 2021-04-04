@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import apoio.ConexaoBD;
@@ -11,10 +6,6 @@ import entidade.Carrinho;
 import java.util.ArrayList;
 import java.sql.*;
 
-/**
- *
- * @author Usuario
- */
 public class CarrinhoDao implements IDAO<Carrinho> {
 
     ResultSet result;
@@ -37,43 +28,61 @@ public class CarrinhoDao implements IDAO<Carrinho> {
 
             return null;
         } catch (Exception e) {
-            System.out.println("ERRO AO SALVAR CARRINHO: " + e);
+            System.out.println("Erro ao salvar o carrinho: " + e);
             return e.toString();
         }
     }
 
     @Override
     public String atualizar(Carrinho o) {
+        try {
+            Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
+
+            String sql = "UPDATE carrinho SET "
+                    + "quant=" + o.quant + ","
+                    + "precoTotal=" + o.precoTotal + ","
+                    + "id_produto=" + o.id_produto + " "
+                    + "WHERE id= " + o.id;
+
+            System.out.println("SQL: " + sql);
+
+            int resultado = stm.executeUpdate(sql);
+
+            return null;
+
+        } catch (Exception e) {
+            System.out.println("Erro ao atualizar carrinho: " + e);
+            return e.toString();
+        }
+    }
+
+    @Override
+    public String excluir(int id) {//não é necessário
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public String excluir(int id) {
+    public ArrayList<Carrinho> consultarTodos() {//não é necessário
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<Carrinho> consultarTodos() {
+    public boolean registroUnico(Carrinho o) {//não é necessário
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean registroUnico(Carrinho o) {
+    public ArrayList<Carrinho> consultar(String criterio) {//não é necessário
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<Carrinho> consultar(String criterio) {
+    public Object consultarId(int id) {//não é necessário
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object consultarId(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean consultar(Carrinho o) {
+    public boolean consultar(Carrinho o) {//não é necessário
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
