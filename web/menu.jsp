@@ -83,6 +83,7 @@
                                 FAZER O CADASTRO DE PESSOA
                                 -->
                                 <li><a class="dropdown-item" href="login.jsp">Login</a></li>
+                                <li><a class="dropdown-item" href="deslogar.jsp">Deslogar</a></li>
                                 <li><a class="dropdown-item" href="cadastroLogin.jsp">Cadastro</a></li>
                             </ul>
                         </li>

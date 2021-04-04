@@ -4,6 +4,7 @@
     Author     : Usuario
 --%>
 
+<%@page import="entidade.Pessoa"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -55,28 +56,36 @@
     <body class="text-center">
 
         <main class="form-signin">
-            <form method="post" action="/WebApp2021A/acao?param=login">            
-                <img class="mb-4" src="img/logo.png" alt="" width="72">
-                
+            <form method="post" action="index.jsp">            
+
                 <h1 class="h3 mb-3 fw-normal">Autenticação</h1>
-                
-                <h2>Ferrados</h2>
-                    
-                
+
+                <h2>Mercadin do Jusé</h2>
+                <br>
                 <label for="inputEmail" class="visually-hidden">Email address</label>
-                <input type="email" id="inputEmail" class="form-control" placeholder="E-mail" required autofocus>
-              
+                <input type="email" name="email" id="inputEmail" class="form-control" placeholder="E-mail" required autofocus>
+
                 <label for="inputPassword" class="visually-hidden">Password</label>
-                <input type="password" id="inputPassword" class="form-control" placeholder="Senha" required>
-              
-<!--                <div class="checkbox mb-3">
-                    <label>
-                        <input type="checkbox" value="remember-me"> Remember me
-                    </label>
-                </div>-->
-              
+                <input type="password" name="senha" id="inputPassword" class="form-control" placeholder="Senha" required>
+
+                <!--                <div class="checkbox mb-3">
+                                    <label>
+                                        <input type="checkbox" value="remember-me"> Remember me
+                                    </label>
+                                </div>-->
+                <br>
                 <button class="w-100 btn btn-lg btn-dark" type="submit">Acessar</button>
-               
+
+                <%
+                    String email = request.getParameter("email");
+                    String senha = request.getParameter("senha");
+
+                    if (email != null && senha != null && !email.isEmpty() && !senha.isEmpty()) {
+                        session.setAttribute("email", email);
+                        response.sendRedirect("WebMarket/index.jsp");
+                    }
+                %>
+
                 <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
             </form>
         </main>

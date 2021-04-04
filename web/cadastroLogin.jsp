@@ -83,19 +83,19 @@
                 <input type="hidden" name="id" value=<%= p.id%>>
 
                 <label for="inputNome" class="visually-hidden">Nome</label>
-                <input type="name" name="nome" id="inputName" class="form-control"  value=<%= p.nome%> required autofocus placeholder="Nome*"> 
+                <input type="name" name="nome" id="inputName" class="form-control" autofocus placeholder="Nome*" required value=<%= p.nome%>  > 
 
                 <label for="inputEmail" class="visually-hidden">Email address</label>
-                <input type="email" name="email" id="inputEmail" class="form-control"  value=<%= p.email%> required  placeholder="E-mail*">
+                <input type="email" name="email" id="inputEmail" class="form-control" placeholder="E-mail*" required value=<%= p.email%>   >
 
                 <label for="inputPassword" class="visually-hidden">Password</label>
-                <input type="password" name="senha" id="inputPassword" class="form-control"  value=<%= p.senha%> required placeholder="Senha*">
+                <input type="password" name="senha" id="inputPassword" class="form-control" placeholder="Senha*" required value=<%= p.senha%>  >
 
                 <label for="inputEndereco" class="visually-hidden">Endereco</label>
                 <input type="endereco" name="endereco" id="inputEndereco" class="form-control" placeholder="Endereço" value=<%= p.endereco%> >
 
                 <label for="inputTelefone" class="visually-hidden">Telefone</label>
-                <input type="telefone" name="telefone" id="inputTelefone" class="form-control"   value=<%= p.telefone%> required placeholder="Telefone*">
+                <input type="telefone" name="telefone" id="inputTelefone" class="form-control" placeholder="Telefone*" required value=<%= p.telefone%> >
 
                 <button class="w-100 btn btn-lg btn-dark" type="submit" value="Salvar" >Cadastrar</button>
 

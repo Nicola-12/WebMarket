@@ -17,6 +17,16 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <%
+            String email = (String) session.getAttribute("email");
+            if (email == null) {
+                response.sendRedirect("login.jsp");
+            } else {
+                out.print("Bem Vindo"+email+"!! <br>");
+            }
+        %>
+
+
         <h1 style="color: red">PROJETO WEB MARKET</h1>
 
         <ul>
