@@ -6,7 +6,6 @@ public class Fornecedor {
 
     public Integer id;
     public String nome;
-    public String senha;
     public String email;
     public String endereco;
     public String telefone;
@@ -18,7 +17,6 @@ public class Fornecedor {
 
         fornec.id = resultSet.getInt("id");
         fornec.nome = resultSet.getString("nome");
-        fornec.senha = resultSet.getString("senha");
         fornec.email = resultSet.getString("email");
         fornec.endereco = resultSet.getString("endereco");
         fornec.telefone = resultSet.getString("telefone");
@@ -34,7 +32,6 @@ public class Fornecedor {
 
         sb.append("fornecedor{id=").append(id);
         sb.append("', nome='").append(nome);
-        sb.append("', senha='").append(senha);
         sb.append("', email='").append(email);
         sb.append("', endereco='").append(endereco);
         sb.append("', telefone='").append(telefone);

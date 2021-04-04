@@ -19,7 +19,6 @@ public class FornecedorDao implements IDAO<Fornecedor> {
             String sql = "INSERT INTO fornecedor values"
                     + "(default,"
                     + "'" + o.nome + "',"
-                    + "'" + o.senha + "',"
                     + "'" + o.email + "',"
                     + "'" + o.endereco + "',"
                     + "'" + o.telefone + "',"
@@ -46,7 +45,6 @@ public class FornecedorDao implements IDAO<Fornecedor> {
 
             String sql = "UPDATE fornecedor SET "
                     + "descricao=" + o.nome + ","
-                    + "valor=" + o.senha + ","
                     + "quantidade=" + o.email + ","
                     + "unidade=" + o.endereco + ","
                     + "id_categoria=" + o.telefone + ","
