@@ -18,7 +18,7 @@
         <h1>Listagem de Categorias</h1>
 
         <%
-            ArrayList<Categoria> listCateg = new CategoriaDao().consultarTodos();
+            ArrayList<Categoria> listCateg = new CategoriaDao().consultarTodos(); 
         %>
 
         <div class="table-responsive">
@@ -30,15 +30,15 @@
                 <th>Ativo</th>
                     <%
                         for (int i = 0; i < listCateg.size(); i++) {
-                            Categoria categ = listCateg.get(i);
+                            Categoria c = listCateg.get(i);
                     %>
 
                 <tr>
-                    <td><a href='/WebMarket/acao?param=edCategoria&id=<%= categ.id%>'><%= categ.id%></a></td>                
-                    <td><%= categ.descricao%></td>
-                    <td><%= categ.criado_em%></td>
-                    <td><%= categ.atualizado_em%></td>
-                    <td><%= categ.ativo%></td>
+                    <td><a href='/WebMarket/acao?param=edCategoria&id=<%= c.id%>'><%= c.id%></a></td>                
+                    <td><%= c.descricao%></td>
+                    <td><%= c.criado_em%></td>
+                    <td><%= c.atualizado_em%></td>
+                    <td><%= c.ativo%></td>
                 </tr>
                 <%
                     }

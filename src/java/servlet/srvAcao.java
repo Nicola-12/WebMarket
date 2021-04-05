@@ -108,22 +108,24 @@ public class srvAcao extends HttpServlet {
 
         // SALVAR CATEGORIA        
         if (param.equals("salvarCategoria")) {
-            Categoria c = new Categoria();
+            Categoria ca = new Categoria();
             int id = Integer.parseInt(request.getParameter("id"));
             String descricao = request.getParameter("descricao");
+            boolean ativo = Boolean.parseBoolean(request.getParameter("ativo"));
 
             if (!descricao.matches("^[A-Za-z ]{5,45}$")) {
                 encaminharPagina("error.jsp", request, response);
             } else {
 
-                c.id = id;
-                c.descricao = descricao;
+                ca.id = id;
+                ca.descricao = descricao;
+                ca.ativo = ativo;
                 encaminharPagina("sucesso.jsp", request, response);
             }
             String retorno = null;
 
             if (id == 0) {
-                retorno = new CategoriaDao().salvar(c);
+                retorno = new CategoriaDao().salvar(ca);
             } else {
                 // ATUALIZA A CATEGORIA
             }

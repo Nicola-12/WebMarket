@@ -17,13 +17,14 @@
          <%@include file="menu.jsp" %>
          
         <%
-        Categoria categ = (Categoria) request.getAttribute("objetoCategoria");
+        Categoria tg = (Categoria) request.getAttribute("objetoCategoria");
         
-        if(categ == null){
-            categ = new Categoria();
+        if(tg == null){
+            tg = new Categoria();
             
-            categ.id = 0;
-            categ.descricao = "";
+            tg.id = 0;
+            tg.descricao = "";
+            tg.ativo = null;
         }
         
         %>
@@ -31,15 +32,20 @@
         <h1>Cadastro de Categorias</h1>
         
         <form name='formCateg' method='post' action='/WebMarket/acao?param=salvarCategoria'>
-            <input type="hidden" name="id" value=<%= categ.id %>>
+            <input type="hidden" name="id" value=<%= tg.id %>>
             
             
-            <input type="text" name="descricao" placeholder="Descrição" value=<%= categ.descricao %>>
+            <input type="text" name="descricao" placeholder="Descrição" value=<%= tg.descricao %>>
             
-            <input type="checkbox" name="ativo" placeholder="ativo" checked value=<%= categ.ativo %>>
+            <input type="checkbox" name="ativo" placeholder="ativo" checked value=<%= tg.ativo %>>
             <label for="ativo">Ativo</label>
             
             <input type="submit" value="Salvar">
+            
+            <br>
+            <br>
+            <br>
+            <%@include file = "listagemCategoria.jsp" %>
         </form>
     </body>
 </html>
