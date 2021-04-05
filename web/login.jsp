@@ -56,7 +56,7 @@
     <body class="text-center">
 
         <main class="form-signin">
-            <form method="post" action="index.jsp">            
+            <form method="post" action="login.jsp">            
 
                 <h1 class="h3 mb-3 fw-normal">Autenticação</h1>
 
@@ -74,7 +74,7 @@
                                     </label>
                                 </div>-->
                 <br>
-                <button class="w-100 btn btn-lg btn-dark" type="submit">Acessar</button>
+                <button class="w-100 btn btn-lg btn-dark" type="submit" value="logar" >Acessar</button>
 
                 <%
                     String email = request.getParameter("email");
@@ -82,7 +82,8 @@
 
                     if (email != null && senha != null && !email.isEmpty() && !senha.isEmpty()) {
                         session.setAttribute("email", email);
-                        response.sendRedirect("WebMarket/index.jsp");
+                        System.out.println(email);
+                        response.sendRedirect("index.jsp");
                     }
                 %>
 

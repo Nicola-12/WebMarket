@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Usuario
  */
 public class srvAcao extends HttpServlet {
- 
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -62,15 +62,20 @@ public class srvAcao extends HttpServlet {
         String param = request.getParameter("param");
 
         // CATEGORIA
-        Categoria categoria = new Categoria();
+        if (param.equals("edCategoria")) {
 
-        if (categoria != null) {
+            String id = request.getParameter("id");
 
-            request.setAttribute("objetoCategoria", categoria);
+            Categoria categoria = (Categoria) new CategoriaDao().consultarId(Integer.parseInt(id));
 
-            encaminharPagina("categoria.jsp", request, response);
-        } else {
-            encaminharPagina("error.jsp", request, response);
+            if (categoria != null) {
+
+                request.setAttribute("objetoCategoria", categoria);
+
+                encaminharPagina("categoria.jsp", request, response);
+            } else {
+                encaminharPagina("error.jsp", request, response);
+            }
         }
 
         // PESSOA

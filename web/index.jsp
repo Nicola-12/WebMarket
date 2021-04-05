@@ -19,9 +19,10 @@
         <%
             String email = (String) session.getAttribute("email");
             if (email == null) {
+                System.out.println("CONTA NÃO LOGADA");
                 //response.sendRedirect("login.jsp");
             } else {
-                out.print("Bem Vindo"+email+"!! <br>");
+                out.print("Bem Vindo, "+email+" !! <br>");
             }
         %>
 

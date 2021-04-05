@@ -36,6 +36,9 @@
             
             <input type="text" name="descricao" placeholder="Descrição" value=<%= categ.descricao %>>
             
+            <input type="checkbox" name="ativo" placeholder="ativo" checked value=<%= categ.ativo %>>
+            <label for="ativo">Ativo</label>
+            
             <input type="submit" value="Salvar">
         </form>
     </body>
