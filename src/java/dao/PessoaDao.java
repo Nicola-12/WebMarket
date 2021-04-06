@@ -22,7 +22,7 @@ public class PessoaDao implements IDAO<Pessoa> {
                     + "'" + o.email + "',"
                     + "'" + o.endereco + "',"
                     + "'" + o.telefone + "',"
-                    + "'" + o.ativo + "',"
+                    + "'ativo',"
                     + "'now()',"
                     + "'now()')";
 

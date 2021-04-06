@@ -47,6 +47,9 @@
                     font-size: 3.5rem;
                 }
             }
+            #msgErroLogin {
+                color: #0c4128;
+            }
         </style>
 
 
@@ -56,7 +59,7 @@
     <body class="text-center">
 
         <main class="form-signin">
-            <form method="post" action="login.jsp">            
+            <form method="post" action="/WebMarket/acao?param=login">            
 
                 <h1 class="h3 mb-3 fw-normal">Autenticação</h1>
 
@@ -68,22 +71,20 @@
                 <label for="inputPassword" class="visually-hidden">Password</label>
                 <input type="password" name="senha" id="inputPassword" class="form-control" placeholder="Senha" required>
 
-                <!--                <div class="checkbox mb-3">
-                                    <label>
-                                        <input type="checkbox" value="remember-me"> Remember me
-                                    </label>
-                                </div>-->
                 <br>
                 <button class="w-100 btn btn-lg btn-dark" type="submit" value="logar" >Acessar</button>
 
                 <%
-                    String email = request.getParameter("email");
-                    String senha = request.getParameter("senha");
+                    String msg = String.valueOf(request.getAttribute("msgLogin"));
 
-                    if (email != null && senha != null && !email.isEmpty() && !senha.isEmpty()) {
-                        session.setAttribute("email", email);
-                        System.out.println(email);
-                        response.sendRedirect("index.jsp");
+                    if (msg.equals("erro")) {
+                %>
+                <p id="msgErroLogin">Usuário ou senha não conferem!</p>
+                <%
+                } else {
+                %>
+                <p id="msgErroLogin"></p>
+                <%
                     }
                 %>
 

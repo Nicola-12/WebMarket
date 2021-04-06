@@ -15,7 +15,7 @@
         <title>JSP Page</title>
 
         <style>
-            
+
             .center {
                 display: flex;
                 justify-content: center;
@@ -82,14 +82,9 @@
                                 <!-- 
                                 FAZER O CADASTRO DE PESSOA
                                 -->
-                                <%
-                                    String user = (String) session.getAttribute("email");
-                                    if (user == null){
-                                %>
+
                                 <li><a class="dropdown-item" href="login.jsp">Login</a></li>
-                                <%}else if(user != null) { %>
-                                <li><a class="dropdown-item" href="deslogar.jsp">Deslogar</a></li>
-                                <% } %>
+                                <li><a class="dropdown-item" href="/WebMarket/acao?param=logout">Deslogar</a></li>
                                 <li><a class="dropdown-item" href="cadastroLogin.jsp">Cadastro</a></li>
                             </ul>
                         </li>
@@ -97,7 +92,7 @@
                 </div>
             </div>
         </nav>
-        
+
         <script src="js/bootstrap.bundle.min.js"></script>
 
     </body>

@@ -56,18 +56,15 @@
     <body class="text-center">
 
         <%
-            Pessoa p = (Pessoa) request.getAttribute("objetoPessoa");
+            Pessoa p = new Pessoa();
 
-            if (p == null) {
-                p = new Pessoa();
+            p.id = 0;
+            p.nome = "";
+            p.senha = "";
+            p.email = "";
+            p.endereco = "";
+            p.telefone = "";
 
-                p.id = 0;
-                p.nome = "";
-                p.senha = "";
-                p.email = "";
-                p.endereco = "";
-                p.telefone = "";
-            }
 
         %>
 

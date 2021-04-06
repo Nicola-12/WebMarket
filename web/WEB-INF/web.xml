@@ -4,9 +4,17 @@
         <servlet-name>acao</servlet-name>
         <servlet-class>servlet.srvAcao</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>filter</servlet-name>
+        <servlet-class>servlet.filter</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>acao</servlet-name>
         <url-pattern>/acao</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>filter</servlet-name>
+        <url-pattern>/filter</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

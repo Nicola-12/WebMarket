@@ -16,16 +16,7 @@
         <title>Web Market</title>
     </head>
     <body>
-        <%
-            String email = (String) session.getAttribute("email");
-            if (email == null) {
-                System.out.println("CONTA NÃO LOGADA");
-                //response.sendRedirect("login.jsp");
-            } else {
-                out.print("Bem Vindo, "+email+" !! <br>");
-            }
-        %>
-
+       <% response.sendRedirect("login.jsp"); %>
 
         <h1 style="color: red">PROJETO WEB MARKET</h1>
 
