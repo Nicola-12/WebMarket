@@ -10,7 +10,7 @@ public class Categoria {
     public String descricao; //nome
     public Date criado_em;
     public Date atualizado_em;
-    public Boolean ativo; //ativo (visível) ou inativo (invisível)
+    public String ativo; //ativo (visível) ou inativo (invisível)
     
     public static Categoria from(ResultSet resultSet) throws SQLException {
         Categoria cat = new Categoria();
@@ -19,7 +19,7 @@ public class Categoria {
         cat.descricao = resultSet.getString("descricao");
         cat.criado_em = resultSet.getDate("created_at");
         cat.atualizado_em = resultSet.getDate("updated_at");
-        cat.ativo = resultSet.getBoolean("ativo");
+        cat.ativo = resultSet.getString("ativo");
 
         return cat;
     }

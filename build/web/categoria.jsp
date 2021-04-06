@@ -24,22 +24,22 @@
             
             tg.id = 0;
             tg.descricao = "";
-            tg.ativo = null;
+            tg.ativo = "";
         }
         
         %>
         
         <h1>Cadastro de Categorias</h1>
         
-        <form name='formCateg' method='post' action='/WebMarket/acao?param=salvarCategoria'>
+        <form style="padding: 20px" name='formCateg' method='post' action='/WebMarket/acao?param=salvarCategoria'>
             <input type="hidden" name="id" value=<%= tg.id %>>
             
             
             <input type="text" name="descricao" placeholder="Descrição" value=<%= tg.descricao %>>
-            
+            <br>
             <input type="checkbox" name="ativo" placeholder="ativo" checked value=<%= tg.ativo %>>
             <label for="ativo">Ativo</label>
-            
+            <br>
             <input type="submit" value="Salvar">
             
             <br>

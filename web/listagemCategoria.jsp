@@ -18,7 +18,7 @@
         <h1>Listagem de Categorias</h1>
 
         <%
-            ArrayList<Categoria> listCateg = new CategoriaDao().consultarTodos(); 
+            ArrayList<Categoria> listCateg = new CategoriaDao().consultarTodos();
         %>
 
         <div class="table-responsive">
@@ -29,8 +29,11 @@
                 <th>Atualizado Em</th>
                 <th>Ativo</th>
                     <%
-                        for (int i = 0; i < listCateg.size(); i++) {
-                            Categoria c = listCateg.get(i);
+                        if (listCateg == null) {
+                            out.print("NAO CONTEM NADA");
+                        } else {
+                            for (int i = 0; i < listCateg.size(); i++) {
+                                Categoria c = listCateg.get(i);
                     %>
 
                 <tr>
@@ -41,6 +44,7 @@
                     <td><%= c.ativo%></td>
                 </tr>
                 <%
+                        }
                     }
                 %>
 

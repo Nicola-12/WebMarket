@@ -111,15 +111,15 @@ public class srvAcao extends HttpServlet {
             Categoria ca = new Categoria();
             int id = Integer.parseInt(request.getParameter("id"));
             String descricao = request.getParameter("descricao");
-            boolean ativo = Boolean.parseBoolean(request.getParameter("ativo"));
-
+            String[] ativo = request.getParameterValues("ativo");
+            System.out.println(ativo);
             if (!descricao.matches("^[A-Za-z ]{5,45}$")) {
                 encaminharPagina("error.jsp", request, response);
             } else {
 
                 ca.id = id;
                 ca.descricao = descricao;
-                ca.ativo = ativo;
+                ca.ativo = ativo.toString();
                 encaminharPagina("sucesso.jsp", request, response);
             }
             String retorno = null;

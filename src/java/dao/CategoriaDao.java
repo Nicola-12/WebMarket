@@ -81,7 +81,7 @@ public class CategoriaDao implements IDAO<Categoria> {
 
     @Override
     public ArrayList<Categoria> consultarTodos() {
-        String sql = "SELECT * FROM categoria WHERE ativo = true";
+        String sql = "SELECT * FROM categoria WHERE ativo = ativo";
         try {
             ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
             ArrayList<Categoria> categoria = new ArrayList<>();
