@@ -15,6 +15,7 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +25,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Usuario
  */
+@WebFilter("/")
 public class filter extends HttpServlet implements Filter {
 
     List<String> uriPublicas = new ArrayList<>();
@@ -96,6 +98,7 @@ public class filter extends HttpServlet implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         uriPublicas.add("/WebMarket/login.jsp");
+        uriPublicas.add("/WebMarket/categoria.jsp");
         uriPublicas.add("/WebMarket/css/bootstrap.min.css");
         uriPublicas.add("/WebMarket/css/signin.css");
         uriPublicas.add("/WebMarket/css/navbar.css");

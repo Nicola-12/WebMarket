@@ -20,7 +20,7 @@ public class CategoriaDao implements IDAO<Categoria> {
                     + "'" + cat.descricao + "',"
                     + " now(),"
                     + " now(),"
-                    + "'" + cat.ativo + "')";
+                    + "'ativo')";
 
             System.out.println("SQL: " + sql);
 
@@ -41,9 +41,10 @@ public class CategoriaDao implements IDAO<Categoria> {
         try {
             Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
 
-            String sql = "UPDATE TABLE categoria"
-                    + "SET descricao = '" + categoria.descricao + "'"
-                    + "SET atualizado_em = 'now()'"
+            System.out.println(categoria.descricao);
+            String sql = "UPDATE categoria"
+                    + " SET descricao ='" + categoria.descricao + "',"
+                    + "updated_at ='now()'"
                     + "WHERE id = '" + categoria.id + "'";
 
             int retorno = stm.executeUpdate(sql);
@@ -66,12 +67,12 @@ public class CategoriaDao implements IDAO<Categoria> {
         try {
             Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
 
-            String sql = "UPDATE categoria SET ativo = false WHERE id=" + id;
+            String sql = "UPDATE categoria SET ativo = 'inativo' WHERE id=" + id;
             System.out.println("SQL: " + sql);
 
             int resultado = stm.executeUpdate(sql);
 
-            return null;
+            return resultado + "";
 
         } catch (Exception e) {
             System.out.println("Erro ao excluir categoria: " + e);

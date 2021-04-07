@@ -18,7 +18,7 @@
 
         <h4>Erro: Problema ao concluir a ação.</h4>
 
-        <p><a href='index.jsp' >Voltar ao menu</a></p>
+        <p><a href='categoria.jsp' >Voltar ao menu</a></p>
         
     </body>
 </html>

@@ -12,6 +12,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" 
+              integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" 
+              crossorigin="anonymous" />
         <title>JSP Page</title>
     </head>
     <body>
@@ -19,10 +22,14 @@
 
         <%
             ArrayList<Categoria> listCateg = new CategoriaDao().consultarTodos();
+            
+            
         %>
 
         <div class="table-responsive">
             <table class="table table-striped table-sm">
+                <th>Editar</th>
+                <th>Excluir</th>
                 <th>Id</th>
                 <th>Descrição</th>
                 <th>Criado Em</th>
@@ -37,7 +44,9 @@
                     %>
 
                 <tr>
-                    <td><a href='/WebMarket/acao?param=edCategoria&id=<%= c.id%>'><%= c.id%></a></td>                
+                    <td><a href='/WebMarket/acao?param=edCategoria&id=<%= c.id%>'><i class="far fa-edit center"></i></a></td>
+                    <td><a href='/WebMarket/acao?param=exCategoria&id=<%= c.id%>'><i class="far fa-trash-alt"></i></a></td>
+                    <td><%= c.id%></td>                
                     <td><%= c.descricao%></td>
                     <td><%= c.criado_em%></td>
                     <td><%= c.atualizado_em%></td>

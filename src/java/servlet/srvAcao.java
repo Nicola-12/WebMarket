@@ -9,6 +9,7 @@ import entidade.Pessoa;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.System.err;
+import static java.lang.System.out;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -28,6 +29,7 @@ public class srvAcao extends HttpServlet {
 
     ConexaoBD bd = new ConexaoBD();
     ResultSet r = null;
+    Categoria categoria = new Categoria();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -68,7 +70,6 @@ public class srvAcao extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("ESTOU NO GET");
-        Pessoa pessoa = new Pessoa();
 
         String param = request.getParameter("param");
 
@@ -84,7 +85,7 @@ public class srvAcao extends HttpServlet {
 
             String id = request.getParameter("id");
 
-            Categoria categoria = (Categoria) new CategoriaDao().consultarId(Integer.parseInt(id));
+            categoria = (Categoria) new CategoriaDao().consultarId(Integer.parseInt(id));
 
             if (categoria != null) {
 
@@ -95,6 +96,17 @@ public class srvAcao extends HttpServlet {
                 encaminharPagina("error.jsp", request, response);
             }
 
+        } else if (param.equals("exCategoria")) {
+            String id = request.getParameter("id");
+            categoria = (Categoria) new CategoriaDao().consultarId(Integer.parseInt(id));
+
+            if (categoria != null) {
+                CategoriaDao excluir = new CategoriaDao();
+                excluir.excluir(Integer.parseInt(id));
+                encaminharPagina("sucesso.jsp", request, response);
+            } else {
+                encaminharPagina("error.jsp", request, response);
+            }
         }
 
     }
@@ -116,29 +128,29 @@ public class srvAcao extends HttpServlet {
 
         // SALVAR CATEGORIA        
         if (param.equals("salvarCategoria")) {
-            Categoria ca = new Categoria();
+            categoria = new Categoria();
             int id = Integer.parseInt(request.getParameter("id"));
             String descricao = request.getParameter("descricao");
-            String[] ativo = request.getParameterValues("check");
-            System.out.println(ativo);
+
             if (!descricao.matches("^[A-Za-z ]{5,45}$")) {
                 encaminharPagina("error.jsp", request, response);
             } else {
 
-                ca.id = id;
-                ca.descricao = descricao;
-                for (String s : ativo) {
-                    ca.ativo = s;
-                }
-                encaminharPagina("sucesso.jsp", request, response);
+                categoria.id = id;
+                categoria.descricao = descricao;
+
             }
             String retorno = null;
 
             if (id == 0) {
-                retorno = new CategoriaDao().salvar(ca);
+                retorno = new CategoriaDao().salvar(categoria);
+                System.out.println("SALVOU");
+                encaminharPagina("sucesso.jsp", request, response);
             } else {
-                // ATUALIZA A CATEGORIA
-            }
+                retorno = new CategoriaDao().atualizar(categoria);
+                System.out.println("ATUALIZOU");
+                encaminharPagina("sucesso.jsp", request, response);
+            } 
         }
 
         // SALVAR PESSOA

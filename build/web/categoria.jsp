@@ -18,15 +18,13 @@
 
         <%
             Categoria tg = (Categoria) request.getAttribute("objetoCategoria");
-
-            if (tg == null) {
+            Categoria tx = (Categoria) request.getAttribute("excluirCategoria");
+            if (tg == null || tx == null) {
                 tg = new Categoria();
 
                 tg.id = 0;
                 tg.descricao = "";
-                tg.ativo = "";
-            }
-
+            } 
         %>
 
         <h1>Cadastro de Categorias</h1>
@@ -37,12 +35,7 @@
 
             <input type="text" name="descricao" placeholder="Descrição" value=<%= tg.descricao%>>
             <br>
-            <input type="checkbox" name="check" placeholder="ativo" checked value="ativo">
-            <label for="ativo">Ativo</label>
-            <br>
-            <input type="checkbox" name="check" placeholder="ativo" value="inativo" >
-            <label for="inativo">Inativo</label>
-            <br>
+
             <input type="submit" value="salvar">
 
             <br>
