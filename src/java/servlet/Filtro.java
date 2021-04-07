@@ -26,7 +26,7 @@ import javax.servlet.http.HttpSession;
  * @author Usuario
  */
 @WebFilter("/")
-public class filter extends HttpServlet implements Filter {
+public class Filtro extends HttpServlet implements Filter {
 
     List<String> uriPublicas = new ArrayList<>();
 
@@ -114,6 +114,7 @@ public class filter extends HttpServlet implements Filter {
         System.out.println("getReqURI: " + req.getRequestURI());
 
         if (uriPublicas.contains(req.getRequestURI())) {
+            request.setAttribute("parametro", "login");
             chain.doFilter(request, response);
         } else {
             HttpSession sessao = ((HttpServletRequest) request).getSession();
