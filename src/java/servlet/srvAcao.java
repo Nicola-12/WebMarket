@@ -192,18 +192,13 @@ public class srvAcao extends HttpServlet {
             String email = request.getParameter("email");
             String senha = request.getParameter("senha");
 
-            if (email.isEmpty() || senha.isEmpty()) {
-                err.print("Usuário ou Senha Inválidos");
-            }
-
             try {
                 ResultSet set = bd.getConnection().createStatement()
                         .executeQuery("SELECT * FROM pessoa WHERE email = '" + email + "'");
 
                 if (!set.next()) {
-                    System.out.println("Usuário ou Senha Inválidos");
+                    request.setAttribute("msgLogin", "erro");
                     encaminharPagina("login.jsp", request, response);
-                    return;
                 }
 
                 if (Cripto.eIgual(set.getString("senha"), new String(senha))) {
@@ -219,6 +214,7 @@ public class srvAcao extends HttpServlet {
                     request.setAttribute("msgLogin", "erro");
                     encaminharPagina("login.jsp", request, response);
                 }
+                
             } catch (SQLException ex) {
                 Logger.getLogger(srvAcao.class.getName()).log(Level.SEVERE, null, ex);
             }

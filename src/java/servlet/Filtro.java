@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Usuario
  */
-@WebFilter("/")
+@WebFilter("/*")
 public class Filtro extends HttpServlet implements Filter {
 
     List<String> uriPublicas = new ArrayList<>();
@@ -97,8 +97,10 @@ public class Filtro extends HttpServlet implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
+
         uriPublicas.add("/WebMarket/login.jsp");
-        uriPublicas.add("/WebMarket/categoria.jsp");
+        uriPublicas.add("/WebMarket/cadastroLogin.jsp");
+        uriPublicas.add("/WebMarket/acao");
         uriPublicas.add("/WebMarket/css/bootstrap.min.css");
         uriPublicas.add("/WebMarket/css/signin.css");
         uriPublicas.add("/WebMarket/css/navbar.css");
@@ -118,7 +120,7 @@ public class Filtro extends HttpServlet implements Filter {
             chain.doFilter(request, response);
         } else {
             HttpSession sessao = ((HttpServletRequest) request).getSession();
-            
+
             // caso não pertença a lista, verifica se há usuário na sessão
             // se não houver, encaminha para o Login
             if (sessao.getAttribute("usuarioLogado") == null) {

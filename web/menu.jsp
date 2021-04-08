@@ -4,6 +4,7 @@
     Author     : pretto
 --%>
 
+<%@page import="entidade.Pessoa"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -44,6 +45,9 @@
         <link href="css/navbar.css" rel="stylesheet">
     </head>
     <body>
+        <% 
+        Pessoa p = new Pessoa();
+        %>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Fourth navbar example">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Ferrados</a>
@@ -83,9 +87,8 @@
                                 FAZER O CADASTRO DE PESSOA
                                 -->
 
-                                <li><a class="dropdown-item" href="login.jsp">Login</a></li>
+                                <li><a class="dropdown-item" href="dadosConta.jsp">Dados da Conta</a></li>
                                 <li><a class="dropdown-item" href="/WebMarket/acao?param=logout">Deslogar</a></li>
-                                <li><a class="dropdown-item" href="cadastroLogin.jsp">Cadastro</a></li>
                             </ul>
                         </li>
                     </div>
