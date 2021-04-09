@@ -106,7 +106,7 @@ public class CategoriaDao implements IDAO<Categoria> {
 
     @Override
     public ArrayList<Categoria> consultar(String criterio) {
-        String sql = "SELECT * FROM categoria WHERE '%" + criterio + "%' ORDER BY descricao";
+        String sql = "SELECT * FROM categoria WHERE descricao ILIKE '%" + criterio + "%' ORDER BY descricao";
         try {
             ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
             ArrayList<Categoria> categoria = new ArrayList<>();

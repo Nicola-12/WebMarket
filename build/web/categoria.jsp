@@ -19,7 +19,7 @@
         <%
             Categoria tg = (Categoria) request.getAttribute("objetoCategoria");
             Categoria tx = (Categoria) request.getAttribute("excluirCategoria");
-            if (tg == null || tx == null) {
+            if (tg == null) {
                 tg = new Categoria();
 
                 tg.id = 0;

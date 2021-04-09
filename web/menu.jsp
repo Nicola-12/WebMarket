@@ -71,7 +71,7 @@
                             <ul class="dropdown-menu" aria-labelledby="dropdown04">
                                 <li><a class="dropdown-item" href="categoria.jsp">Categoria</a></li>
                                 <li><a class="dropdown-item" href="select.jsp">Select</a></li>
-                                <li><a class="dropdown-item" href="pesquisa.jsp">Pesquisar</a></li>
+                                <li><a class="dropdown-item" href="pesquisaCategoria.jsp">Pesquisar</a></li>
                             </ul>
                         </li>
                     </ul>

@@ -8,8 +8,6 @@ import entidade.Categoria;
 import entidade.Pessoa;
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.System.err;
-import static java.lang.System.out;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -85,7 +83,8 @@ public class srvAcao extends HttpServlet {
 
             String id = request.getParameter("id");
 
-            categoria = (Categoria) new CategoriaDao().consultarId(Integer.parseInt(id));
+            Categoria categoria = (Categoria) new CategoriaDao().consultarId(Integer.parseInt(id));
+            System.out.println(categoria);
 
             if (categoria != null) {
 

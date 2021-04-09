@@ -5,30 +5,22 @@
  */
 package servlet;
 
+import dao.CategoriaDao;
+import entidade.Categoria;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.List;
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Usuario
  */
-@WebFilter("/*")
-public class Filtro extends HttpServlet implements Filter {
-
-    List<String> uriPublicas = new ArrayList<>();
+public class pesquisa extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,10 +39,10 @@ public class Filtro extends HttpServlet implements Filter {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet filter</title>");
+            out.println("<title>Servlet pesquisa</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet filter at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet pesquisa at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -82,7 +74,17 @@ public class Filtro extends HttpServlet implements Filter {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String param = request.getParameter("param");
+
+        if (param.equals("pesquisar")) {
+            String criterio = request.getParameter("busca");
+
+            ArrayList<Categoria> categorias = new CategoriaDao().consultar(criterio);
+
+            request.setAttribute("categoriasPesquisa", categorias);
+
+            encaminharPagina("pesquisa.jsp", request, response);
+        }
     }
 
     /**
@@ -95,43 +97,12 @@ public class Filtro extends HttpServlet implements Filter {
         return "Short description";
     }// </editor-fold>
 
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-
-        uriPublicas.add("/WebMarket/login.jsp");
-        uriPublicas.add("/WebMarket/cadastroLogin.jsp");
-        uriPublicas.add("/WebMarket/acao");
-        uriPublicas.add("/WebMarket/pesquisa");
-        uriPublicas.add("/WebMarket/css/bootstrap.min.css");
-        uriPublicas.add("/WebMarket/css/signin.css");
-        uriPublicas.add("/WebMarket/css/navbar.css");
-        uriPublicas.add("/WebMarket/js/validacao.js");
-        uriPublicas.add("/WebMarket/js/bootstrap.bundle.min.js");
-
-    }
-
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest req = (HttpServletRequest) request;
-
-        System.out.println("getReqURI: " + req.getRequestURI());
-
-        if (uriPublicas.contains(req.getRequestURI())) {
-            request.setAttribute("parametro", "login");
-            chain.doFilter(request, response);
-        } else {
-            HttpSession sessao = ((HttpServletRequest) request).getSession();
-
-            // caso não pertença a lista, verifica se há usuário na sessão
-            // se não houver, encaminha para o Login
-            if (sessao.getAttribute("usuarioLogado") == null) {
-                ((HttpServletResponse) response).sendRedirect("login.jsp");
-            } else {
-                // se usuário estiver logado, apenas abra a página solicitada
-                System.out.println("Destino: " + req.getRequestURI());
-                chain.doFilter(request, response);
-            }
+    private void encaminharPagina(String pagina, HttpServletRequest request, HttpServletResponse response) {
+        try {
+            RequestDispatcher rd = request.getRequestDispatcher(pagina);
+            rd.forward(request, response);
+        } catch (Exception e) {
+            System.out.println("Erro ao encaminhar: " + e);
         }
-
     }
 }
