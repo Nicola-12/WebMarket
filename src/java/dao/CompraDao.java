@@ -107,12 +107,12 @@ public class CompraDao implements IDAO<Compra> {
     }
 
     @Override
-    public Object consultarId(int id) {
+    public Compra consultarId(int id) {
         String sql = "SELECT * FROM compra WHERE id=" + id;
         try {
             ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
             if (result.next()) {
-                return Venda.from(result);
+                return Compra.from(result);
             }
 
         } catch (Exception e) {

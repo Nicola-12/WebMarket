@@ -202,7 +202,7 @@ public class srvAcao extends HttpServlet {
 
                 if (Cripto.eIgual(set.getString("senha"), new String(senha))) {
                     pes.email = email;
-                    pes.senha = senha;
+                
                     HttpSession sessao = ((HttpServletRequest) request).getSession();
 
                     sessao.setAttribute("usuarioLogado", pes);

@@ -106,7 +106,7 @@ public class VendaDao implements IDAO<Venda> {
     }
 
     @Override
-    public Object consultarId(int id) {
+    public Venda consultarId(int id) {
         String sql = "SELECT * FROM venda WHERE id=" + id;
         try {
             ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);

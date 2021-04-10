@@ -126,12 +126,12 @@ public class FornecedorDao implements IDAO<Fornecedor> {
     }
 
     @Override
-    public Object consultarId(int id) {
+    public Fornecedor consultarId(int id) {
         String sql = "SELECT * FROM fornecedor WHERE id=" + id;
         try {
             ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
             if (result.next()) {
-                return Pessoa.from(result);
+                return Fornecedor.from(result);
             }
 
         } catch (Exception e) {

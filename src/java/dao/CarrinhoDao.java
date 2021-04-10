@@ -77,7 +77,7 @@ public class CarrinhoDao implements IDAO<Carrinho> {
     }
 
     @Override
-    public Object consultarId(int id) {//não é necessário
+    public Carrinho consultarId(int id) {//não é necessário
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

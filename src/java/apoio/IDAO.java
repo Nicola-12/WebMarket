@@ -25,7 +25,7 @@ public interface IDAO <T> {
 
     public ArrayList<T> consultar(String criterio);
 
-    public Object consultarId(int id);
+    public T consultarId(int id);
     
     public boolean consultar (T o);
 }

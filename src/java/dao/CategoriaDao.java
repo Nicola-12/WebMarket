@@ -124,7 +124,7 @@ public class CategoriaDao implements IDAO<Categoria> {
     }
 
     @Override
-    public Object consultarId(int id) {
+    public Categoria consultarId(int id) {
         String sql = "SELECT * FROM categoria WHERE id=" + id;
         try {
             ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);

@@ -4,6 +4,10 @@
     Author     : STI
 --%>
 
+<%@page import="dao.PessoaDao"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="apoio.Cripto"%>
+<%@page import="apoio.ConexaoBD"%>
 <%@page import="entidade.Pessoa"%>
 <%@page import="java.sql.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,15 +18,21 @@
         <title>JSP Page</title>
     </head>
     <body>
-        
+
         <% 
-            ResultSet set = null;
+            
             HttpSession sessao = ((HttpServletRequest) request).getSession();
-           
-           Pessoa f = (Pessoa) sessao.getAttribute("usuarioLogado");
-           System.out.println(f);
+            
+            Pessoa f = (Pessoa) sessao.getAttribute("usuarioLogado");
+                         
+            f = new PessoaDao().consultarEmail(f.email);
+            
+            System.out.println(f);
         %>      
         <label for="Email" class="visually-hidden">Email:</label>
-        <input type="email" name="email" id="inputEmail" class="form-control" placeholder="E-mail" value=<%= f.email %> required autofocus>
+        <input type="email" name="email" id="inputEmail" class="form-control" placeholder="E-mail" value=<%= f.email%> required autofocus>
+        
+        <label for="Email" class="visually-hidden">Email:</label>
+        <input type="email" name="email" id="inputEmail" class="form-control" placeholder="E-mail" value=<%= f.email%> required autofocus>
     </body>
 </html>

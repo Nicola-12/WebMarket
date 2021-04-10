@@ -127,8 +127,22 @@ public class PessoaDao implements IDAO<Pessoa> {
     }
 
     @Override
-    public Object consultarId(int id) {
+    public Pessoa consultarId(int id) {
         String sql = "SELECT * FROM pessoa WHERE id=" + id;
+        try {
+            ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
+            if (result.next()) {
+                return Pessoa.from(result);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Erro ao consultar pessoas por ID: " + e);
+        }
+        return null;
+    }
+
+    public Pessoa consultarEmail(String email) {
+        String sql = "SELECT * FROM pessoa WHERE email ='" + email+"'";
         try {
             ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
             if (result.next()) {
