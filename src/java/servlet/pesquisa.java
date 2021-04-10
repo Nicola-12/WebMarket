@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Usuario
  */
+@WebServlet(name = "pesquisa", urlPatterns = {"/pesquisa"})
 public class pesquisa extends HttpServlet {
 
     /**
@@ -39,7 +41,7 @@ public class pesquisa extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet pesquisa</title>");
+            out.println("<title>Servlet pesquisa</title>");            
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet pesquisa at " + request.getContextPath() + "</h1>");
@@ -75,7 +77,7 @@ public class pesquisa extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String param = request.getParameter("param");
-
+        System.out.println(param);
         if (param.equals("pesquisar")) {
             String criterio = request.getParameter("busca");
 
@@ -83,7 +85,7 @@ public class pesquisa extends HttpServlet {
 
             request.setAttribute("categoriasPesquisa", categorias);
 
-            encaminharPagina("pesquisa.jsp", request, response);
+            encaminharPagina("pesquisaCategoria.jsp", request, response);
         }
     }
 

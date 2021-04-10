@@ -17,9 +17,12 @@
         
         <% 
             ResultSet set = null;
+            HttpSession sessao = ((HttpServletRequest) request).getSession();
            
+           Pessoa f = (Pessoa) sessao.getAttribute("usuarioLogado");
+           System.out.println(f);
         %>      
         <label for="Email" class="visually-hidden">Email:</label>
-                <input type="email" name="email" id="inputEmail" class="form-control" placeholder="E-mail" required autofocus>
+        <input type="email" name="email" id="inputEmail" class="form-control" placeholder="E-mail" value=<%= f.email %> required autofocus>
     </body>
 </html>
