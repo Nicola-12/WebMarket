@@ -84,5 +84,9 @@
             <button type="submit">Mudar Senha</button>
 
         </form>
+            
+            <form>
+                <button><a href="/WebMarket/acao?param=excluirPessoa&id=<%= f.id%>">Desativar Conta</a> </button>
+            </form>
     </body>
 </html>
