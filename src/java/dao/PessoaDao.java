@@ -44,13 +44,13 @@ public class PessoaDao implements IDAO<Pessoa> {
             Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
 
             String sql = "UPDATE pessoa SET "
-                    + "descricao=" + o.nome + ","
-                    + "valor=" + o.senha + ","
-                    + "quantidade=" + o.email + ","
-                    + "unidade=" + o.endereco + ","
-                    + "id_categoria=" + o.telefone + ","
-                    + "ativo=" + o.ativo + ","
-                    + "'now()' "
+                    + "nome='" + o.nome + "',"
+                    + "senha='" + o.senha + "',"
+                    + "email='" + o.email + "',"
+                    + "endereco='" + o.endereco + "',"
+                    + "telefone='" + o.telefone + "',"
+                    + "ativo='" + o.ativo + "',"
+                    + "updated_at = now() "
                     + "WHERE id= " + o.id;
 
             System.out.println("SQL: " + sql);
@@ -142,7 +142,7 @@ public class PessoaDao implements IDAO<Pessoa> {
     }
 
     public Pessoa consultarEmail(String email) {
-        String sql = "SELECT * FROM pessoa WHERE email ='" + email+"'";
+        String sql = "SELECT * FROM pessoa WHERE email ='" + email + "'";
         try {
             ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
             if (result.next()) {

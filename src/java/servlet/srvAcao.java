@@ -182,6 +182,55 @@ public class srvAcao extends HttpServlet {
             if (id == 0) {
                 retorno = new PessoaDao().salvar(p);
             }
+        }else if (param.equals("editarPessoa")) {
+            PessoaDao pd = new PessoaDao();
+            HttpSession sessao = ((HttpServletRequest) request).getSession();
+            
+            Pessoa f = (Pessoa) sessao.getAttribute("usuarioLogado");
+                         
+            f = pd.consultarEmail(f.email);
+            int id = Integer.parseInt(request.getParameter("id"));
+            String nome = request.getParameter("nome");
+            String email = request.getParameter("email");
+            String endereco = request.getParameter("endereco");
+            String telefone = request.getParameter("telefone");
+            
+            if(!nome.matches("^[A-Za-z ]{5,45}$") || nome.isEmpty()) {
+                System.out.println(nome);
+                encaminharPagina("error.jsp", request, response);
+            } else if (!nome.isEmpty() && !email.isEmpty() && !telefone.isEmpty() && !endereco.isEmpty()){
+                f.id = id;
+                f.nome = nome;
+                f.email = email;
+                f.endereco = endereco;
+                f.telefone = telefone;              
+            }
+            
+            if (id != 0 ){
+                String retorno = pd.atualizar(f);
+                System.out.println(retorno);
+            }
+        } else if (param.equals("mudarSenha")){
+            PessoaDao pd = new PessoaDao();
+            HttpSession sessao = ((HttpServletRequest) request).getSession();
+            String senha = request.getParameter("senha");
+            String senhaNova = request.getParameter("senhaNova");
+            String confirmarSenha = request.getParameter("confirmarSenha");
+            
+            Pessoa f = (Pessoa) sessao.getAttribute("usuarioLogado");
+                         
+            f = pd.consultarEmail(f.email);
+            
+            if(!senha.isEmpty() && !senhaNova.isEmpty() && !confirmarSenha.isEmpty()) {
+                
+                if(Cripto.eIgual(f.senha, senha) && senhaNova.equals(confirmarSenha)){
+                   f.senha = Cripto.criptografar(senhaNova);
+                   pd.atualizar(f);
+                    encaminharPagina("sucesso.jsp", request, response);
+                }
+            }else{
+                encaminharPagina("erro.jsp", request, response);
+            }
         }
 
         // -------------------LOGIN------------------

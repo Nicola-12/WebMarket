@@ -19,45 +19,70 @@
     </head>
     <body>
 
-        <% 
-            
+        <%
+
             HttpSession sessao = ((HttpServletRequest) request).getSession();
-            
+
             Pessoa f = (Pessoa) sessao.getAttribute("usuarioLogado");
-                         
+
             f = new PessoaDao().consultarEmail(f.email);
-            
+
             System.out.println(f);
         %>   
-        <form method="post" action="/WebMarket/acao?param=editarPessoa">
-        <label for="Email" class="visually-hidden">Nome:</label>
-        <input type="text" name="nome" id="inputEmail" class="form-control" readonly placeholder="Nome" value=<%= f.nome%> required autofocus>
-        
-        <label for="Email" class="visually-hidden">Email:</label>
-        <input type="email" name="email" id="inputEmail" class="form-control" placeholder="E-mail" value=<%= f.email%> required >
-         
-         <label for="Endereço" class="visually-hidden">Endereço:</label>
-         <input type="text" name="endereco" id="inputEmail" class="form-control" placeholder="Endereço" value=<%= f.endereco%> required >
-         
-         <label for="Telefone" class="visually-hidden">Telefone:</label>
-         <input type="text" name="telefone" id="inputEmail" class="form-control" placeholder="Telefone" value=<%= f.telefone%> required >
-         
-         <button type="submit">Mudar Dados da Conta</button>
-        </form>
-        
-        <form method="post" action="/WebMarket/acao?param=mudarSenha">
+
+        <style>
+
+            html,body{
+                height: 100%;
+                margin: 0;
+            }
+
+            body {
+                display: grid;
+                place-items: center;
+                grid-template-columns: 1fr 1fr;
+            }
             
+            form {
+                display: flex;
+                flex-direction: column;
+            }
+
+        </style>
+
+        <form name="formPessoa" method="post" action="/WebMarket/acao?param=editarPessoa">
+
+            <input type="hidden" name="id" value=<%=f.id%>>
+
+            <label for="Email" class="visually-hidden">Nome:</label>
+            <input type="text" name="nome" id="inputEmail" class="form-control" readonly placeholder="Nome" value=<%= f.nome%> required autofocus>
+            <br>
+            <label for="Email" class="visually-hidden">Email:</label>
+            <input type="email" name="email" id="inputEmail" class="form-control" placeholder="E-mail" value=<%= f.email%> required >
+            <br>
+            <label for="Endereço" class="visually-hidden">Endereço:</label>
+            <input type="text" name="endereco" id="inputEmail" class="form-control" placeholder="Endereço" value=<%= f.endereco%> required >
+            <br>
+            <label for="Telefone" class="visually-hidden">Telefone:</label>
+            <input type="text" name="telefone" id="inputEmail" class="form-control" placeholder="Telefone" value=<%= f.telefone%> required >
+            <br>
+            <button type="submit">Mudar Dados da Conta</button>
+            <br>
+        </form>
+
+        <form method="post" action="/WebMarket/acao?param=mudarSenha">
+
             <label for="Senha" class="visually-hidden">Senha Velha:</label>
-         <input type="password" name="senha" id="inputEmail" class="form-control" placeholder="Senha" required >
-         
-         <label for="Senha" class="visually-hidden">Senha Nova:</label>
-         <input type="password" name="senhaNova" id="inputEmail" class="form-control" placeholder="Senha" required >
-         
-         <label for="Senha" class="visually-hidden">Confirmar Senha Velha:</label>
-         <input type="password" name="confirmarSenha" id="inputEmail" class="form-control" placeholder="Senha" required >
-         
-         <button type="submit">Mudar Senha</button>
-             
+            <input type="password" name="senha" id="inputEmail" class="form-control" placeholder="Senha" required >
+            <br>
+            <label for="Senha" class="visually-hidden">Senha Nova:</label>
+            <input type="password" name="senhaNova" id="inputEmail" class="form-control" placeholder="Senha" required >
+            <br>
+            <label for="Senha" class="visually-hidden">Confirmar Senha Velha:</label>
+            <input type="password" name="confirmarSenha" id="inputEmail" class="form-control" placeholder="Senha" required >
+            <br>
+            <button type="submit">Mudar Senha</button>
+
         </form>
     </body>
 </html>
