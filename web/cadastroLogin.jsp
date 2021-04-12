@@ -86,13 +86,13 @@
                 <input type="email" name="email" id="inputEmail" class="form-control" placeholder="E-mail*" required value=<%= p.email%>   >
 
                 <label for="inputPassword" class="visually-hidden">Password</label>
-                <input type="password" name="senha" id="inputPassword" class="form-control" placeholder="Senha*" required value=<%= p.senha%>  >
+                <input type="password" pattern="^.{8,22}$" title="De 8 a 22 caracteres" name="senha" id="inputPassword" class="form-control" placeholder="Senha*" required value=<%= p.senha%>  >
 
                 <label for="inputEndereco" class="visually-hidden">Endereco</label>
                 <input type="endereco" name="endereco" id="inputEndereco" class="form-control" placeholder="Endereço" value=<%= p.endereco%> >
 
                 <label for="inputTelefone" class="visually-hidden">Telefone</label>
-                <input type="telefone" name="telefone" id="inputTelefone" class="form-control" placeholder="Telefone*" required value=<%= p.telefone%> >
+                <input type="telefone" pattern="^((\+\d{1,2})?\d{2})?\d{9}$" title="Formatos - 999999999, 51999999999, +5551999999999" name="telefone" id="inputTelefone" class="form-control" placeholder="Telefone*" required value=<%= p.telefone%> >
 
                 <button class="w-100 btn btn-lg btn-dark" type="submit" value="Salvar" >Cadastrar</button>
 

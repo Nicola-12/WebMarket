@@ -2,6 +2,7 @@ package servlet;
 
 import apoio.ConexaoBD;
 import apoio.Cripto;
+import apoio.Validacao;
 import dao.CategoriaDao;
 import dao.PessoaDao;
 import entidade.Categoria;
@@ -24,7 +25,7 @@ import javax.servlet.http.HttpSession;
  * @author Usuario
  */
 public class srvAcao extends HttpServlet {
-    
+
     ConexaoBD bd = new ConexaoBD();
     ResultSet r = null;
     Categoria categoria = new Categoria();
@@ -69,7 +70,7 @@ public class srvAcao extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("ESTOU NO GET");
-        
+
         String param = request.getParameter("param");
 
         // -----------------LOGIN-----------------
@@ -81,25 +82,25 @@ public class srvAcao extends HttpServlet {
 
             // CATEGORIA
         } else if (param.equals("edCategoria")) {
-            
+
             String id = request.getParameter("id");
-            
+
             Categoria categoria = (Categoria) new CategoriaDao().consultarId(Integer.parseInt(id));
             System.out.println(categoria);
-            
+
             if (categoria != null) {
-                
+
                 request.setAttribute("objetoCategoria", categoria);
-                
+
                 encaminharPagina("categoria.jsp", request, response);
             } else {
                 encaminharPagina("error.jsp", request, response);
             }
-            
+
         } else if (param.equals("exCategoria")) {
             String id = request.getParameter("id");
             categoria = new CategoriaDao().consultarId(Integer.parseInt(id));
-            
+
             if (categoria != null) {
                 CategoriaDao excluir = new CategoriaDao();
                 excluir.excluir(Integer.parseInt(id));
@@ -113,7 +114,7 @@ public class srvAcao extends HttpServlet {
         if (param.equals("excluirPessoa")) {
             String id = request.getParameter("id");
             pep = new PessoaDao().consultarId(Integer.parseInt(id));
-            
+
             if (pep != null) {
                 PessoaDao exc = new PessoaDao();
                 exc.excluir(Integer.parseInt(id));
@@ -122,7 +123,7 @@ public class srvAcao extends HttpServlet {
                 encaminharPagina("erro.jsp", request, response);
             }
         }
-        
+
     }
 
     /**
@@ -137,7 +138,7 @@ public class srvAcao extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("ESTOU NO POST");
-        
+
         String param = request.getParameter("param");
 
         // SALVAR CATEGORIA        
@@ -145,17 +146,18 @@ public class srvAcao extends HttpServlet {
             categoria = new Categoria();
             int id = Integer.parseInt(request.getParameter("id"));
             String descricao = request.getParameter("descricao");
-            
+
             if (!descricao.matches("^[A-Za-z ]{5,45}$")) {
                 encaminharPagina("error.jsp", request, response);
+                return;
             } else {
-                
+
                 categoria.id = id;
                 categoria.descricao = descricao;
-                
+
             }
             String retorno = null;
-            
+
             if (id == 0) {
                 retorno = new CategoriaDao().salvar(categoria);
                 System.out.println("SALVOU");
@@ -164,7 +166,7 @@ public class srvAcao extends HttpServlet {
                 retorno = new CategoriaDao().atualizar(categoria);
                 System.out.println("ATUALIZOU");
                 encaminharPagina("sucesso.jsp", request, response);
-            }            
+            }
         }
 
         // SALVAR PESSOA
@@ -177,39 +179,47 @@ public class srvAcao extends HttpServlet {
             String senha = request.getParameter("senha");
             String endereco = request.getParameter("endereco");
             String telefone = request.getParameter("telefone");
-            
+
             if (!nome.matches("^[A-Za-z ]{5,45}$") || nome.isEmpty()) {
                 System.out.println(nome);
                 encaminharPagina("error.jsp", request, response);
-                //} else if (!senha.matches("^[A-Za-z ]{8,22}$")) {
-                //   System.out.println(senha);
-                //   encaminharPagina("error.jsp", request, response);
+                return;
+            } else if (!Validacao.isEmail(email)) {
+                encaminharPagina("error.jsp", request, response);
+                return;
+            } else if (!senha.matches("^.{8,22}$")) {
+                System.out.println(senha);
+                encaminharPagina("error.jsp", request, response);
+                return;
+            }else if (!telefone.matches("^((\\+\\d{1,2})?\\d{2})?\\d{9}$")) {
+                System.out.println(telefone);
+                encaminharPagina("error.jsp", request, response);
             } else if (!nome.isEmpty() && !senha.isEmpty() && !email.isEmpty() && !telefone.isEmpty()) {
                 p.id = id;
                 p.nome = nome;
                 p.email = email;
                 p.senha = Cripto.criptografar(senha);
                 p.endereco = endereco;
-                p.telefone = telefone;
-                encaminharPagina("sucesso.jsp", request, response);
+                p.telefone = telefone;               
             }
             String retorno = null;
             if (id == 0) {
                 retorno = new PessoaDao().salvar(p);
+                encaminharPagina("sucesso.jsp", request, response);
             }
         } else if (param.equals("editarPessoa")) {
             PessoaDao pd = new PessoaDao();
             HttpSession sessao = ((HttpServletRequest) request).getSession();
-            
+
             Pessoa f = (Pessoa) sessao.getAttribute("usuarioLogado");
-            
+
             f = pd.consultarEmail(f.email);
             int id = Integer.parseInt(request.getParameter("id"));
             String nome = request.getParameter("nome");
             String email = request.getParameter("email");
             String endereco = request.getParameter("endereco");
             String telefone = request.getParameter("telefone");
-            
+
             if (!nome.matches("^[A-Za-z ]{5,45}$") || nome.isEmpty()) {
                 System.out.println(nome);
                 encaminharPagina("error.jsp", request, response);
@@ -218,9 +228,9 @@ public class srvAcao extends HttpServlet {
                 f.nome = nome;
                 f.email = email;
                 f.endereco = endereco;
-                f.telefone = telefone;                
+                f.telefone = telefone;
             }
-            
+
             if (id != 0) {
                 String retorno = pd.atualizar(f);
                 System.out.println(retorno);
@@ -231,13 +241,13 @@ public class srvAcao extends HttpServlet {
             String senha = request.getParameter("senha");
             String senhaNova = request.getParameter("senhaNova");
             String confirmarSenha = request.getParameter("confirmarSenha");
-            
+
             Pessoa f = (Pessoa) sessao.getAttribute("usuarioLogado");
-            
+
             f = pd.consultarEmail(f.email);
-            
+
             if (!senha.isEmpty() && !senhaNova.isEmpty() && !confirmarSenha.isEmpty()) {
-                
+
                 if (Cripto.eIgual(f.senha, senha) && senhaNova.equals(confirmarSenha)) {
                     f.senha = Cripto.criptografar(senhaNova);
                     pd.atualizar(f);
@@ -254,30 +264,30 @@ public class srvAcao extends HttpServlet {
             Pessoa pes = new Pessoa();
             String email = request.getParameter("email");
             String senha = request.getParameter("senha");
-            
+
             try {
                 ResultSet set = bd.getConnection().createStatement()
                         .executeQuery("SELECT * FROM pessoa WHERE email = '" + email + "'");
-                
+
                 if (!set.next()) {
                     request.setAttribute("msgLogin", "erro");
                     encaminharPagina("login.jsp", request, response);
                 }
-                
+
                 if (Cripto.eIgual(set.getString("senha"), new String(senha))) {
                     pes.email = email;
-                    
+
                     HttpSession sessao = ((HttpServletRequest) request).getSession();
-                    
+
                     sessao.setAttribute("usuarioLogado", pes);
-                    
+
                     encaminharPagina("categoria.jsp", request, response);
                     System.out.println("DEU CERTO");
                 } else {
                     request.setAttribute("msgLogin", "erro");
                     encaminharPagina("login.jsp", request, response);
                 }
-                
+
             } catch (SQLException ex) {
                 Logger.getLogger(srvAcao.class.getName()).log(Level.SEVERE, null, ex);
             }

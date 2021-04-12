@@ -74,6 +74,8 @@
                 <br>
                 <button class="w-100 btn btn-lg btn-dark" type="submit" value="logar" >Acessar</button>
 
+                <br>
+                <a href="cadastroLogin.jsp" target="_blank">Cadastrar-se</a>
                 <%
                     String msg = String.valueOf(request.getAttribute("msgLogin"));
 
