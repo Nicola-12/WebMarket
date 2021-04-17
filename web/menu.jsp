@@ -40,9 +40,9 @@
         </style>
 
         <!-- Bootstrap core CSS -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="/WebMarket/css/bootstrap.min.css" rel="stylesheet">
 
-        <link href="css/navbar.css" rel="stylesheet">
+        <link href="/WebMarket/css/navbar.css" rel="stylesheet">
     </head>
     <body>
         <% 
@@ -50,7 +50,7 @@
         %>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Fourth navbar example">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Ferrados</a>
+                <a class="navbar-brand" href="#">WebMarket</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -69,7 +69,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">Cadastros</a>
                             <ul class="dropdown-menu" aria-labelledby="dropdown04">
-                                <li><a class="dropdown-item" href="categoria.jsp">Categoria</a></li>
+                                <li><a class="dropdown-item" href="categoria/categoria.jsp">Categoria</a></li>
                                 <li><a class="dropdown-item" href="select.jsp">Select</a></li>
                                 <li><a class="dropdown-item" href="pesquisaCategoria.jsp">Pesquisar</a></li>
                             </ul>
@@ -87,7 +87,7 @@
                                 FAZER O CADASTRO DE PESSOA
                                 -->
 
-                                <li><a class="dropdown-item" href="dadosConta.jsp">Dados da Conta</a></li>
+                                <li><a class="dropdown-item" href="/WebMarket/pessoa/dadosConta.jsp">Dados da Conta</a></li>
                                 <li><a class="dropdown-item" href="/WebMarket/acao?param=logout">Deslogar</a></li>
                             </ul>
                         </li>
@@ -96,7 +96,7 @@
             </div>
         </nav>
 
-        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="/WebMarket/js/bootstrap.bundle.min.js"></script>
 
     </body>
 </html>

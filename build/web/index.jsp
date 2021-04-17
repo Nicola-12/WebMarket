@@ -16,12 +16,11 @@
         <title>Web Market</title>
     </head>
     <body>
-       <% response.sendRedirect("login.jsp"); %>
 
         <h1 style="color: red">PROJETO WEB MARKET</h1>
 
         <ul>
-            <li><a href="categoria.jsp">CATEGORIA</a></li>
+            <li><a href="categoria/categoria.jsp">CATEGORIA</a></li>
         </ul>
     </body>
 </html>

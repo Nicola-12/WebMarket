@@ -21,7 +21,7 @@
 
 
         <!-- Bootstrap core CSS -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="/WebMarket/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Favicons -->
         <link rel="apple-touch-icon" href="/docs/5.0/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
@@ -51,7 +51,7 @@
 
 
         <!-- Custom styles for this template -->
-        <link href="css/signin.css" rel="stylesheet">
+        <link href="/WebMarket/css/signin.css" rel="stylesheet">
     </head>
     <body class="text-center">
 

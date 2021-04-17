@@ -16,6 +16,6 @@
         
         <h4>Ação Executado com sucesso</h4>
         
-        <p><a href="categoria.jsp">Voltar ao menu</a></p>
+        <p><a href="/WebMarket/categoria/categoria.jsp">Voltar ao menu</a></p>
     </body>
 </html>

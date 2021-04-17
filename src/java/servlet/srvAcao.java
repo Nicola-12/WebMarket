@@ -3,7 +3,6 @@ package servlet;
 import apoio.ConexaoBD;
 import apoio.Cripto;
 import apoio.Validacao;
-import dao.CategoriaDao;
 import dao.PessoaDao;
 import entidade.Categoria;
 import entidade.Pessoa;
@@ -80,45 +79,15 @@ public class srvAcao extends HttpServlet {
             sessao.invalidate();
             response.sendRedirect("login.jsp");
 
-            // CATEGORIA
-        } else if (param.equals("edCategoria")) {
-
-            String id = request.getParameter("id");
-
-            Categoria categoria = (Categoria) new CategoriaDao().consultarId(Integer.parseInt(id));
-            System.out.println(categoria);
-
-            if (categoria != null) {
-
-                request.setAttribute("objetoCategoria", categoria);
-
-                encaminharPagina("categoria.jsp", request, response);
-            } else {
-                encaminharPagina("error.jsp", request, response);
-            }
-
-        } else if (param.equals("exCategoria")) {
-            String id = request.getParameter("id");
-            categoria = new CategoriaDao().consultarId(Integer.parseInt(id));
-
-            if (categoria != null) {
-                CategoriaDao excluir = new CategoriaDao();
-                excluir.excluir(Integer.parseInt(id));
-                encaminharPagina("sucesso.jsp", request, response);
-            } else {
-                encaminharPagina("error.jsp", request, response);
-            }
-        }
-
         //PESSOA
-        if (param.equals("excluirPessoa")) {
+        } else if (param.equals("excluirPessoa")) {
             String id = request.getParameter("id");
             pep = new PessoaDao().consultarId(Integer.parseInt(id));
 
             if (pep != null) {
                 PessoaDao exc = new PessoaDao();
                 exc.excluir(Integer.parseInt(id));
-                encaminharPagina("sucesso.jsp", request, response);
+                encaminharPagina("login.jsp", request, response);
             } else {
                 encaminharPagina("erro.jsp", request, response);
             }
@@ -140,34 +109,6 @@ public class srvAcao extends HttpServlet {
         System.out.println("ESTOU NO POST");
 
         String param = request.getParameter("param");
-
-        // SALVAR CATEGORIA        
-        if (param.equals("salvarCategoria")) {
-            categoria = new Categoria();
-            int id = Integer.parseInt(request.getParameter("id"));
-            String descricao = request.getParameter("descricao");
-
-            if (!descricao.matches("^[A-Za-z ]{5,45}$")) {
-                encaminharPagina("error.jsp", request, response);
-                return;
-            } else {
-
-                categoria.id = id;
-                categoria.descricao = descricao;
-
-            }
-            String retorno = null;
-
-            if (id == 0) {
-                retorno = new CategoriaDao().salvar(categoria);
-                System.out.println("SALVOU");
-                encaminharPagina("sucesso.jsp", request, response);
-            } else {
-                retorno = new CategoriaDao().atualizar(categoria);
-                System.out.println("ATUALIZOU");
-                encaminharPagina("sucesso.jsp", request, response);
-            }
-        }
 
         // SALVAR PESSOA
         //----------------- FALTA IMPLEMENTAR AS VALIDAÇÕES DOS CAMPOS -------------- 
@@ -229,6 +170,7 @@ public class srvAcao extends HttpServlet {
                 f.email = email;
                 f.endereco = endereco;
                 f.telefone = telefone;
+                System.out.println(f.endereco);
             }
 
             if (id != 0) {
@@ -281,7 +223,7 @@ public class srvAcao extends HttpServlet {
 
                     sessao.setAttribute("usuarioLogado", pes);
 
-                    encaminharPagina("categoria.jsp", request, response);
+                    encaminharPagina("index.jsp", request, response);
                     System.out.println("DEU CERTO");
                 } else {
                     request.setAttribute("msgLogin", "erro");

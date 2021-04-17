@@ -6,10 +6,9 @@
 package servlet;
 
 import dao.CategoriaDao;
-import entidade.Categoria;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import entidade.Categoria;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,8 +20,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Usuario
  */
-@WebServlet(name = "pesquisa", urlPatterns = {"/pesquisa"})
-public class pesquisa extends HttpServlet {
+@WebServlet(name = "Categoria", urlPatterns = {"/Categoria"})
+public class srvCategoria extends HttpServlet {
+    
+    Categoria categoria = new Categoria();
+
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +43,10 @@ public class pesquisa extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet pesquisa</title>");            
+            out.println("<title>Servlet Categoria</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet pesquisa at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Categoria at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,7 +64,37 @@ public class pesquisa extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+       String param = request.getParameter("param");
+        
+        if (param.equals("edCategoria")) {
+
+            String id = request.getParameter("id");
+
+            Categoria categoria = (Categoria) new CategoriaDao().consultarId(Integer.parseInt(id));
+            System.out.println(categoria);
+
+            if (categoria != null) {
+
+                request.setAttribute("objetoCategoria", categoria);
+
+                encaminharPagina("categoria.jsp", request, response);
+            } else {
+                encaminharPagina("error.jsp", request, response);
+            }
+
+        } else if (param.equals("exCategoria")) {
+            String id = request.getParameter("id");
+            categoria = new CategoriaDao().consultarId(Integer.parseInt(id));
+
+            if (categoria != null) {
+                CategoriaDao excluir = new CategoriaDao();
+                excluir.excluir(Integer.parseInt(id));
+                encaminharPagina("sucesso.jsp", request, response);
+            } else {
+                encaminharPagina("error.jsp", request, response);
+            }
+        }
     }
 
     /**
@@ -77,15 +109,33 @@ public class pesquisa extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String param = request.getParameter("param");
-        System.out.println(param);
-        if (param.equals("pesquisar")) {
-            String criterio = request.getParameter("busca");
 
-            ArrayList<Categoria> categorias = new CategoriaDao().consultar(criterio);
+        // SALVAR CATEGORIA        
+        if (param.equals("salvarCategoria")) {
+            categoria = new Categoria();
+            int id = Integer.parseInt(request.getParameter("id"));
+            String descricao = request.getParameter("descricao");
 
-            request.setAttribute("categoriasPesquisa", categorias);
+            if (!descricao.matches("^[A-Za-z ]{5,45}$")) {
+                encaminharPagina("error.jsp", request, response);
+                return;
+            } else {
 
-            encaminharPagina("categoria/pesquisaCategoria.jsp", request, response);
+                categoria.id = id;
+                categoria.descricao = descricao;
+
+            }
+            String retorno = null;
+
+            if (id == 0) {
+                retorno = new CategoriaDao().salvar(categoria);
+                System.out.println("SALVOU");
+                encaminharPagina("sucesso.jsp", request, response);
+            } else {
+                retorno = new CategoriaDao().atualizar(categoria);
+                System.out.println("ATUALIZOU");
+                encaminharPagina("sucesso.jsp", request, response);
+            }
         }
     }
 

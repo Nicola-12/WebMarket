@@ -99,7 +99,7 @@ public class Filtro extends HttpServlet implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
 
         uriPublicas.add("/WebMarket/login.jsp");
-        uriPublicas.add("/WebMarket/cadastroLogin.jsp");
+        uriPublicas.add("/WebMarket/pessoa/cadastroLogin.jsp");
         uriPublicas.add("/WebMarket/acao");
         uriPublicas.add("/WebMarket/pesquisa");
         uriPublicas.add("/WebMarket/css/bootstrap.min.css");

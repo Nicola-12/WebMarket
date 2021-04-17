@@ -21,7 +21,7 @@
 
 
         <!-- Bootstrap core CSS -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="/WebMarket/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Favicons -->
         <link rel="apple-touch-icon" href="/docs/5.0/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
@@ -54,7 +54,7 @@
 
 
         <!-- Custom styles for this template -->
-        <link href="css/signin.css" rel="stylesheet">
+        <link href="/WebMarket/css/signin.css" rel="stylesheet">
     </head>
     <body class="text-center">
 
@@ -63,7 +63,7 @@
 
                 <h1 class="h3 mb-3 fw-normal">Autenticação</h1>
 
-                <h2>STR de Roca</h2>
+                <h2>Web Market</h2>
                 <br>
                 <label for="inputEmail" class="visually-hidden">Email address</label>
                 <input type="email" name="email" id="inputEmail" class="form-control" placeholder="E-mail" required autofocus>
@@ -75,7 +75,7 @@
                 <button class="w-100 btn btn-lg btn-dark" type="submit" value="logar" >Acessar</button>
 
                 <br>
-                <a href="cadastroLogin.jsp" target="_blank">Cadastrar-se</a>
+                <a href="pessoa/cadastroLogin.jsp" target="_blank">Cadastrar-se</a>
                 <%
                     String msg = String.valueOf(request.getAttribute("msgLogin"));
 
