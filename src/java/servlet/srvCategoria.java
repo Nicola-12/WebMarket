@@ -90,7 +90,7 @@ public class srvCategoria extends HttpServlet {
             if (categoria != null) {
                 CategoriaDao excluir = new CategoriaDao();
                 excluir.excluir(Integer.parseInt(id));
-                encaminharPagina("sucesso.jsp", request, response);
+                encaminharPagina("categoria/categoria.jsp", request, response);
             } else {
                 encaminharPagina("error.jsp", request, response);
             }
@@ -117,7 +117,7 @@ public class srvCategoria extends HttpServlet {
             String descricao = request.getParameter("descricao");
 
             if (!descricao.matches("^[A-Za-z ]{5,45}$")) {
-                encaminharPagina("error.jsp", request, response);
+                encaminharPagina("categoria/categoria.jsp", request, response);
                 return;
             } else {
 
@@ -130,11 +130,11 @@ public class srvCategoria extends HttpServlet {
             if (id == 0) {
                 retorno = new CategoriaDao().salvar(categoria);
                 System.out.println("SALVOU");
-                encaminharPagina("sucesso.jsp", request, response);
+                encaminharPagina("categoria/categoria.jsp", request, response);
             } else {
                 retorno = new CategoriaDao().atualizar(categoria);
                 System.out.println("ATUALIZOU");
-                encaminharPagina("sucesso.jsp", request, response);
+                encaminharPagina("ccategoria/ategoria.jsp", request, response);
             }
         }
     }

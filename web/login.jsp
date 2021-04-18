@@ -14,7 +14,7 @@
         <meta name="description" content="">
         <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
         <meta name="generator" content="Hugo 0.80.0">
-        <title>Signin Template · Bootstrap v5.0</title>
+        <title>Login</title>
 
         <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
 
@@ -50,6 +50,14 @@
             #msgErroLogin {
                 color: #0c4128;
             }
+
+            a, a:hover {
+                width: 100%;
+                color: blue;
+                text-decoration: none;
+                font-size: 20px;
+            }
+
         </style>
 
 
@@ -69,13 +77,8 @@
                 <input type="email" name="email" id="inputEmail" class="form-control" placeholder="E-mail" required autofocus>
 
                 <label for="inputPassword" class="visually-hidden">Password</label>
-                <input type="password" name="senha" id="inputPassword" class="form-control" placeholder="Senha" required>
-
+                <input type="password" name="senha" id="inputPassword" pattern="^.{8,22}$" title="De 8 a 22 caracteres" class="form-control" placeholder="Senha" required>
                 <br>
-                <button class="w-100 btn btn-lg btn-dark" type="submit" value="logar" >Acessar</button>
-
-                <br>
-                <a href="pessoa/cadastroLogin.jsp" target="_blank">Cadastrar-se</a>
                 <%
                     String msg = String.valueOf(request.getAttribute("msgLogin"));
 
@@ -89,6 +92,12 @@
                 <%
                     }
                 %>
+                <button class="w-100 btn btn-lg btn-dark" type="submit" value="logar" >Acessar</button>            
+
+                <div class="text-center">
+                    <a href="pessoa/cadastroLogin.jsp" target="_blank">Cadastrar-se</a>
+                </div>
+
 
                 <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
             </form>

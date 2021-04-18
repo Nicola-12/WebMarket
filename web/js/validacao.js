@@ -6,24 +6,15 @@
 
 function validardados() {
     var erro = 0;
-    descricao = document.formCategoria.descricao.value;
-    situacao = document.formCategoria.situacao.value;
+    descricao = document.formCateg.descricao.value;
 
     if (descricao.length < 5)
     {
-        document.formCategoria.descricao.style.backgroundColor = "yellow";
-        document.formCategoria.descricao.focus();
+        document.formCateg.descricao.style.borderColor = "red";
+        document.formCateg.descricao.focus();
         erro++;
     } else {
-        document.formCategoria.descricao.style.backgroundColor = "white";
-    }
-    
-     if (situacao.length < 1 || situacao.length > 1)
-    {
-        document.formCategoria.situacao.style.backgroundColor = "yellow";
-        erro++;
-    } else {
-        document.formCategoria.situacao.style.backgroundColor = "white";
+        document.formCateg.descricao.style.borderColor = "white";
     }
     
     if (erro > 0) {

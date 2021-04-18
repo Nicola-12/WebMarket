@@ -163,7 +163,9 @@ public class srvAcao extends HttpServlet {
 
             if (!nome.matches("^[A-Za-z ]{5,45}$") || nome.isEmpty()) {
                 System.out.println(nome);
-                encaminharPagina("error.jsp", request, response);
+                request.setAttribute("erroEdit", "erro");
+                encaminharPagina("/WebMarket/pessoa/dadosConta.jsp", request, response);
+                return;
             } else if (!nome.isEmpty() && !email.isEmpty() && !telefone.isEmpty() && !endereco.isEmpty()) {
                 f.id = id;
                 f.nome = nome;
@@ -175,6 +177,7 @@ public class srvAcao extends HttpServlet {
 
             if (id != 0) {
                 String retorno = pd.atualizar(f);
+                encaminharPagina("/WebMarket/pessoa/dadosConta.jsp", request, response);
                 System.out.println(retorno);
             }
         } else if (param.equals("mudarSenha")) {

@@ -101,7 +101,7 @@
 
             button {
                 width: 100%;
-               
+
             }
 
             @media screen and (max-width: 750px) {
@@ -149,6 +149,11 @@
                 </label>
 
                 <button type="submit" class="btn btn-dark">Mudar Dados da Conta</button>
+                <%
+                    String msg = String.valueOf(request.getAttribute("erroEdit"));
+                    if (msg.equals("erro")) {       %>
+                <p>Erro ao Editar os Dados da Conta/p>
+                    <% }%>
             </form>
             <form method="post" action="/WebMarket/acao?param=mudarSenha">
                 <h2>Senha e Conta</h2>

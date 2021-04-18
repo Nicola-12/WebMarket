@@ -9,11 +9,10 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <script language="JavaScript" src="/WebMarket/js/validacao.js"></script>
+        <script language="JavaScript" src="../js/validacao.js"></script>
         <%@include file="../menu.jsp" %>
 
         <%            Categoria tg = (Categoria) request.getAttribute("objetoCategoria");
-            Categoria tx = (Categoria) request.getAttribute("excluirCategoria");
             if (tg == null) {
                 tg = new Categoria();
 
@@ -24,7 +23,7 @@
 
         <h1>Cadastro de Categorias</h1>
 
-        <form style="padding: 20px" name='formCateg' method='post' action='/WebMarket/acao?param=salvarCategoria'>
+        <form style="padding: 20px" name='formCateg' method='post' action='/WebMarket/Categoria?param=salvarCategoria' onsubmit="return validardados()">
             <input type="hidden" name="id" value=<%= tg.id%>>
 
 
