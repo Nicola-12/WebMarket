@@ -45,8 +45,8 @@
         <link href="/WebMarket/css/navbar.css" rel="stylesheet">
     </head>
     <body>
-        <% 
-        Pessoa p = new Pessoa();
+        <%
+            Pessoa p = new Pessoa();
         %>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Fourth navbar example">
             <div class="container-fluid">
@@ -58,7 +58,7 @@
                 <div class="collapse navbar-collapse" id="navbarsExample04">
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Início</a>
+                            <a class="nav-link active" aria-current="page" href="/WebMarket/index.jsp" >Início</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Menu 1</a>
@@ -69,9 +69,9 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">Cadastros</a>
                             <ul class="dropdown-menu" aria-labelledby="dropdown04">
-                                <li><a class="dropdown-item" href="categoria/categoria.jsp">Categoria</a></li>
+                                <li><a class="dropdown-item" href="/WebMarket/categoria/categoria.jsp">Categoria</a></li>
                                 <li><a class="dropdown-item" href="select.jsp">Select</a></li>
-                                <li><a class="dropdown-item" href="pesquisaCategoria.jsp">Pesquisar</a></li>
+                                <li><a class="dropdown-item" href="/WebMarket/categoria/pesquisaCategoria.jsp">Pesquisar</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -83,10 +83,6 @@
                             <a class="nav-link dropdown-toggle center" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-user-alt center"></i></a>
                             <ul class="dropdown-menu" aria-labelledby="dropdown04">
-                                <!-- 
-                                FAZER O CADASTRO DE PESSOA
-                                -->
-
                                 <li><a class="dropdown-item" href="/WebMarket/pessoa/dadosConta.jsp">Dados da Conta</a></li>
                                 <li><a class="dropdown-item" href="/WebMarket/acao?param=logout">Deslogar</a></li>
                             </ul>

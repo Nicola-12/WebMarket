@@ -116,7 +116,7 @@ public class srvCategoria extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
             String descricao = request.getParameter("descricao");
 
-            if (!descricao.matches("^[A-Za-z ]{5,45}$")) {
+            if (!descricao.matches("^.{5,45}$")) {
                 encaminharPagina("categoria/categoria.jsp", request, response);
                 return;
             } else {

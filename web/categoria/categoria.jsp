@@ -24,10 +24,10 @@
         <h1>Cadastro de Categorias</h1>
 
         <form style="padding: 20px" name='formCateg' method='post' action='/WebMarket/Categoria?param=salvarCategoria' onsubmit="return validardados()">
-            <input type="hidden" name="id" value=<%= tg.id%>>
+            <input type="hidden" name="id" value="<%= tg.id%>">
 
 
-            <input type="text" name="descricao" placeholder="Descrição" value=<%= tg.descricao%>>
+            <input type="text" name="descricao" placeholder="Descrição" value="<%= tg.descricao%>">
             <br>
 
             <input type="submit" value="salvar">

@@ -49,8 +49,6 @@
             }
         </style>
 
-
-        <!-- Custom styles for this template -->
         <link href="/WebMarket/css/signin.css" rel="stylesheet">
     </head>
     <body class="text-center">

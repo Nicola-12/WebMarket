@@ -6,6 +6,7 @@ import java.sql.SQLException;
 public class Produto {
 
     public Integer id;
+    public String nome;
     public String descricao; //nome
     public double valor; //valor unitário
     public Integer estoque; //quantidade de produtos disponíveis
@@ -17,6 +18,7 @@ public class Produto {
         Produto prod = new Produto();
 
         prod.id = resultSet.getInt("id");
+        prod.nome = resultSet.getString("nome");
         prod.descricao = resultSet.getString("descricao");
         prod.valor = resultSet.getDouble("valor");
         prod.estoque = resultSet.getInt("estoque");
@@ -31,6 +33,7 @@ public class Produto {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("produto{id=").append(id);
+        sb.append("', nome='").append(nome);
         sb.append("', descricao='").append(descricao);
         sb.append("', valor='").append(valor);
         sb.append("', estoque='").append(estoque);

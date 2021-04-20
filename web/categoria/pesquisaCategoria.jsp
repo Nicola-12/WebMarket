@@ -1,39 +1,56 @@
-<%-- 
-    Document   : pesquisaCategoria
-    Created on : 9 de abr. de 2021, 07:03:28
-    Author     : Usuario
---%>
 
-<%@page import="servlet.pesquisa"%>
-<%@page import="entidade.Categoria"%>
+
 <%@page import="java.util.ArrayList"%>
+<%@page import="entidade.Categoria"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="/WebMarket/css/bootstrap.min.css" rel="stylesheet">
         <title>JSP Page</title>
     </head>
     <body>
-        <%@include file="menu.jsp" %>
+        <%@include file="../menu.jsp" %>
+        <style>
+            .pesquisa {
+                display: flex;
+                width: 100%;
+                align-items: center;
+                flex-direction: column;
+            }
+            
+            .titulo {
+                width: 100%;
+                text-align: center;
+            }
+            .btn-pesquisar, .inpPes {
+                margin-top: 15px;
+                width: 25%;
+            }
 
-        <h1>Pesquisa de categorias</h1>
 
-        <form method="post" action="/WebMarket/pesquisa?param=pesquisar">
+        </style>
 
-            <input type="text" name="busca" placeholder="Digite o que deseja pesquisar">
-          
-            <input type="submit" value="Pesquisar">
+
+        <h1 class="titulo" >Pesquisa de categorias</h1>
+
+        <form class="pesquisa" method="post" action="/WebMarket/pesquisa?param=pesquisa">
+
+            <input class="form-control inpPes" type="text" name="campoDeBusca" placeholder="Digite o que deseja pesquisar">
+
+            <button type="submit" class="btn btn-lg btn-dark btn-pesquisar">Pesquisar</button>
 
         </form>
 
-        <%            ArrayList<Categoria> categoria = (ArrayList) request.getAttribute("categoriasPesquisa");
+        <%            ArrayList<Categoria> categs = (ArrayList) request.getAttribute("categoriasPesquisa");
 
             // testar se obj esta nulo.
             // quando viemos do Menu (direto), não há obj em categoriasPesquisa, logo, o cast será NULL
-            if (categoria != null) {
+            if (categs != null) {
 
-                if (categoria.size() == 0) {
+                if (categs.size() == 0) {
         %>  
         <p>Nenhum resultado encontrado.</p>
 
@@ -48,18 +65,16 @@
                 <th>Descrição</th>
                 <th>Criado Em</th>
                 <th>Atualizado Em</th>
-                <th>Ativo</th>
 
                 <%
-                    for (int i = 0; i < categoria.size(); i++) {
-                        Categoria categ = categoria.get(i);
+                    for (int i = 0; i < categs.size(); i++) {
+                        Categoria categ = categs.get(i);
                 %>
                 <tr>
-                    <td><a href='/WebApp2021A/acao?param=edCategoria&id=<%= categ.id%>'><%= categ.id%></a></td>                
+                    <td><a href='/WebMarket/acao?param=edCategoria&id=<%= categ.id%>'><%= categ.id%></a></td>                
                     <td><%= categ.descricao%></td>
                     <td><%= categ.criado_em%></td>
                     <td><%= categ.atualizado_em%></td>
-                    <td><%= categ.ativo%></td>
                 </tr>
 
                 <%

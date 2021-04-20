@@ -5,12 +5,8 @@
  */
 package servlet;
 
-import dao.CategoriaDao;
-import entidade.Categoria;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Usuario
  */
-@WebServlet(name = "pesquisa", urlPatterns = {"/pesquisa"})
-public class pesquisa extends HttpServlet {
+@WebServlet(name = "srvProduto", urlPatterns = {"/srvProduto"})
+public class srvProduto extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +37,10 @@ public class pesquisa extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet pesquisa</title>");
+            out.println("<title>Servlet srvProduto</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet pesquisa at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet srvProduto at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -76,17 +72,7 @@ public class pesquisa extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String param = request.getParameter("param");
-        System.out.println(param);
-        if (param.equals("pesquisar")) {
-            String criterio = request.getParameter("campoDeBusca");
-
-            ArrayList<Categoria> categorias = new CategoriaDao().consultar(criterio);
-
-            request.setAttribute("categoriasPesquisa", categorias);
-
-            encaminharPagina("categoria/pesquisaCategoria.jsp", request, response);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -99,12 +85,4 @@ public class pesquisa extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void encaminharPagina(String pagina, HttpServletRequest request, HttpServletResponse response) {
-        try {
-            RequestDispatcher rd = request.getRequestDispatcher(pagina);
-            rd.forward(request, response);
-        } catch (Exception e) {
-            System.out.println("Erro ao encaminhar: " + e);
-        }
-    }
 }
