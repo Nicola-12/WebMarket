@@ -5,6 +5,8 @@
  */
 package servlet;
 
+import entidade.Categoria;
+import entidade.Produto;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -17,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Usuario
  */
-@WebServlet(name = "srvProduto", urlPatterns = {"/srvProduto"})
+@WebServlet(name = "Produto", urlPatterns = {"/Produto"})
 public class srvProduto extends HttpServlet {
 
     /**
@@ -37,7 +39,7 @@ public class srvProduto extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet srvProduto</title>");            
+            out.println("<title>Servlet srvProduto</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet srvProduto at " + request.getContextPath() + "</h1>");
@@ -72,7 +74,25 @@ public class srvProduto extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        String param = request.getParameter("param");
+        System.out.println(param);
+        if (param.equals("cadastroProduto")) {
+            Produto p = new Produto();
+            int id = Integer.parseInt(request.getParameter("id"));
+            String nome = request.getParameter("nome");
+            String descricao = request.getParameter("descricao");
+            double valor = Double.parseDouble(request.getParameter("valor"));
+            String categoria = request.getParameter("comboCategoria");
+            
+            System.out.println(categoria);
+
+            if (!nome.isEmpty() || !descricao.isEmpty() || valor != 0 || !categoria.equals("Selecione")) {
+
+            } else {
+                return;
+            }
+        }
     }
 
     /**

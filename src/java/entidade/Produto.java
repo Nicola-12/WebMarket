@@ -6,8 +6,8 @@ import java.sql.SQLException;
 public class Produto {
 
     public Integer id;
-    public String nome;
-    public String descricao; //nome
+    public String nome; //nome
+    public String descricao; //descrição detalhada do produto
     public double valor; //valor unitário
     public Integer estoque; //quantidade de produtos disponíveis
     public String unidade; //kilos ou unidades

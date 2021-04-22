@@ -70,7 +70,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">Cadastros</a>
                             <ul class="dropdown-menu" aria-labelledby="dropdown04">
                                 <li><a class="dropdown-item" href="/WebMarket/categoria/categoria.jsp">Categoria</a></li>
-                                <li><a class="dropdown-item" href="select.jsp">Select</a></li>
+                                <li><a class="dropdown-item" href="/WebMarket/produto/cadastroProduto.jsp">Produto</a></li>
                                 <li><a class="dropdown-item" href="/WebMarket/categoria/pesquisaCategoria.jsp">Pesquisar</a></li>
                             </ul>
                         </li>

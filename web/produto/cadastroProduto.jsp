@@ -4,6 +4,10 @@
     Author     : Usuario
 --%>
 
+<%@page import="dao.CategoriaDao"%>
+<%@page import="entidade.Categoria"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="entidade.Produto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -29,6 +33,17 @@
         <title>Cadastro de Produto</title>
     </head>
     <body>
+        
+        <style>
+            form {
+                margin: 5px;
+            }
+            
+            input, textarea, select, button {
+                margin-top: 15px;
+            }
+            
+            </style>
 
         <%
             Produto p = new Produto();
@@ -43,23 +58,38 @@
         %>
 
         <main class="form-signin">
-            <form method="post" action="/WebMarket/acao?param=cadastroPessoa">            
+            <form method="post" action="/WebMarket/Produto?param=cadastroProduto">            
 
                 <h1 class="h3 mb-3 fw-normal">Cadastro de Produto</h1>       
 
                 <input type="hidden" name="id" value=<%= p.id%>>
 
                 <label for="inputNome" class="visually-hidden">Nome</label>
-                <input type="text" name="descricao" id="inputName" class="form-control" autofocus placeholder="Nome*" required value=<%= p.nome%>  > 
-                
-                <label for="inputEndereco" class="visually-hidden">Descrição do Produto</label>
-                <textarea class="form-control" type="text" ></textarea>
-                
-                <label for="inputEmail" class="visually-hidden">Email address</label>
-                <input type="email" name="email" id="inputEmail" class="form-control" placeholder="E-mail*" required value=<%= p.unidade%>>
+                <input type="text" name="nome" id="inputName" class="form-control" autofocus placeholder="Nome*" required value=<%= p.nome%>  > 
 
-                <label for="inputEndereco" class="visually-hidden">Endereco</label>
-                <input type="endereco" name="endereco" id="inputEndereco" class="form-control" placeholder="Endereço" value=<%= p.valor%> >
+                <label for="inputEndereco" class="visually-hidden">Descrição do Produto</label>
+                <textarea class="form-control" name="descricao" type="text" ></textarea>
+
+                <label for="inputEmail" class="visually-hidden">Unidade</label>
+                <input type="text" name="unidade" id="inputEmail" class="form-control" placeholder="E-mail*" required value=<%= p.unidade%>>
+
+                <label for="inputEndereco" class="visually-hidden">Valor</label>
+                <input type="endereco" name="valor" pattern="(.[0-9])+" id="inputEndereco" class="form-control" placeholder="Endereço" value=<%= p.valor%> >
+
+                <label for="inputEndereco" class="visually-hidden">Categoria do Produto</label>
+                <select name="comboCategoria" class="form-select form-select-lg" aria-label=".form-select-sm example">
+                    <option value="0">Selecione</option>
+                    <%
+                        ArrayList<Categoria> categorias = new CategoriaDao().consultarTodos();
+
+                        for (int i = 0; i < categorias.size(); i++) {
+                    %>
+
+                    <option value="<%= categorias.get(i).id%>"><%= categorias.get(i).descricao%></option>
+                    <%
+                        }
+                    %>
+                </select>
 
                 <button class="w-100 btn btn-lg btn-dark" type="submit" value="Salvar" >Cadastrar</button>
 
