@@ -20,7 +20,7 @@
                 align-items: center;
                 flex-direction: column;
             }
-            
+
             .titulo {
                 width: 100%;
                 text-align: center;
@@ -30,13 +30,26 @@
                 width: 25%;
             }
 
+            h2 {
+                margin-top: 1.5em;
+                width: 100%;
+                text-align: center;
+            }
+
+            .table {
+                width: 70%;
+                margin: auto;
+                border: 1px solid;
+                border-radius: 10px 5%;
+            }
+
 
         </style>
 
 
         <h1 class="titulo" >Pesquisa de categorias</h1>
 
-        <form class="pesquisa" method="post" action="/WebMarket/pesquisa?param=pesquisa">
+        <form class="pesquisa" method="post" action="/WebMarket/pesquisa?param=pesquisar">
 
             <input class="form-control inpPes" type="text" name="campoDeBusca" placeholder="Digite o que deseja pesquisar">
 
@@ -60,16 +73,15 @@
         <h2>Resultados</h2>
 
         <div class="table-responsive">
-            <table class="table table-striped table-sm">
+            <table class="table table-sm table-bordered">
                 <th>Id</th>
                 <th>Descrição</th>
                 <th>Criado Em</th>
-                <th>Atualizado Em</th>
-
-                <%
-                    for (int i = 0; i < categs.size(); i++) {
-                        Categoria categ = categs.get(i);
-                %>
+                <th>Atualizado Em</th>                                
+                    <%
+                        for (int i = 0; i < categs.size(); i++) {
+                            Categoria categ = categs.get(i);
+                    %>
                 <tr>
                     <td><a href='/WebMarket/acao?param=edCategoria&id=<%= categ.id%>'><%= categ.id%></a></td>                
                     <td><%= categ.descricao%></td>
