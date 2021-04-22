@@ -22,7 +22,7 @@ public class ProdutoDao implements IDAO<Produto> {
                     + "'" + o.estoque + "',"
                     + "'" + o.unidade + "',"
                     + "'" + o.id_categoria + "',"
-                    + "'" + o.ativo + "',"
+                    + "'ativo',"
                     + " 'now()',"
                     + "' null '";
 

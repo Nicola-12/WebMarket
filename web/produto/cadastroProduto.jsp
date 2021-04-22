@@ -74,7 +74,7 @@
                 <input type="text" name="unidade" id="inputEmail" class="form-control" placeholder="E-mail*" required value=<%= p.unidade%>>
 
                 <label for="inputEndereco" class="visually-hidden">Valor</label>
-                <input type="endereco" name="valor" pattern="(.[0-9])+" id="inputEndereco" class="form-control" placeholder="Endereço" value=<%= p.valor%> >
+                <input type="endereco" name="valor" pattern="\d+(?:.\d+)?" id="inputEndereco" class="form-control" placeholder="Endereço" value=<%= p.valor%> >
 
                 <label for="inputEndereco" class="visually-hidden">Categoria do Produto</label>
                 <select name="comboCategoria" class="form-select form-select-lg" aria-label=".form-select-sm example">
@@ -90,6 +90,7 @@
                         }
                     %>
                 </select>
+                <label>Ativo: <input type="checkbox" name="checkbox"></input></label>
 
                 <button class="w-100 btn btn-lg btn-dark" type="submit" value="Salvar" >Cadastrar</button>
 

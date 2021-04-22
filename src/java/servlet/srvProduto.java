@@ -83,17 +83,20 @@ public class srvProduto extends HttpServlet {
             String nome = request.getParameter("nome");
             String descricao = request.getParameter("descricao");
             double valor = Double.parseDouble(request.getParameter("valor"));
-            String categoria = request.getParameter("comboCategoria");
+            int idCategoria = Integer.parseInt(request.getParameter("comboCategoria"));
+            String check = request.getParameter("checkbox") != null ? "ativo" : "inativo" ;
+            System.out.println(check);
             
-            System.out.println(categoria);
 
-            if (!nome.isEmpty() || !descricao.isEmpty() || valor != 0 || !categoria.equals("Selecione")) {
-
+            if (!nome.isEmpty() || !descricao.isEmpty() || valor != 0 || idCategoria != 0 ) {
+           
+                }
             } else {
+                System.out.println("CHECK BOX NULL");
                 return;
             }
         }
-    }
+    
 
     /**
      * Returns a short description of the servlet.
