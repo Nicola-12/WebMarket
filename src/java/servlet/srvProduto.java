@@ -5,10 +5,12 @@
  */
 package servlet;
 
+import dao.ProdutoDao;
 import entidade.Categoria;
 import entidade.Produto;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -83,29 +85,55 @@ public class srvProduto extends HttpServlet {
             String nome = request.getParameter("nome");
             String descricao = request.getParameter("descricao");
             double valor = Double.parseDouble(request.getParameter("valor"));
+            String estoque = request.getParameter("estoque");
             int idCategoria = Integer.parseInt(request.getParameter("comboCategoria"));
-            String check = request.getParameter("checkbox") != null ? "ativo" : "inativo" ;
+            String check = request.getParameter("checkbox") != null ? "ativo" : "inativo";
             System.out.println(check);
-            
 
-            if (!nome.isEmpty() || !descricao.isEmpty() || valor != 0 || idCategoria != 0 ) {
-           
-                }
+            if (!nome.isEmpty() || !descricao.isEmpty() || valor != 0
+                    || estoque.matches("^\\d$|^[1-9]\\d{1,5}$") || idCategoria != 0) {
+
+                p.id = id;
+                p.nome = nome;
+                p.descricao = descricao;
+                p.valor = valor;
+                p.estoque = Integer.parseInt(estoque);
+                p.ativo = check;
+                p.id_categoria = idCategoria;
             } else {
-                System.out.println("CHECK BOX NULL");
+                return;
+            }
+            String retorno = null;
+            
+            if (id == 0 ){
+                retorno = new ProdutoDao().salvar(p);
+                System.out.println("SALVOU");
+                encaminharPagina("/WebMarket/produto/cadastroProduto.jsp", request, response);
+            } else {
+                System.out.println("ERROOO");
                 return;
             }
         }
-    
+    }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
+        /**
+         * Returns a short description of the servlet.
+         *
+         * @return a String containing servlet description
+         */
+        @Override
+        public String getServletInfo
+        
+            () {
         return "Short description";
-    }// </editor-fold>
+        }// </editor-fold>
 
-}
+            private void encaminharPagina(String pagina, HttpServletRequest request, HttpServletResponse response) {
+        try {
+            RequestDispatcher rd = request.getRequestDispatcher(pagina);
+            rd.forward(request, response);
+        } catch (Exception e) {
+            System.out.println("Erro ao encaminhar: " + e);
+        }
+    }
+    }

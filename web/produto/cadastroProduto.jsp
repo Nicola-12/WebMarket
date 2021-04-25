@@ -33,17 +33,17 @@
         <title>Cadastro de Produto</title>
     </head>
     <body>
-        
+
         <style>
             form {
                 margin: 5px;
             }
-            
+
             input, textarea, select, button {
                 margin-top: 15px;
             }
-            
-            </style>
+
+        </style>
 
         <%
             Produto p = new Produto();
@@ -53,7 +53,6 @@
             p.descricao = "";
             p.estoque = 0;
             p.id_categoria = 0;
-            p.unidade = "";
             p.valor = 0.0;
         %>
 
@@ -62,19 +61,19 @@
 
                 <h1 class="h3 mb-3 fw-normal">Cadastro de Produto</h1>       
 
-                <input type="hidden" name="id" value=<%= p.id%>>
+                <input type="hidden" name="id" value="<%= p.id%>">
 
                 <label for="inputNome" class="visually-hidden">Nome</label>
-                <input type="text" name="nome" id="inputName" class="form-control" autofocus placeholder="Nome*" required value=<%= p.nome%>  > 
+                <input type="text" name="nome" class="form-control" autofocus required value="<%= p.nome%>"  > 
 
                 <label for="inputEndereco" class="visually-hidden">Descrição do Produto</label>
-                <textarea class="form-control" name="descricao" type="text" ></textarea>
+                <textarea class="form-control" name="descricao" type="text" required value="<%=p.descricao%>" ></textarea>
 
-                <label for="inputEmail" class="visually-hidden">Unidade</label>
-                <input type="text" name="unidade" id="inputEmail" class="form-control" placeholder="E-mail*" required value=<%= p.unidade%>>
+                <label for="inputEmail" class="visually-hidden">Quantidade</label>
+                <input type="text" name="estoque" class="form-control" pattern="\d|[1-9]\d+" title="Somente Valores Inteiros" required value="<%= p.estoque%>">
 
                 <label for="inputEndereco" class="visually-hidden">Valor</label>
-                <input type="endereco" name="valor" pattern="\d+(?:.\d+)?" id="inputEndereco" class="form-control" placeholder="Endereço" value=<%= p.valor%> >
+                <input type="text" name="valor" pattern="\d+(?:.\d+)?" class="form-control" value="<%= p.valor%>" >
 
                 <label for="inputEndereco" class="visually-hidden">Categoria do Produto</label>
                 <select name="comboCategoria" class="form-select form-select-lg" aria-label=".form-select-sm example">

@@ -15,16 +15,16 @@ public class ProdutoDao implements IDAO<Produto> {
         try {
             Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
 
-            String sql = "INSERT INTO produto VALUES"
-                    + "default,"
+            String sql = "INSERT INTO produto VALUES "
+                    + "(default,"
                     + "'" + o.descricao + "',"
                     + "'" + o.valor + "',"
                     + "'" + o.estoque + "',"
-                    + "'" + o.unidade + "',"
                     + "'" + o.id_categoria + "',"
-                    + "'ativo',"
-                    + " 'now()',"
-                    + "' null '";
+                    + "'" + o.ativo + "',"
+                    + " now(),"
+                    + " now(), "
+                    + "'" + o.nome + "')";
 
             System.out.println("SQL: " + sql);
 
@@ -46,9 +46,10 @@ public class ProdutoDao implements IDAO<Produto> {
                     + "descricao=" + o.descricao + ","
                     + "valor=" + o.valor + ","
                     + "quantidade=" + o.estoque + ","
-                    + "unidade=" + o.unidade + ","
                     + "id_categoria=" + o.id_categoria + ","
-                    + "ativo=" + o.ativo + " "
+                    + "ativo=" + o.ativo + ", "
+                    + "updated_at= now(), "
+                    + "nome =" + o.nome + " "
                     + "WHERE id= " + o.id;
 
             System.out.println("SQL: " + sql);
@@ -80,7 +81,7 @@ public class ProdutoDao implements IDAO<Produto> {
             return e.toString();
         }
     }
-    
+
     public ArrayList<Produto> consultarTodos() {
         String sql = "SELECT * FROM produto WHERE status <> false";
         try {
@@ -125,7 +126,7 @@ public class ProdutoDao implements IDAO<Produto> {
 
     @Override
     public Produto consultarId(int id) {
-    String sql = "SELECT * FROM produto WHERE id=" + id;
+        String sql = "SELECT * FROM produto WHERE id=" + id;
         try {
             ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
             if (result.next()) {
