@@ -30,7 +30,7 @@
         <meta name="theme-color" content="#7952b3">
 
 
-        <title>Cadastro de Produto</title>
+        <title>Produto</title>
     </head>
     <body>
 
@@ -46,14 +46,17 @@
         </style>
 
         <%
-            Produto p = new Produto();
+            Produto p = (Produto) request.getAttribute("objetoProduto");
+            if (p == null) {
+                p = new Produto();
 
-            p.id = 0;
-            p.nome = "";
-            p.descricao = "";
-            p.estoque = 0;
-            p.id_categoria = 0;
-            p.valor = 0.0;
+                p.id = 0;
+                p.nome = "";
+                p.descricao = "";
+                p.estoque = 0;
+                p.id_categoria = 0;
+                p.valor = 0.0;
+            }
         %>
 
         <main class="form-signin">

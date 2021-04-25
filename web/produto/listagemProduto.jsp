@@ -1,12 +1,12 @@
 <%-- 
-    Document   : listagemCategoria
-    Created on : 4 de abr de 2021, 20:41:13
+    Document   : listagemProduto
+    Created on : 25 de abr de 2021, 09:58:58
     Author     : STI
 --%>
 
-<%@page import="dao.CategoriaDao"%>
-<%@page import="entidade.Categoria"%>
+<%@page import="dao.ProdutoDao"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="entidade.Produto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,13 +15,13 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" 
               integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" 
               crossorigin="anonymous" />
-        <title>JSP Page</title>
+        
     </head>
     <body>
         <h1>Listagem de Categorias</h1>
 
         <%
-            ArrayList<Categoria> listCateg = new CategoriaDao().consultarTodos();
+            ArrayList<Produto> listProd = new ProdutoDao().consultarTodos();
 
 
         %>
@@ -32,23 +32,27 @@
                 <th>Excluir</th>
                 <th>Id</th>
                 <th>Descrição</th>
-                <th>Criado Em</th>
-                <th>Atualizado Em</th>
+                <th>Nome</th>
+                <th>Valor</th>
+                <th>Quantidade</th>
+                <th>Id da Categoria</th>
                 <th>Ativo</th>
-                    <%                        if (listCateg == null) {
+                    <%                        if (listProd == null) {
                             out.print("NAO CONTEM NADA");
                         } else {
-                            for (int i = 0; i < listCateg.size(); i++) {
-                                Categoria c = listCateg.get(i);
+                            for (int i = 0; i < listProd.size(); i++) {
+                                Produto c = listProd.get(i);
                     %>
 
                 <tr>
-                    <td><a href='/WebMarket/acao?param=edCategoria&id=<%= c.id%>'><i class="far fa-edit center"></i></a></td>
-                    <td><a href='/WebMarket/acao?param=exCategoria&id=<%= c.id%>'><i class="far fa-trash-alt"></i></a></td>
+                    <td><a href='/WebMarket/produto?param=edProduto&id=<%= c.id%>'><i class="far fa-edit center"></i></a></td>
+                    <td><a href='/WebMarket/produto?param=exProduto&id=<%= c.id%>'><i class="far fa-trash-alt"></i></a></td>
                     <td><%= c.id%></td>                
                     <td><%= c.descricao%></td>
-                    <td><%= c.criado_em%></td>
-                    <td><%= c.atualizado_em%></td>
+                    <td><%= c.nome%></td>
+                    <td><%= c.valor%></td>
+                    <td><%= c.estoque%></td>
+                    <td><%= c.id_categoria%></td>
                     <td><%= c.ativo%></td>
                 </tr>
                 <%

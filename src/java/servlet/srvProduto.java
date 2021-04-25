@@ -62,7 +62,25 @@ public class srvProduto extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String param = request.getParameter("param");
+        
+        if (param.equals("edProduto")) {
+
+            String id = request.getParameter("id");
+
+            Produto produto = (Produto) new ProdutoDao().consultarId(Integer.parseInt(id));
+            System.out.println(produto);
+
+            if (produto != null) {
+
+                request.setAttribute("objetoProduto", produto);
+
+                encaminharPagina("cadastroProduto.jsp", request, response);
+            } else {
+                encaminharPagina("error.jsp", request, response);
+            }
+
+        }
     }
 
     /**
