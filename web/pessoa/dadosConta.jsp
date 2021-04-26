@@ -132,7 +132,7 @@
 
                 <input type="hidden" name="id" value="<%=f.id%>">
 
-                <label for="Email">Nome *
+                <label for="Nome">Nome *
                     <input type="text" name="nome" class="form-control" value="<%= f.nome%>" required autofocus>
                 </label>
 

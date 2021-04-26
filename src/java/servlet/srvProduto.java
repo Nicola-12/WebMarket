@@ -75,7 +75,7 @@ public class srvProduto extends HttpServlet {
 
                 request.setAttribute("objetoProduto", produto);
 
-                encaminharPagina("cadastroProduto.jsp", request, response);
+                encaminharPagina("/WebMarket/produto/cadastroProduto.jsp", request, response);
             } else {
                 encaminharPagina("error.jsp", request, response);
             }
@@ -148,8 +148,7 @@ public class srvProduto extends HttpServlet {
 
             private void encaminharPagina(String pagina, HttpServletRequest request, HttpServletResponse response) {
         try {
-            RequestDispatcher rd = request.getRequestDispatcher(pagina);
-            rd.forward(request, response);
+            response.sendRedirect(pagina);
         } catch (Exception e) {
             System.out.println("Erro ao encaminhar: " + e);
         }

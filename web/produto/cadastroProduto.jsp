@@ -35,13 +35,39 @@
     <body>
 
         <style>
-            form {
-                margin: 5px;
+
+            html, body {
+                width: 100%;
+                height: 100vh;
             }
 
-            input, textarea, select, button {
-                margin-top: 15px;
+            main {
+                display: grid;
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr 1fr;
+                place-items: center;
+               
+         
             }
+            body {
+                display: grid;
+
+                align-items: center;
+
+            }
+            form {
+                width: 70%;
+                max-width: 700px;
+            }
+
+            label, input {
+                width: 100%;
+            }
+
+            button {
+                width: 100%;
+            }
+
 
         </style>
 
@@ -59,45 +85,52 @@
             }
         %>
 
-        <main class="form-signin">
+        <main>
             <form method="post" action="/WebMarket/Produto?param=cadastroProduto">            
 
                 <h1 class="h3 mb-3 fw-normal">Cadastro de Produto</h1>       
 
                 <input type="hidden" name="id" value="<%= p.id%>">
 
-                <label for="inputNome" class="visually-hidden">Nome</label>
-                <input type="text" name="nome" class="form-control" autofocus required value="<%= p.nome%>"  > 
+                <label for="inputNome">Nome*
+                    <input type="text" name="nome" class="form-control" autofocus required value="<%= p.nome%>"  > 
+                </label>
 
-                <label for="inputEndereco" class="visually-hidden">Descrição do Produto</label>
-                <textarea class="form-control" name="descricao" type="text" required value="<%=p.descricao%>" ></textarea>
+                <label for="inputDescricao">Descrição do Produto*
+                    <textarea class="form-control" name="descricao" placeholder="Descrição Detalhada do Produto*" type="text" required value="<%=p.descricao%>" ></textarea>
+                </label>
 
-                <label for="inputEmail" class="visually-hidden">Quantidade</label>
-                <input type="text" name="estoque" class="form-control" pattern="\d|[1-9]\d+" title="Somente Valores Inteiros" required value="<%= p.estoque%>">
+                <label for="inputQuantidade">Quantidade*
+                    <input type="text" name="estoque" class="form-control" placeholder="Quantidade*" pattern="\d|[1-9]\d+" title="Somente Valores Inteiros" required value="<%= p.estoque%>" >
+                </label>
 
-                <label for="inputEndereco" class="visually-hidden">Valor</label>
-                <input type="text" name="valor" pattern="\d+(?:.\d+)?" class="form-control" value="<%= p.valor%>" >
+                <label for="inputValor" >Valor*
+                    <input type="text" name="valor" pattern="\d+(?:.\d+)?" class="form-control" value="<%= p.valor%>" >
+                </label>
 
-                <label for="inputEndereco" class="visually-hidden">Categoria do Produto</label>
-                <select name="comboCategoria" class="form-select form-select-lg" aria-label=".form-select-sm example">
-                    <option value="0">Selecione</option>
-                    <%
-                        ArrayList<Categoria> categorias = new CategoriaDao().consultarTodos();
+                <label for="inputCategoria" >Categoria do Produto*
+                    <select name="comboCategoria" class="form-select form-select-lg" aria-label=".form-select-sm example">
+                        <option value="0">Selecione</option>
+                        <%
+                            ArrayList<Categoria> categorias = new CategoriaDao().consultarTodos();
 
-                        for (int i = 0; i < categorias.size(); i++) {
-                    %>
+                            for (int i = 0; i < categorias.size(); i++) {
+                        %>
 
-                    <option value="<%= categorias.get(i).id%>"><%= categorias.get(i).descricao%></option>
-                    <%
-                        }
-                    %>
-                </select>
+                        <option value="<%= categorias.get(i).id%>"><%= categorias.get(i).descricao%></option>
+                        <%
+                            }
+                        %>
+                    </select>
+                </label>
                 <label>Ativo: <input type="checkbox" name="checkbox"></input></label>
 
-                <button class="w-100 btn btn-lg btn-dark" type="submit" value="Salvar" >Cadastrar</button>
+                <button class="btn btn-lg btn-dark" type="submit" value="Salvar" >Cadastrar</button>
 
+               
                 <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
             </form>
+
         </main>
 
     </body>

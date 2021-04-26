@@ -146,7 +146,7 @@ public class srvAcao extends HttpServlet {
             String retorno = null;
             if (id == 0) {
                 retorno = new PessoaDao().salvar(p);
-                encaminharPagina("sucesso.jsp", request, response);
+                encaminharPagina("/WebMarket/login.jsp", request, response);
             }
         } else if (param.equals("editarPessoa")) {
             PessoaDao pd = new PessoaDao();

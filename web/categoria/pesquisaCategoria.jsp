@@ -83,7 +83,7 @@
                             Categoria categ = categs.get(i);
                     %>
                 <tr>
-                    <td><a href='/WebMarket/acao?param=edCategoria&id=<%= categ.id%>'><%= categ.id%></a></td>                
+                    <td><%= categ.id%></td>                
                     <td><%= categ.descricao%></td>
                     <td><%= categ.criado_em%></td>
                     <td><%= categ.atualizado_em%></td>

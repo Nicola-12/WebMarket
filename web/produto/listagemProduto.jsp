@@ -18,7 +18,7 @@
         
     </head>
     <body>
-        <h1>Listagem de Categorias</h1>
+        <h1>Listagem de Produtos</h1>
 
         <%
             ArrayList<Produto> listProd = new ProdutoDao().consultarTodos();

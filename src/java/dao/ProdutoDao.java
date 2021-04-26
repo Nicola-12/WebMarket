@@ -18,13 +18,13 @@ public class ProdutoDao implements IDAO<Produto> {
             String sql = "INSERT INTO produto VALUES "
                     + "(default,"
                     + "'" + o.descricao + "',"
+                    + "'" + o.nome + "',"
                     + "'" + o.valor + "',"
                     + "'" + o.estoque + "',"
                     + "'" + o.id_categoria + "',"
                     + "'" + o.ativo + "',"
                     + " now(),"
-                    + " now(), "
-                    + "'" + o.nome + "')";
+                    + " now() ) ";
 
             System.out.println("SQL: " + sql);
 
@@ -43,13 +43,13 @@ public class ProdutoDao implements IDAO<Produto> {
             Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
 
             String sql = "UPDATE produto SET "
-                    + "descricao=" + o.descricao + ","
-                    + "valor=" + o.valor + ","
-                    + "quantidade=" + o.estoque + ","
-                    + "id_categoria=" + o.id_categoria + ","
-                    + "ativo=" + o.ativo + ", "
-                    + "updated_at= now(), "
-                    + "nome =" + o.nome + " "
+                    + "descricao='" + o.descricao + "',"
+                    + "nome ='" + o.nome + "', "
+                    + "valor='" + o.valor + "',"
+                    + "quantidade='" + o.estoque + "',"
+                    + "id_categoria='" + o.id_categoria + "',"
+                    + "ativo='" + o.ativo + "', "
+                    + "updated_at= now() "
                     + "WHERE id= " + o.id;
 
             System.out.println("SQL: " + sql);
@@ -83,7 +83,7 @@ public class ProdutoDao implements IDAO<Produto> {
     }
 
     public ArrayList<Produto> consultarTodos() {
-        String sql = "SELECT * FROM produto WHERE status <> false";
+        String sql = "SELECT * FROM produto WHERE ativo = 'ativo'";
         try {
             ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
             ArrayList<Produto> produto = new ArrayList<>();
