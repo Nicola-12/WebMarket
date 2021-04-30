@@ -86,7 +86,7 @@
         %>
 
         <main>
-            <form method="post" action="/WebMarket/Produto?param=cadastroProduto">            
+            <form method="post" enctype="multipart/form-data" action="/WebMarket/Produto?param=cadastroProduto">            
 
                 <h1 class="h3 mb-3 fw-normal">Cadastro de Produto</h1>       
 
@@ -106,6 +106,10 @@
 
                 <label for="inputValor" >Valor*
                     <input type="text" name="valor" pattern="\d+(?:.\d+)?" class="form-control" value="<%= p.valor%>" >
+                </label>
+                
+                <label for="inputValor" >Valor*
+                    <input type="file" >
                 </label>
 
                 <label for="inputCategoria" >Categoria do Produto*
