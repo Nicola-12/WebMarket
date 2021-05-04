@@ -8,14 +8,21 @@ package servlet;
 import dao.ProdutoDao;
 import entidade.Categoria;
 import entidade.Produto;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import org.apache.tomcat.dbcp.dbcp2.Utils;
 
 /**
  *
@@ -23,6 +30,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "Produto", urlPatterns = {"/Produto"})
 public class srvProduto extends HttpServlet {
+
+    Produto p = new Produto();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -63,7 +72,7 @@ public class srvProduto extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String param = request.getParameter("param");
-        
+
         if (param.equals("edProduto")) {
 
             String id = request.getParameter("id");
@@ -96,9 +105,12 @@ public class srvProduto extends HttpServlet {
             throws ServletException, IOException {
 
         String param = request.getParameter("param");
+
         System.out.println(param);
-        if (param.equals("cadastroProduto")) {
-            Produto p = new Produto();
+
+        if (param.equals(
+                "cadastroProduto")) {
+            System.out.println(request.getParameter("id"));
             int id = Integer.parseInt(request.getParameter("id"));
             String nome = request.getParameter("nome");
             String descricao = request.getParameter("descricao");
@@ -106,7 +118,6 @@ public class srvProduto extends HttpServlet {
             String estoque = request.getParameter("estoque");
             int idCategoria = Integer.parseInt(request.getParameter("comboCategoria"));
             String check = request.getParameter("checkbox") != null ? "ativo" : "inativo";
-            System.out.println(check);
 
             if (!nome.isEmpty() || !descricao.isEmpty() || valor != 0
                     || estoque.matches("^\\d$|^[1-9]\\d{1,5}$") || idCategoria != 0) {
@@ -122,8 +133,8 @@ public class srvProduto extends HttpServlet {
                 return;
             }
             String retorno = null;
-            
-            if (id == 0 ){
+
+            if (id == 0) {
                 retorno = new ProdutoDao().salvar(p);
                 System.out.println("SALVOU");
                 encaminharPagina("/WebMarket/produto/cadastroProduto.jsp", request, response);
@@ -132,25 +143,24 @@ public class srvProduto extends HttpServlet {
                 return;
             }
         }
+
     }
 
-        /**
-         * Returns a short description of the servlet.
-         *
-         * @return a String containing servlet description
-         */
-        @Override
-        public String getServletInfo
-        
-            () {
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
         return "Short description";
-        }// </editor-fold>
+    }// </editor-fold>
 
-            private void encaminharPagina(String pagina, HttpServletRequest request, HttpServletResponse response) {
+    private void encaminharPagina(String pagina, HttpServletRequest request, HttpServletResponse response) {
         try {
             response.sendRedirect(pagina);
         } catch (Exception e) {
             System.out.println("Erro ao encaminhar: " + e);
         }
     }
-    }
+}

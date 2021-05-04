@@ -43,17 +43,14 @@
                             parcela = String.format("%.2f", parcelas = pd.valor / 6);
                             vezes = 6;
                         }
-            %>
-            <a class="corpo"> 
-                <div class="imagem">
-                    <picture></picture>
-                </div>
-                <span class="texto"><%= pd.nome%></span>
-                <div class="preco">
-                    <p><%=pd.valor%></p>
-                    <p><%=vezes%>x de <%= parcela%> sem juros no cartão</p>
-                </div>
-            </a>
+            %>          
+            <div class="card">
+                <img src="http://localhost:7777/images/<%=pd.file%>" alt="Alguma Coisa" style="width:100%">
+                <h1><%= pd.nome%></h1>
+                <p class="price"><%= pd.valor%></p>
+                <p><%= pd.descricao%></p>
+                <p><button>Add to Cart</button></p>
+            </div>
             <% }
                 }
             %>

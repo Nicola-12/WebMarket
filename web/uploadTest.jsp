@@ -1,3 +1,5 @@
+<%@page import="dao.ProdutoDao"%>
+<%@page import="entidade.Produto"%>
 <%@ page import = "java.io.*,java.util.*, javax.servlet.*" %>
 <%@ page import = "javax.servlet.http.*" %>
 <%@ page import = "org.apache.commons.fileupload.*" %>
@@ -6,77 +8,84 @@
 <%@ page import = "org.apache.commons.io.output.*" %>
 
 <%
-   File file ;
-   int maxFileSize = 5000 * 1024;
-   int maxMemSize = 5000 * 1024;
-   ServletContext context = pageContext.getServletContext();
-   String filePath = context.getInitParameter("file-upload") + "/";
-   new File(filePath).mkdirs();
+    int maxFileSize = 5000 * 1024;
+    int maxMemSize = 5000 * 1024;
+    ServletContext context = pageContext.getServletContext();
+    String filePath = context.getInitParameter("file-upload") + "/";
+    new File(filePath).mkdirs();
 
-   // Verify the content type
-   String contentType = request.getContentType();
-   
-   if ((contentType.indexOf("multipart/form-data") >= 0)) {
-      DiskFileItemFactory factory = new DiskFileItemFactory();
-      // maximum size that will be stored in memory
-      factory.setSizeThreshold(maxMemSize);
-      
-      // Location to save data that is larger than maxMemSize.
-      factory.setRepository(new File("./temp"));
+    // Verify the content type
+    String contentType = request.getContentType();
 
-      // Create a new file upload handler
-      ServletFileUpload upload = new ServletFileUpload(factory);
-      
-      // maximum file size to be uploaded.
-      upload.setSizeMax( maxFileSize );
-      
-         // Parse the request to get file items.
-         List fileItems = upload.parseRequest(request);
+    if ((contentType.indexOf("multipart/form-data") >= 0)) {
+        DiskFileItemFactory factory = new DiskFileItemFactory();
+        // maximum size that will be stored in memory
+        factory.setSizeThreshold(maxMemSize);
 
-         // Process the uploaded file items
-         Iterator i = fileItems.iterator();
+        // Location to save data that is larger than maxMemSize.
+        factory.setRepository(new File("./temp"));
 
-         out.println("<html>");
-         out.println("<head>");
-         out.println("<title>JSP File upload</title>");  
-         out.println("</head>");
-         out.println("<body>");
-         
-         while ( i.hasNext () ) {
-            FileItem fi = (FileItem)i.next();
-            if ( !fi.isFormField () ) {
-               // Get the uploaded file parameters
-               String fieldName = fi.getFieldName();
-               String fileName = fi.getName();
-               boolean isInMemory = fi.isInMemory();
-               long sizeInBytes = fi.getSize();
-               System.out.println("Working Directory = " + System.getProperty("user.dir"));
-                System.out.println("Working Directory = " + new File(".").getAbsolutePath());
-               // Write the file
-               if( fileName.lastIndexOf("/") >= 0 ) {
-                  file = new File( filePath + 
-                  fileName.substring( fileName.lastIndexOf("/"))) ;
-               } else {
-                  file = new File( filePath + 
-                  fileName.substring(fileName.lastIndexOf("/")+1)) ;
-               }
-               file.createNewFile();
-               fi.write( file ) ;
-               out.println("Uploaded Filename: " + filePath + 
-               fileName + "<br>");
+        // Create a new file upload handler
+        ServletFileUpload upload = new ServletFileUpload(factory);
+
+        // maximum file size to be uploaded.
+        upload.setSizeMax(maxFileSize);
+
+        // Parse the request to get file items.
+        List fileItems = upload.parseRequest(request);
+
+        // Process the uploaded file items
+        Iterator i = fileItems.iterator();
+
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>JSP File upload</title>");
+        out.println("</head>");
+        out.println("<body>");
+
+        HashMap<String, String> params = new HashMap();
+
+        while (i.hasNext()) {
+            FileItem fi = (FileItem) i.next();
+            if (!fi.isFormField()) {
+                // Get the uploaded file parameters
+                if (fi.getContentType() != "image/png" || fi.getFieldName() != "file") {
+                    // DA ERRO   
+                }
+
+                String imageUrl = UUID.randomUUID().toString() + ".png";
+                // Write the file
+                File file = new File(filePath + imageUrl);
+                file.createNewFile();
+                fi.write(file);
+                params.put("imageUrl", imageUrl);
+            } else {
+                params.put(fi.getFieldName(), fi.getString());
             }
-         }
-         out.println("</body>");
-         out.println("</html>");
-      
-   } else {
-      out.println("<html>");
-      out.println("<head>");
-      out.println("<title>Servlet upload</title>");  
-      out.println("</head>");
-      out.println("<body>");
-      out.println("<p>No file uploaded</p>"); 
-      out.println("</body>");
-      out.println("</html>");
-   }
+        }
+
+        Produto p = new Produto();
+        ProdutoDao pdao = new ProdutoDao();
+        p.nome = params.get("nome");
+        p.descricao = params.get("descricao");
+        p.valor = Double.parseDouble(params.get("valor"));
+        p.file = params.get("imageUrl");
+        p.estoque = Integer.parseInt(params.get("estoque"));
+        p.id_categoria = Integer.parseInt(params.get("comboCategoria"));
+        p.ativo = params.containsKey("checkbox") ? "ativo" : "inativo";
+        pdao.salvar(p);
+        response.sendRedirect("/WebMarket/produto/cadastroProduto.jsp");
+        out.println("</body>");
+        out.println("</html>");
+
+    } else {
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>Servlet upload</title>");
+        out.println("</head>");
+        out.println("<body>");
+        out.println("<p>No file uploaded</p>");
+        out.println("</body>");
+        out.println("</html>");
+    }
 %>

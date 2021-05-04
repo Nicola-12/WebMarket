@@ -12,6 +12,7 @@ public class Produto {
     public Integer estoque; //quantidade de produtos disponíveis
     public Integer id_categoria; //puxa o nome da categoria baseado no id
     public String ativo; //ativo (visível) ou inativo (invisível)
+    public String file; // Salva uma Img
 
     public static Produto from(ResultSet resultSet) throws SQLException {
         Produto prod = new Produto();
@@ -23,6 +24,7 @@ public class Produto {
         prod.id_categoria = resultSet.getInt("id_categoria");
         prod.ativo = resultSet.getString("ativo");
         prod.nome = resultSet.getString("nome");
+        prod.file = resultSet.getString("file");
 
         return prod;
     }
@@ -37,6 +39,7 @@ public class Produto {
         sb.append("', id_categoria='").append(id_categoria);
         sb.append("', ativo='").append(ativo);
         sb.append("', nome='").append(nome);
+        sb.append("', file='").append(file);
         sb.append('}');
         return sb.toString();
     }

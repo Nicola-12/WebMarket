@@ -46,8 +46,8 @@
                 grid-template-columns: 1fr;
                 grid-template-rows: 1fr 1fr;
                 place-items: center;
-               
-         
+
+
             }
             body {
                 display: grid;
@@ -86,7 +86,7 @@
         %>
 
         <main>
-            <form method="post" enctype="multipart/form-data" action="/WebMarket/Produto?param=cadastroProduto">            
+            <form method="post" enctype="multipart/form-data" action="/WebMarket/uploadTest.jsp">            
 
                 <h1 class="h3 mb-3 fw-normal">Cadastro de Produto</h1>       
 
@@ -107,10 +107,8 @@
                 <label for="inputValor" >Valor*
                     <input type="text" name="valor" pattern="\d+(?:.\d+)?" class="form-control" value="<%= p.valor%>" >
                 </label>
-                
-                <label for="inputValor" >Valor*
-                    <input type="file" >
-                </label>
+
+                <input type = "file" name = "file" size = "50" />
 
                 <label for="inputCategoria" >Categoria do Produto*
                     <select name="comboCategoria" class="form-select form-select-lg" aria-label=".form-select-sm example">
@@ -131,11 +129,10 @@
 
                 <button class="btn btn-lg btn-dark" type="submit" value="Salvar" >Cadastrar</button>
 
-               
-                <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
             </form>
 
         </main>
 
     </body>
+    <footer><p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p></footer>
 </html>
