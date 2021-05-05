@@ -123,7 +123,7 @@ public class ProdutoDao implements IDAO<Produto> {
 
     @Override
     public ArrayList<Produto> consultar(String criterio) {
-        String sql = "SELECT * FROM produto WHERE '%" + criterio + "%' ORDER BY descricao";
+        String sql = "SELECT * FROM produto WHERE nome ILIKE '%" + criterio + "%' ORDER BY nome";
         try {
             ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
             ArrayList<Produto> produto = new ArrayList<>();
@@ -133,6 +133,7 @@ public class ProdutoDao implements IDAO<Produto> {
             if (produto.isEmpty()) {
                 return null;
             }
+
             return produto;
         } catch (Exception e) {
             System.out.println("Erro ao consultar produtos: " + e);

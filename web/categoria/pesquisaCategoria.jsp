@@ -58,7 +58,6 @@
         </form>
 
         <%            ArrayList<Categoria> categs = (ArrayList) request.getAttribute("categoriasPesquisa");
-
             // testar se obj esta nulo.
             // quando viemos do Menu (direto), não há obj em categoriasPesquisa, logo, o cast será NULL
             if (categs != null) {

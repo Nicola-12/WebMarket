@@ -6,7 +6,9 @@
 package servlet;
 
 import dao.CategoriaDao;
+import dao.ProdutoDao;
 import entidade.Categoria;
+import entidade.Produto;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -86,6 +88,16 @@ public class pesquisa extends HttpServlet {
             request.setAttribute("categoriasPesquisa", categorias);
 
             encaminharPagina("categoria/pesquisaCategoria.jsp", request, response);
+//        } else if (param.equals("pesquisarProd")) {
+//            String criterio = request.getParameter("campoDeBusca");
+//            System.out.println(criterio);
+//
+//            ArrayList<Produto> produtos = new ProdutoDao().consultar(criterio);
+//
+//            request.setAttribute("produtoPesquisa", produtos);
+//
+//            encaminharPagina("/index.jsp", request, response);
+
         }
     }
 

@@ -22,27 +22,38 @@
     <body>
 
         <%            ArrayList<Produto> product = new ProdutoDao().consultarTodos();
+
             Produto pd = new Produto();
 
         %>
 
         <h1 style="color: red">PROJETO WEB MARKET</h1>
         <main>
-            <%                if (product == null) {
-                    out.print("Nenhum Produto Cadastrado");
-                } else {
-                    for (int i = 0; i < product.size(); i++) {
-                        pd = product.get(i);
-                        String parcela = "";
-                        double parcelas = 0.0;
-                        int vezes = 0;
-                        if (pd.valor >= 2000) {
-                            parcela = String.format("%.2f", parcelas = pd.valor / 12);
-                            vezes = 12;
-                        } else {
-                            parcela = String.format("%.2f", parcelas = pd.valor / 6);
-                            vezes = 6;
-                        }
+
+            <form class="pesquisa" method="post" action="/WebMarket/pesquisa?param=pesquisarProd">
+
+                <input class="form-control inpPes" type="text" name="campoDeBusca" placeholder="Digite o que deseja pesquisar">
+
+                <button type="submit" class="btn btn-lg btn-dark btn-pesquisar">Pesquisar</button>
+
+            </form>
+
+            <%                if (product != null) {
+                    if (product.size() == 0) {
+                        out.print("Nenhum Produto Cadastrado");
+                    } else {
+                        for (int i = 0; i < product.size(); i++) {
+                            pd = product.get(i);
+                            String parcela = "";
+                            double parcelas = 0.0;
+                            int vezes = 0;
+                            if (pd.valor >= 2000) {
+                                parcela = String.format("%.2f", parcelas = pd.valor / 12);
+                                vezes = 12;
+                            } else {
+                                parcela = String.format("%.2f", parcelas = pd.valor / 6);
+                                vezes = 6;
+                            }
             %>          
             <div class="card">
                 <img src="http://localhost:7777/images/<%=pd.file%>" alt="Alguma Coisa" style="width:100%">
@@ -52,6 +63,7 @@
                 <p><button>Add to Cart</button></p>
             </div>
             <% }
+                    }
                 }
             %>
         </main>
