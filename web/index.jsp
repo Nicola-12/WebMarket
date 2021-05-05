@@ -21,8 +21,10 @@
     </head>
     <body>
 
-        <%            ArrayList<Produto> product = new ProdutoDao().consultarTodos();
-
+        <%            ArrayList<Produto> product = (ArrayList) request.getAttribute("campoProd");
+            if (product == null) {
+                product = new ProdutoDao().consultarTodos();
+            }
             Produto pd = new Produto();
 
         %>
@@ -32,7 +34,7 @@
 
             <form class="pesquisa" method="post" action="/WebMarket/pesquisa?param=pesquisarProd">
 
-                <input class="form-control inpPes" type="text" name="campoDeBusca" placeholder="Digite o que deseja pesquisar">
+                <input class="form-control inpPes" type="text" name="searchProd" placeholder="Digite o que deseja pesquisar">
 
                 <button type="submit" class="btn btn-lg btn-dark btn-pesquisar">Pesquisar</button>
 
