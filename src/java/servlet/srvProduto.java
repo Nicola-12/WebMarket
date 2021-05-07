@@ -6,23 +6,14 @@
 package servlet;
 
 import dao.ProdutoDao;
-import entidade.Categoria;
 import entidade.Produto;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Collection;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
-import org.apache.tomcat.dbcp.dbcp2.Utils;
 
 /**
  *
@@ -78,17 +69,31 @@ public class srvProduto extends HttpServlet {
             String id = request.getParameter("id");
 
             Produto produto = (Produto) new ProdutoDao().consultarId(Integer.parseInt(id));
-            System.out.println(produto);
 
             if (produto != null) {
 
                 request.setAttribute("objetoProduto", produto);
+                System.out.println(request.getAttribute("objetoProduto"));
 
                 encaminharPagina("/WebMarket/produto/cadastroProduto.jsp", request, response);
             } else {
                 encaminharPagina("error.jsp", request, response);
             }
 
+        } else if (param.equalsIgnoreCase("exproduto")) {
+
+            String id = request.getParameter("id");
+
+            p = new ProdutoDao().consultarId(Integer.parseInt(id));
+
+            if (p != null) {
+                ProdutoDao ex = new ProdutoDao();
+                ex.excluir(Integer.parseInt(id));
+                encaminharPagina("/WebMarket/produto/cadastroProduto.jsp", request, response);
+            } else {
+                System.out.println("DEU ERRADO");
+                return;
+            }
         }
     }
 
@@ -138,9 +143,10 @@ public class srvProduto extends HttpServlet {
                 retorno = new ProdutoDao().salvar(p);
                 System.out.println("SALVOU");
                 encaminharPagina("/WebMarket/produto/cadastroProduto.jsp", request, response);
-            } else {
-                System.out.println("ERROOO");
-                return;
+            } else if (id != 0) {
+                retorno = new ProdutoDao().atualizar(p);
+                System.out.println("ATUALIZOU");
+                encaminharPagina("/WebMarket/produto/cadastroProduto.jsp", request, response);
             }
         }
 

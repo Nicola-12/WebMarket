@@ -28,9 +28,9 @@
             Produto pd = new Produto();
 
         %>
-
         <h1 style="color: red">PROJETO WEB MARKET</h1>
         <main>
+
 
             <form class="pesquisa" method="post" action="/WebMarket/pesquisa?param=pesquisarProd">
 
@@ -39,6 +39,7 @@
                 <button type="submit" class="btn btn-lg btn-dark btn-pesquisar">Pesquisar</button>
 
             </form>
+
 
             <%                if (product != null) {
                     if (product.size() == 0) {
@@ -68,6 +69,7 @@
                     }
                 }
             %>
+
         </main>
     </body>
 </html>

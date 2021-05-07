@@ -71,21 +71,22 @@
 
         </style>
 
-        <%
-            Produto p = (Produto) request.getAttribute("objetoProduto");
-            if (p == null) {
-                p = new Produto();
-
-                p.id = 0;
-                p.nome = "";
-                p.descricao = "";
-                p.estoque = 0;
-                p.id_categoria = 0;
-                p.valor = 0.0;
-            }
-        %>
-
         <main>
+            <%
+                Produto p = (Produto) request.getAttribute("objetoProduto");
+                System.out.println(p);
+                if (p == null) {
+                    p = new Produto();
+
+                    p.id = 0;
+                    p.nome = "";
+                    p.descricao = "";
+                    p.estoque = 0;
+                    p.id_categoria = 0;
+                    p.valor = 0.0;
+                }
+            %>
+
             <form method="post" enctype="multipart/form-data" action="/WebMarket/uploadTest.jsp">            
 
                 <h1 class="h3 mb-3 fw-normal">Cadastro de Produto</h1>       
@@ -130,6 +131,8 @@
                 <button class="btn btn-lg btn-dark" type="submit" value="Salvar" >Cadastrar</button>
 
             </form>
+
+            <%@include file="listagemProduto.jsp" %>
 
         </main>
 

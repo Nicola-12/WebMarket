@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" 
               integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" 
               crossorigin="anonymous" />
-        
+
     </head>
     <body>
         <h1>Listagem de Produtos</h1>
@@ -45,8 +45,8 @@
                     %>
 
                 <tr>
-                    <td><a href='/WebMarket/produto?param=edProduto&id=<%= c.id%>'><i class="far fa-edit center"></i></a></td>
-                    <td><a href='/WebMarket/produto?param=exProduto&id=<%= c.id%>'><i class="far fa-trash-alt"></i></a></td>
+                    <td><a href='/WebMarket/Produto?param=edProduto&id=<%= c.id%>'><i class="far fa-edit center"></i></a></td>
+                    <td><a href='/WebMarket/Produto?param=exProduto&id=<%= c.id%>'><i class="far fa-trash-alt"></i></a></td>
                     <td><%= c.id%></td>                
                     <td><%= c.descricao%></td>
                     <td><%= c.nome%></td>
@@ -64,6 +64,6 @@
         </div>
         <br>
         <br>
-        <a href='index.jsp'>Voltar</a>
+        <a href='../index.jsp'>Voltar</a>
     </body>
 </html>

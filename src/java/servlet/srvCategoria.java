@@ -22,9 +22,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "Categoria", urlPatterns = {"/Categoria"})
 public class srvCategoria extends HttpServlet {
-    
-    Categoria categoria = new Categoria();
 
+    Categoria categoria = new Categoria();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,7 +42,7 @@ public class srvCategoria extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Categoria</title>");            
+            out.println("<title>Servlet Categoria</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet Categoria at " + request.getContextPath() + "</h1>");
@@ -64,9 +63,9 @@ public class srvCategoria extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-       String param = request.getParameter("param");
-        
+
+        String param = request.getParameter("param");
+
         if (param.equals("edCategoria")) {
 
             String id = request.getParameter("id");
@@ -78,7 +77,7 @@ public class srvCategoria extends HttpServlet {
 
                 request.setAttribute("objetoCategoria", categoria);
 
-                encaminharPagina("categoria.jsp", request, response);
+                encaminharPagina("categoria/categoria.jsp", request, response);
             } else {
                 encaminharPagina("error.jsp", request, response);
             }
@@ -134,7 +133,7 @@ public class srvCategoria extends HttpServlet {
             } else {
                 retorno = new CategoriaDao().atualizar(categoria);
                 System.out.println("ATUALIZOU");
-                encaminharPagina("ccategoria/ategoria.jsp", request, response);
+                encaminharPagina("categoria/categoria.jsp", request, response);
             }
         }
     }
