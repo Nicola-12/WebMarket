@@ -51,11 +51,16 @@
                 color: #0c4128;
             }
 
-            a, a:hover {
+            a {
                 width: 100%;
-                color: blue;
+                color: black;
                 text-decoration: none;
                 font-size: 20px;
+                margin-top: 5px;
+            }
+
+            a:hover {
+                color: blue;
             }
 
         </style>
@@ -63,18 +68,26 @@
 
         <!-- Custom styles for this template -->
         <link href="/WebMarket/css/signin.css" rel="stylesheet">
+        <script src="/WebMarket/js/validacao.js"></script>
     </head>
     <body class="text-center">
 
+        <style>
+            input:invalid:not(:placeholder-shown) {
+                border-color: red;
+                outline-color: red;
+            }
+        </style>
         <main class="form-signin">
-            <form method="post" action="/WebMarket/acao?param=login">            
+            <form method="post" class="formLog" action="/WebMarket/acao?param=login">            
 
                 <h1 class="h3 mb-3 fw-normal">Autenticação</h1>
 
                 <h2>Web Market</h2>
                 <br>
                 <label for="inputEmail" class="visually-hidden">Email address</label>
-                <input type="email" name="email" id="inputEmail" class="form-control" placeholder="E-mail" required autofocus>
+                <input type="email" name="email" pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" 
+                       id="inputEmail" class="form-control" placeholder="E-mail" required autofocus>
 
                 <label for="inputPassword" class="visually-hidden">Password</label>
                 <input type="password" name="senha" id="inputPassword" pattern="^.{8,22}$" title="De 8 a 22 caracteres" class="form-control" placeholder="Senha" required>
@@ -98,8 +111,6 @@
                     <a href="pessoa/cadastroLogin.jsp" target="_blank">Cadastrar-se</a>
                 </div>
 
-
-                <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
             </form>
         </main>
 

@@ -82,8 +82,8 @@
                         <li class="nav-item dropdown center">
                             <a class="nav-link dropdown-toggle center" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-user-alt center"></i></a>
-                            <ul class="dropdown-menu" aria-labelledby="dropdown04">
-                                <li><a class="dropdown-item" href="/WebMarket/pessoa/dadosConta.jsp">Dados da Conta</a></li>
+                            <ul class="dropdown-menu data" aria-labelledby="dropdown04">
+                                <li><a class="dropdown-item" href="/WebMarket/pessoa/dadosConta.jsp">Dados</a></li>
                                 <li><a class="dropdown-item" href="/WebMarket/acao?param=logout">Deslogar</a></li>
                             </ul>
                         </li>

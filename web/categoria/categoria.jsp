@@ -8,7 +8,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
-    <body>
+    <body >
         <script language="JavaScript" src="../js/validacao.js"></script>
         <%@include file="../menu.jsp" %>
 
@@ -20,10 +20,10 @@
                 tg.descricao = "";
             }
         %>
-
+       
         <h1>Cadastro de Categorias</h1>
 
-        <form style="padding: 20px" name='formCateg' method='post' action='/WebMarket/Categoria?param=salvarCategoria' onsubmit="return validardados()">
+        <form style=" padding: 20px;" name='formCateg' method='post' action='/WebMarket/Categoria?param=salvarCategoria' onsubmit="return validardados()">
             <input type="hidden" name="id" value="<%= tg.id%>">
 
 

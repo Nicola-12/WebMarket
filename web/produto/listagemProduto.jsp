@@ -18,7 +18,9 @@
 
     </head>
     <body>
-        <h1>Listagem de Produtos</h1>
+
+
+        <h1 class="h3 mb-3 fw-normal" >Listagem de Produtos</h1>
 
         <%
             ArrayList<Produto> listProd = new ProdutoDao().consultarTodos();

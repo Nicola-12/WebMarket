@@ -3,12 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Usuario/Desktop/webmarket/src/java/servlet/srvAcao.java</file>
-            <file>file:/C:/Users/Usuario/Desktop/webmarket/src/java/dao/CategoriaDao.java</file>
-            <file>file:/C:/Users/Usuario/Desktop/webmarket/src/java/servlet/pesquisa.java</file>
-            <file>file:/C:/Users/Usuario/Desktop/webmarket/web/categoria/categoria.jsp</file>
-            <file>file:/C:/Users/Usuario/Desktop/webmarket/web/categoria/pesquisaCategoria.jsp</file>
-            <file>file:/C:/Users/Usuario/Desktop/webmarket/web/index.jsp</file>
+            <file>file:/C:/Users/STI/Desktop/webmarket/web/login.jsp</file>
+            <file>file:/C:/Users/STI/Desktop/webmarket/web/categoria/categoria.jsp</file>
+            <file>file:/C:/Users/STI/Desktop/webmarket/src/java/servlet/srvAcao.java</file>
+            <file>file:/C:/Users/STI/Desktop/webmarket/src/java/servlet/Filtro.java</file>
+            <file>file:/C:/Users/STI/Desktop/webmarket/web/js/validacao.js</file>
+            <file>file:/C:/Users/STI/Desktop/webmarket/src/java/apoio/Validacao.java</file>
         </group>
     </open-files>
 </project-private>

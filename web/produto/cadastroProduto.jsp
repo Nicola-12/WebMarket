@@ -11,6 +11,7 @@
 <%@page import="entidade.Produto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
 <html>
     <head>
         <meta charset="utf-8">
@@ -33,6 +34,7 @@
         <title>Produto</title>
     </head>
     <body>
+        <%@include file="../menu.jsp" %>
 
         <style>
 
@@ -41,21 +43,18 @@
                 height: 100vh;
             }
 
-            main {
+            .mainProd {
                 display: grid;
                 grid-template-columns: 1fr;
-                grid-template-rows: 1fr 1fr;
+                grid-template-rows: 1fr;
                 place-items: center;
-
-
             }
             body {
                 display: grid;
-
                 align-items: center;
 
             }
-            form {
+            .prod {
                 width: 70%;
                 max-width: 700px;
             }
@@ -63,56 +62,79 @@
             label, input {
                 width: 100%;
             }
+            
+            h1 {
+                text-align: center;
+            }
 
             button {
                 width: 100%;
+                margin-bottom: 2em;
+            }
+            button:hover {
+                transition: 2s;
+                opacity: 0.8;
             }
 
+            .checkBox {
+                text-align: center;
+                margin-bottom: 15px;
+            }
+            
+            .Cheeck {
+                width: 2%;
+            }
+            
+            .inputt {
+                margin-bottom: 1.5em;
+            }
+            
+            .labell {
+                padding: 5px;
+            }
 
         </style>
 
-        <main>
-            <%
-                Produto p = (Produto) request.getAttribute("objetoProduto");
+        <main class="mainProd">
+            <%                Produto prod = (Produto) request.getAttribute("objetoProduto");
                 System.out.println(p);
-                if (p == null) {
-                    p = new Produto();
-
-                    p.id = 0;
-                    p.nome = "";
-                    p.descricao = "";
-                    p.estoque = 0;
-                    p.id_categoria = 0;
-                    p.valor = 0.0;
+                if (prod == null) {
+                    prod = new Produto();
+                    prod.id = 0;
+                    prod.nome = "";
+                    prod.descricao = "";
+                    prod.estoque = 0;
+                    prod.id_categoria = 0;
+                    prod.valor = 0.0;
                 }
             %>
 
-            <form method="post" enctype="multipart/form-data" action="/WebMarket/uploadTest.jsp">            
+            <form method="post" class="prod" enctype="multipart/form-data" action="/WebMarket/uploadTest.jsp">            
 
                 <h1 class="h3 mb-3 fw-normal">Cadastro de Produto</h1>       
 
-                <input type="hidden" name="id" value="<%= p.id%>">
+                <input type="hidden" name="id" value="<%= prod.id%>">
 
-                <label for="inputNome">Nome*
-                    <input type="text" name="nome" class="form-control" autofocus required value="<%= p.nome%>"  > 
+                <label for="inputNome" class="labell">Nome*
+                    <input type="text" name="nome" class="form-control inputt" autofocus required value="<%= prod.nome%>"  > 
                 </label>
 
-                <label for="inputDescricao">Descrição do Produto*
-                    <textarea class="form-control" name="descricao" placeholder="Descrição Detalhada do Produto*" type="text" required value="<%=p.descricao%>" ></textarea>
+                <label for="inputDescricao" class="labell">Descrição do Produto*
+                    <textarea class="form-control inputt" name="descricao" placeholder="Descrição Detalhada do Produto*" type="text" required value="<%=prod.descricao%>" ></textarea>
                 </label>
 
-                <label for="inputQuantidade">Quantidade*
-                    <input type="text" name="estoque" class="form-control" placeholder="Quantidade*" pattern="\d|[1-9]\d+" title="Somente Valores Inteiros" required value="<%= p.estoque%>" >
+                <label for="inputQuantidade" class="labell">Quantidade*
+                    <input type="text" name="estoque" class="form-control inputt" placeholder="Quantidade*" pattern="\d|[1-9]\d+" title="Somente Valores Inteiros" required value="<%= prod.estoque%>" >
                 </label>
 
-                <label for="inputValor" >Valor*
-                    <input type="text" name="valor" pattern="\d+(?:.\d+)?" class="form-control" value="<%= p.valor%>" >
+                <label for="inputValor" class="labell">Valor*
+                    <input type="text" name="valor" pattern="\d+(?:.\d+)?" class="form-control inputt" value="<%= prod.valor%>" >
                 </label>
 
-                <input type = "file" name = "file" size = "50" />
+                <input class="inputt" type = "file" name = "file" size = "50" />
 
-                <label for="inputCategoria" >Categoria do Produto*
-                    <select name="comboCategoria" class="form-select form-select-lg" aria-label=".form-select-sm example">
+                <label for="inputCategoria" class="labell" >Categoria do Produto*
+                    <select name="comboCategoria" class="form-select form-select-lg inputt" aria-label=".form-select-sm example">
                         <option value="0">Selecione</option>
                         <%
                             ArrayList<Categoria> categorias = new CategoriaDao().consultarTodos();
@@ -126,7 +148,7 @@
                         %>
                     </select>
                 </label>
-                <label>Ativo: <input type="checkbox" name="checkbox"></input></label>
+                <label class="checkBox">Ativo: <input type="checkbox" class="Cheeck" name="checkbox"></input></label>
 
                 <button class="btn btn-lg btn-dark" type="submit" value="Salvar" >Cadastrar</button>
 
