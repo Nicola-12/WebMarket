@@ -28,6 +28,7 @@
             .btn-pesquisar, .inpPes {
                 margin-top: 15px;
                 width: 25%;
+                height: 48px;
             }
 
             h2 {
@@ -81,7 +82,7 @@
                         for (int i = 0; i < categs.size(); i++) {
                             Categoria categ = categs.get(i);
                     %>
-                <tr>
+                <tr class="table-light">
                     <td><%= categ.id%></td>                
                     <td><%= categ.descricao%></td>
                     <td><%= categ.criado_em%></td>

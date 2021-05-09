@@ -27,7 +27,7 @@
         %>
 
         <div class="table-responsive">
-            <table class="table table-striped table-sm">
+            <table class="table table-bordered table-sm table-dark">
                 <th>Editar</th>
                 <th>Excluir</th>
                 <th>Id</th>
@@ -42,7 +42,7 @@
                                 Categoria c = listCateg.get(i);
                     %>
 
-                <tr>
+                <tr class="table-light">
                     <td><a href='/WebMarket/Categoria?param=edCategoria&id=<%= c.id%>'><i class="far fa-edit center"></i></a></td>
                     <td><a href='/WebMarket/Categoria?param=exCategoria&id=<%= c.id%>'><i class="far fa-trash-alt"></i></a></td>
                     <td><%= c.id%></td>                

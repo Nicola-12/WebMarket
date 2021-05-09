@@ -20,17 +20,45 @@
                 tg.descricao = "";
             }
         %>
-       
+
+        <style>
+            .search {
+                justify-content: center;
+                width: 30%;
+                height: 48px;
+            }
+            
+            button { 
+                width: 30%;
+            }
+
+            form {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+
+            }
+
+            h1 {
+                text-align: center;
+                margin-bottom: 15px;
+            }
+
+            .table-responsive {
+                width: 80%;
+            }
+        </style>
         <h1>Cadastro de Categorias</h1>
 
-        <form style=" padding: 20px;" name='formCateg' method='post' action='/WebMarket/Categoria?param=salvarCategoria' onsubmit="return validardados()">
+        <form name='formCateg' method='post' action='/WebMarket/Categoria?param=salvarCategoria' onsubmit="return validardados()">
             <input type="hidden" name="id" value="<%= tg.id%>">
 
 
-            <input type="text" name="descricao" placeholder="Descrição" value="<%= tg.descricao%>">
+            <input type="text" class="search" name="descricao" placeholder="Descrição" value="<%= tg.descricao%>">
             <br>
 
-            <input type="submit" value="salvar">
+            <button type="submit" value="salvar" class="btn btn-lg btn-dark">Pesquisar</button>
 
             <br>
             <br>
