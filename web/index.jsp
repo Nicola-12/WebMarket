@@ -20,7 +20,16 @@
         <title>Web Market</title>
     </head>
     <body>
+        <style>
 
+            @media screen and (max-width: 700px){
+                main {
+
+                    grid-template-columns: 1fr;
+                    grid-template-rows: 1fr 1fr;
+                }
+            }
+        </style>
         <%            ArrayList<Produto> product = (ArrayList) request.getAttribute("campoProd");
             if (product == null) {
                 product = new ProdutoDao().consultarTodos();
@@ -29,17 +38,16 @@
 
         %>
         <h1 style="color: red">PROJETO WEB MARKET</h1>
+
+        <form class="pesquisa text-center" method="post" action="/WebMarket/pesquisa?param=pesquisarProd">
+
+            <input style="width: 40%; margin: auto;" class="form-control inpPes" type="text" name="searchProd" placeholder="Digite o que deseja pesquisar">
+
+            <button style="width: 40%; margin: auto; margin-top: 15px; " type="submit" class=" btn btn-lg btn-dark">Pesquisar</button>
+
+        </form>
+
         <main>
-
-
-            <form class="pesquisa" method="post" action="/WebMarket/pesquisa?param=pesquisarProd">
-
-                <input class="form-control inpPes" type="text" name="searchProd" placeholder="Digite o que deseja pesquisar">
-
-                <button type="submit" class="btn btn-lg btn-dark btn-pesquisar">Pesquisar</button>
-
-            </form>
-
 
             <%                if (product != null) {
                     if (product.size() == 0) {
@@ -59,10 +67,11 @@
                             }
             %>          
             <div class="card">
-                <img src="http://localhost:7777/images/<%=pd.file%>" alt="Alguma Coisa" style="width:100%">
+                <img src="http://localhost:7777/images/<%=pd.file%>" alt="Alguma Coisa" style="width:100%; height: 250px">
                 <h1><%= pd.nome%></h1>
-                <p class="price"><%= pd.valor%></p>
+                <p class="price"><%= pd.valor%> R$</p>
                 <p><%= pd.descricao%></p>
+                <p class="parcela" style="color: grey; font-size: 15px" ><%= vezes%>x de <%= parcela%> no cartão sem juros</p>
                 <p><button>Add to Cart</button></p>
             </div>
             <% }

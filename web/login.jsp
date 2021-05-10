@@ -63,6 +63,13 @@
                 color: blue;
             }
 
+            input:invalid:not(:placeholder-shown){
+                box-shadow: 0px 0px 0px 0.25rem rgba(255,0,0,.25);
+                border-color: red;
+                z-index:2;
+            }
+
+
         </style>
 
 
@@ -72,12 +79,6 @@
     </head>
     <body class="text-center">
 
-        <style>
-            input:invalid:not(:placeholder-shown) {
-                border-color: red;
-                outline-color: red;
-            }
-        </style>
         <main class="form-signin">
             <form method="post" class="formLog" action="/WebMarket/acao?param=login">            
 
