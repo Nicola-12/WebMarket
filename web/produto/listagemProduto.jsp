@@ -47,7 +47,7 @@
                     %>
 
                 <tr>
-                    <td><a href='/WebMarket/Produto?param=edProduto&id=<%= c.id%>'><i class="far fa-edit center"></i></a></td>
+                    <td><a href='./cadastroProduto.jsp?id=<%= c.id%>'><i class="far fa-edit center"></i></a></td>
                     <td><a href='/WebMarket/Produto?param=exProduto&id=<%= c.id%>'><i class="far fa-trash-alt"></i></a></td>
                     <td><%= c.id%></td>                
                     <td><%= c.descricao%></td>

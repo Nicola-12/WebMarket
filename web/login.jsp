@@ -76,6 +76,7 @@
         <!-- Custom styles for this template -->
         <link href="/WebMarket/css/signin.css" rel="stylesheet">
         <script src="/WebMarket/js/validacao.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     </head>
     <body class="text-center">
 
@@ -97,10 +98,18 @@
                     String msg = String.valueOf(request.getAttribute("msgLogin"));
 
                     if (msg.equals("erro")) {
+
                 %>
-                <p id="msgErroLogin">Usuário ou senha não conferem!</p>
-                <%
-                } else {
+                <script>
+                    swal({
+                        title: "Ooops!",
+                        text: "Usuário ou senha não conferem!",
+                        icon: "warning",
+                        button: "Tenta de novo!"
+                    });
+                </script>
+
+                <%                } else {
                 %>
                 <p id="msgErroLogin"></p>
                 <%
@@ -114,6 +123,7 @@
 
             </form>
         </main>
+
 
     </body>
 

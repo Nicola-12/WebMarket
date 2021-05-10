@@ -62,7 +62,7 @@
             label, input {
                 width: 100%;
             }
-            
+
             h1 {
                 text-align: center;
             }
@@ -80,15 +80,15 @@
                 text-align: center;
                 margin-bottom: 15px;
             }
-            
+
             .Cheeck {
                 width: 2%;
             }
-            
+
             .inputt {
                 margin-bottom: 1.5em;
             }
-            
+
             .labell {
                 padding: 5px;
             }
@@ -96,8 +96,16 @@
         </style>
 
         <main class="mainProd">
-            <%                Produto prod = (Produto) request.getAttribute("objetoProduto");
-                System.out.println(p);
+            <%                Produto prod = null;
+
+                String id = request.getParameter("id");
+
+                if (id != null) {
+                    try {
+                        prod = new ProdutoDao().consultarId(Integer.parseInt(id));
+                    } catch (NumberFormatException e) {
+                    }
+                }
                 if (prod == null) {
                     prod = new Produto();
                     prod.id = 0;
@@ -120,7 +128,7 @@
                 </label>
 
                 <label for="inputDescricao" class="labell">Descrição do Produto*
-                    <textarea class="form-control inputt" name="descricao" placeholder="Descrição Detalhada do Produto*" type="text" required value="<%=prod.descricao%>" ></textarea>
+                    <textarea class="form-control inputt" name="descricao" placeholder="Descrição Detalhada do Produto*" type="text" required><%=prod.descricao%></textarea>
                 </label>
 
                 <label for="inputQuantidade" class="labell">Quantidade*
@@ -139,10 +147,12 @@
                         <%
                             ArrayList<Categoria> categorias = new CategoriaDao().consultarTodos();
 
-                            for (int i = 0; i < categorias.size(); i++) {
+                            for (Categoria categ : categorias) {
                         %>
 
-                        <option value="<%= categorias.get(i).id%>"><%= categorias.get(i).descricao%></option>
+                        <option 
+                            <%= prod.id_categoria == categ.id ? "selected" : ""%>
+                            value="<%= categ.id%>"><%= categ.descricao%></option>
                         <%
                             }
                         %>
