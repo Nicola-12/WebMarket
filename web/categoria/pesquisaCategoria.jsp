@@ -9,7 +9,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="/WebMarket/css/bootstrap.min.css" rel="stylesheet">
-        <title>JSP Page</title>
+        <title>Pesquisa de Categorias</title>
     </head>
     <body>
         <%@include file="../menu.jsp" %>

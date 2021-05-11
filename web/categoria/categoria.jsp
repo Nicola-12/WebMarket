@@ -6,7 +6,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Cadastro de Categorias</title>
     </head>
     <body >
         <script language="JavaScript" src="../js/validacao.js"></script>

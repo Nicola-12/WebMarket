@@ -31,7 +31,7 @@
         <meta name="theme-color" content="#7952b3">
 
 
-        <title>Produto</title>
+        <title>Cadastro de Produto</title>
     </head>
     <body>
         <%@include file="../menu.jsp" %>

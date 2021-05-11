@@ -1,9 +1,10 @@
 main {
-    display:grid;
-    grid-template-columns:1fr 1fr 1fr 1fr;
+    display:flex;
+    flex-wrap: wrap;
     place-items: center;
     width: 100%;
     height: 400px;
+    grid-area: produtos;
 }
 
 .card {
@@ -14,6 +15,30 @@ main {
     text-align: center;
     font-family: arial;
 }
+
+body {
+    display: grid;
+    grid-template: 
+        "nav nav" 70px
+        "sideBar produtos" 1fr / 
+        200px 1fr;
+}
+
+.sideBar {
+    grid-area: sideBar;
+    position: sticky;
+    top: 0;
+    align-self: start;
+    left: 0;
+}
+
+nav {
+    grid-area: nav;
+    position: sticky;
+    top: 0;
+    align-self: start;
+}
+
 
 .price {
     color: grey;
