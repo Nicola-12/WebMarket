@@ -39,46 +39,70 @@
 
                 <input style=" margin: auto;" class="form-control inpPes" type="text" name="searchProd" placeholder="Digite o que deseja pesquisar">
 
-                <button style=" margin: auto; margin-top: 15px; " type="submit" class=" btn btn-lg btn-dark">Pesquisar</button>
+                <button style=" margin: auto; margin-top: 15px; " type="submit" class=" btn btn-lg btn-success">Pesquisar</button>
 
             </form>
-
-            <input type="button" value="placa de video" onclick="setCategoria('placadevideo')"></input>
+            <button class="dropdown-btn btn-sucess">Categorias
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-container">
+                <a onclick="setCategoria('placadevideo')" href="#">Placa de video</a>
+                <a onclick="setCategoria('ssd')" href="#">SSD</a>
+                <a href="#">Link 3</a>
+            </div>
 
         </div>
+        <script>
+            var dropdown = document.getElementsByClassName("dropdown-btn");
+            var i;
 
-        <main>
-
-            <%                if (product != null) {
-                    if (product.size() == 0) {
-                        out.print("Nenhum Produto Cadastrado");
+            for (i = 0; i < dropdown.length; i++) {
+                dropdown[i].addEventListener("click", function () {
+                    this.classList.toggle("active");
+                    var dropdownContent = this.nextElementSibling;
+                    if (dropdownContent.style.display === "block") {
+                        dropdownContent.style.display = "none";
                     } else {
-                        for (int i = 0; i < product.size(); i++) {
-                            pd = product.get(i);
-                            String parcela = "";
-                            double parcelas = 0.0;
-                            int vezes = 0;
-                            if (pd.valor >= 2000) {
-                                parcela = String.format("%.2f", parcelas = pd.valor / 12);
-                                vezes = 12;
-                            } else {
-                                parcela = String.format("%.2f", parcelas = pd.valor / 6);
-                                vezes = 6;
-                            }
-            %>          
-            <div class="card">
-                <img src="http://localhost:7777/images/<%=pd.file%>" alt="Alguma Coisa" style="width:100%; height: 250px">
-                <h1><%= pd.nome%></h1>
-                <p class="price"><%= pd.valor%> R$</p>
-                <p class="parcela" style="color: grey; font-size: 15px" ><%= vezes%>x de <%= parcela%> no cartão sem juros</p>
-                <p><button>Add to Cart</button></p>
-            </div>
-            <% }
+                        dropdownContent.style.display = "block";
                     }
-                }
-            %>
+                });
+            }
+        </script>
 
-        </main>
-    </body>
-    <script src="/WebMarket/js/bootstrap.bundle.min.js"></script>
+    </div>
+
+    <main>
+
+        <%                if (product != null) {
+                if (product.size() == 0) {
+                    out.print("Nenhum Produto Cadastrado");
+                } else {
+                    for (int i = 0; i < product.size(); i++) {
+                        pd = product.get(i);
+                        String parcela = "";
+                        double parcelas = 0.0;
+                        int vezes = 0;
+                        if (pd.valor >= 2000) {
+                            parcela = String.format("%.2f", parcelas = pd.valor / 12);
+                            vezes = 12;
+                        } else {
+                            parcela = String.format("%.2f", parcelas = pd.valor / 6);
+                            vezes = 6;
+                        }
+        %>          
+        <div class="card">
+            <img src="http://localhost:7777/images/<%=pd.file%>" alt="Alguma Coisa" style="width:100%; height: 250px">
+            <h1><%= pd.nome%></h1>
+            <p class="price"><%= pd.valor%> R$</p>
+            <p class="parcela" style="color: grey; font-size: 15px" ><%= vezes%>x de <%= parcela%> no cartão sem juros</p>
+            <p><button>Add to Cart</button></p>
+        </div>
+        <% }
+                }
+            }
+        %>
+
+    </main>
+</body>
+<script src="/WebMarket/js/bootstrap.bundle.min.js"></script>
 </html>
