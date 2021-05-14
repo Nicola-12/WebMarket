@@ -79,7 +79,11 @@ public class pesquisa extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String param = request.getParameter("param");
-        System.out.println(param);
+        String param2 = request.getParameter("nome");
+        System.out.println(param2);
+
+        CategoriaDao categ = new CategoriaDao();
+        categ.consultarTodos();
         if (param.equals("pesquisar")) {
             String criterio = request.getParameter("campoDeBusca");
 
@@ -90,8 +94,8 @@ public class pesquisa extends HttpServlet {
             encaminharPagina("categoria/pesquisaCategoria.jsp", request, response);
         }
 
-        if (param.equals("pesquisarProd")) {
-
+        if (param.equals("pesquisarProd") || param2.equals(categ)) {
+            System.out.println(param2);
             String criterio = request.getParameter("searchProd");
 
             ArrayList<Produto> produtos = new ProdutoDao().consultar(criterio);

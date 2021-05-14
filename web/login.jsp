@@ -75,7 +75,6 @@
 
         <!-- Custom styles for this template -->
         <link href="/WebMarket/css/signin.css" rel="stylesheet">
-        <script src="/WebMarket/js/validacao.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     </head>
     <body class="text-center">
@@ -109,12 +108,7 @@
                     });
                 </script>
 
-                <%                } else {
-                %>
-                <p id="msgErroLogin"></p>
-                <%
-                    }
-                %>
+                <%                }%>
                 <button class="w-100 btn btn-lg btn-dark" type="submit" value="logar" >Acessar</button>            
 
                 <div class="text-center">

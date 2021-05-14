@@ -50,6 +50,7 @@
         </style>
 
         <link href="/WebMarket/css/signin.css" rel="stylesheet">
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     </head>
     <body class="text-center">
 
@@ -96,6 +97,29 @@
 
                 <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
             </form>
+
+            <%
+                String msg = String.valueOf(request.getAttribute("erroCadastro"));
+
+                if (msg.equals("erro")) {
+            %>
+            <script>
+                swal({
+                    title: "Ooops!",
+                    text: "Algum Campo Foi Preenchido Incorretamente",
+                    icon: "warning",
+                    button: "Tentar Novamente"
+                })
+            </script>
+            <% } else {%>
+            <script>
+                swal({
+                    title: "Cadastro Concluido!",
+                    text: "Todos Os Campos Estão Corretos",
+                    icon: "sucess",
+                    button: "OK!"
+                })
+            </script>
         </main>
 
     </body>

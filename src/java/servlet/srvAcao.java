@@ -77,9 +77,9 @@ public class srvAcao extends HttpServlet {
             System.out.println("LOGOUTTTTTT");
             HttpSession sessao = request.getSession();
             sessao.invalidate();
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("/WebMarket/login.jsp");
 
-        //PESSOA
+            //PESSOA
         } else if (param.equals("excluirPessoa")) {
             String id = request.getParameter("id");
             pep = new PessoaDao().consultarId(Integer.parseInt(id));
@@ -110,8 +110,7 @@ public class srvAcao extends HttpServlet {
 
         String param = request.getParameter("param");
 
-        // SALVAR PESSOA
-        //----------------- FALTA IMPLEMENTAR AS VALIDAÇÕES DOS CAMPOS -------------- 
+        // SALVAR PESSOA  
         if (param.equals("cadastroPessoa")) {
             Pessoa p = new Pessoa();
             int id = Integer.parseInt(request.getParameter("id"));
@@ -122,26 +121,24 @@ public class srvAcao extends HttpServlet {
             String telefone = request.getParameter("telefone");
 
             if (!nome.matches("^[A-Za-z ]{5,45}$") || nome.isEmpty()) {
-                System.out.println(nome);
-                encaminharPagina("error.jsp", request, response);
+                request.setAttribute("erroCadastro", "erro");
                 return;
             } else if (!Validacao.isEmail(email)) {
-                encaminharPagina("error.jsp", request, response);
+                request.setAttribute("erroCadastro", "erro");
                 return;
             } else if (!senha.matches("^.{8,22}$")) {
-                System.out.println(senha);
-                encaminharPagina("error.jsp", request, response);
+                request.setAttribute("erroCadastro", "erro");
                 return;
-            }else if (!telefone.matches("^((\\+\\d{1,2})?\\d{2})?\\d{9}$")) {
-                System.out.println(telefone);
-                encaminharPagina("error.jsp", request, response);
+            } else if (!telefone.matches("^((\\+\\d{1,2})?\\d{2})?\\d{9}$")) {
+                request.setAttribute("erroCadastro", "erro");
+                return;
             } else if (!nome.isEmpty() && !senha.isEmpty() && !email.isEmpty() && !telefone.isEmpty()) {
                 p.id = id;
                 p.nome = nome;
                 p.email = email;
                 p.senha = Cripto.criptografar(senha);
                 p.endereco = endereco;
-                p.telefone = telefone;               
+                p.telefone = telefone;
             }
             String retorno = null;
             if (id == 0) {
@@ -172,7 +169,6 @@ public class srvAcao extends HttpServlet {
                 f.email = email;
                 f.endereco = endereco;
                 f.telefone = telefone;
-                System.out.println(f.endereco);
             }
 
             if (id != 0) {
@@ -227,6 +223,7 @@ public class srvAcao extends HttpServlet {
                     sessao.setAttribute("usuarioLogado", pes);
 
                     encaminharPagina("index.jsp", request, response);
+                   
                     System.out.println("DEU CERTO");
                 } else {
                     request.setAttribute("msgLogin", "erro");
@@ -236,11 +233,7 @@ public class srvAcao extends HttpServlet {
             } catch (SQLException ex) {
                 Logger.getLogger(srvAcao.class.getName()).log(Level.SEVERE, null, ex);
             }
-            // consulta no BD: verificar se credenciais estão ok
-            // ...
-            // após validar credenciais, adiciona user na Sessão
 
-            // redirecionando para menu.jsp
         }
     }
 

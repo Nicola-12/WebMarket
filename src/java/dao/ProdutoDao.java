@@ -99,9 +99,9 @@ public class ProdutoDao implements IDAO<Produto> {
     }
 
     public ArrayList<Produto> consultarTodos() {
-        String sql = "SELECT * FROM produto WHERE ativo = 'ativo'";
+        String sql = "SELECT * FROM produto";
         try {
-            ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
+            result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
             ArrayList<Produto> produto = new ArrayList<>();
             while (result.next()) {
                 produto.add(Produto.from(result));
@@ -125,7 +125,7 @@ public class ProdutoDao implements IDAO<Produto> {
     public ArrayList<Produto> consultar(String criterio) {
         String sql = "SELECT * FROM produto WHERE nome ILIKE '%" + criterio + "%' ORDER BY nome";
         try {
-            ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
+            result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
             ArrayList<Produto> produto = new ArrayList<>();
             while (result.next()) {
                 produto.add(Produto.from(result));
@@ -141,11 +141,34 @@ public class ProdutoDao implements IDAO<Produto> {
         return null;
     }
 
+    public ArrayList<Produto> consultarProdAndCateg(String criterio, String nome) {
+        String sql = "SELECT p.id,p.nome,p.descricao, p.file, p.valor "
+                + "FROM produto p "
+                + "LEFT JOIN categoria c ON p.id_categoria = c.id "
+                + "WHERE p.nome LIKE '%" + criterio + "%' "
+                + "AND c.descricao LIKE '%" + nome + "%'";
+
+        try {
+            result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
+            ArrayList<Produto> produto = new ArrayList<>();
+            while (result.next()) {
+                produto.add(Produto.from(result));
+            }
+            if (produto.isEmpty()) {
+                return null;
+            }
+            return produto;
+        } catch (Exception e) {
+            System.out.println("Erro ao consultar produtos com categorias: " + e);
+        }
+        return null;
+    }
+
     @Override
     public Produto consultarId(int id) {
         String sql = "SELECT * FROM produto WHERE id=" + id;
         try {
-            ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
+            result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
             if (result.next()) {
                 return Produto.from(result);
             }
@@ -159,80 +182,6 @@ public class ProdutoDao implements IDAO<Produto> {
     @Override
     public boolean consultar(Produto o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    /**
-     *
-     * @param file
-     * @return
-     * @throws FileNotFoundException
-     * @throws IOException
-     */
-    public static byte[] ImageToByte(File file) throws FileNotFoundException, IOException {
-        FileInputStream fis = new FileInputStream(file);
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        byte[] buf = new byte[1024];
-        try {
-            for (int readNum; (readNum = fis.read(buf)) != -1;) {
-                bos.write(buf, 0, readNum);
-                System.out.println("read " + readNum + " bytes,");
-            }
-        } catch (IOException ex) {
-        }
-        byte[] bytes = bos.toByteArray();
-
-        return bytes;
-
-    }
-
-    public byte[] getImage(int id) {
-        byte[] byteImg = null;
-        ConexaoBD con = new ConexaoBD();
-        Connection connection = null;
-        try {
-            con.getConnection();
-            // String byteImg="";
-            PreparedStatement ps = connection
-                    .prepareStatement("SELECT produto FROM file WHERE id = ?");
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                byteImg = rs.getBytes(1);
-                // use the data in some way here
-            }
-            rs.close();
-            ps.close();
-            return byteImg;
-        } catch (Exception e) {
-            // TODO: handle exception
-            return null;
-
-        }
-
-    }
-
-    public static void byteToImage(byte[] bytes, File imageFile) throws IOException {
-
-        ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-        Iterator readers = ImageIO.getImageReadersByFormatName("jpeg");
-        ImageReader reader = (ImageReader) readers.next();
-        Object source = bis; // File or InputStream, it seems file is OK
-        ImageInputStream iis = ImageIO.createImageInputStream(source);
-        reader.setInput(iis, true);
-        ImageReadParam param = reader.getDefaultReadParam();
-        Image image = reader.read(0, param);
-        //got an image file
-        BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_RGB);
-
-        Graphics2D g2 = bufferedImage.createGraphics();
-        g2.drawImage(image, null, null);
-
-        ImageIO.write(bufferedImage, "jpeg", imageFile);
-
-        //"jpeg" is the format of the image
-        //imageFile is the file to be written to.
-        System.out.println(imageFile.getPath());
-
     }
 
 }
