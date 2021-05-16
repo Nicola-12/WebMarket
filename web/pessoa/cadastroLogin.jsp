@@ -113,6 +113,7 @@
             </script>
             <% } else {%>
             <script>
+                event.preventDefault();
                 swal({
                     title: "Cadastro Concluido!",
                     text: "Todos Os Campos Estão Corretos",
@@ -120,6 +121,7 @@
                     button: "OK!"
                 })
             </script>
+            <% }%>
         </main>
 
     </body>

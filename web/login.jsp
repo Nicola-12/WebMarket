@@ -80,7 +80,7 @@
     <body class="text-center">
 
         <main class="form-signin">
-            <form method="post" class="formLog" action="/WebMarket/acao?param=login">            
+            <form method="post" class="formLog" action="/WebMarket/acao?param=login" >            
 
                 <h1 class="h3 mb-3 fw-normal">Autenticação</h1>
 
@@ -108,11 +108,11 @@
                     });
                 </script>
 
-                <%                }%>
+                <% }%>
                 <button class="w-100 btn btn-lg btn-dark" type="submit" value="logar" >Acessar</button>            
 
                 <div class="text-center">
-                    <a href="pessoa/cadastroLogin.jsp" target="_blank">Cadastrar-se</a>
+                    <a href="pessoa/cadastroLogin.jsp" >Cadastrar-se</a>
                 </div>
 
             </form>
