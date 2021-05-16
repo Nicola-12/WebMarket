@@ -123,45 +123,29 @@ public class ProdutoDao implements IDAO<Produto> {
 
     @Override
     public ArrayList<Produto> consultar(String criterio) {
-        String sql = "SELECT * FROM produto WHERE nome ILIKE '%" + criterio + "%' ORDER BY nome";
-        try {
-            result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
-            ArrayList<Produto> produto = new ArrayList<>();
-            while (result.next()) {
-                produto.add(Produto.from(result));
-            }
-            if (produto.isEmpty()) {
-                return null;
-            }
-
-            return produto;
-        } catch (Exception e) {
-            System.out.println("Erro ao consultar produtos: " + e);
-        }
-        return null;
+        return consultarProdAndCateg(criterio, null);
     }
 
-    public ArrayList<Produto> consultarProdAndCateg(String criterio, String nome) {
-        String sql = "SELECT p.id,p.nome,p.descricao, p.file, p.valor "
+    public ArrayList<Produto> consultarProdAndCateg(String pesquisa, String id_categoria) {
+        String sql = "SELECT * "
                 + "FROM produto p "
-                + "LEFT JOIN categoria c ON p.id_categoria = c.id "
-                + "WHERE p.nome LIKE '%" + criterio + "%' "
-                + "AND c.descricao LIKE '%" + nome + "%'";
+                + "WHERE p.nome ILIKE '%" + pesquisa + "%' ";
+
+        if (id_categoria != null && id_categoria.matches("^\\d+$")) {
+            sql += " AND p.id_categoria =" + id_categoria;
+        }
+        ArrayList<Produto> produto = new ArrayList<>();
 
         try {
             result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
-            ArrayList<Produto> produto = new ArrayList<>();
             while (result.next()) {
                 produto.add(Produto.from(result));
-            }
-            if (produto.isEmpty()) {
-                return null;
             }
             return produto;
         } catch (Exception e) {
             System.out.println("Erro ao consultar produtos com categorias: " + e);
         }
-        return null;
+        return produto;
     }
 
     @Override

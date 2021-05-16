@@ -41,7 +41,7 @@
 
         <!-- Bootstrap core CSS -->
         <link href="/WebMarket/css/bootstrap.min.css" rel="stylesheet">
-
+        <link href="/WebMarket/css/bootstrap.min.css.map">
         <link href="/WebMarket/css/navbar.css" rel="stylesheet">
     </head>
     <body>

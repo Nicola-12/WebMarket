@@ -94,16 +94,6 @@ public class pesquisa extends HttpServlet {
             encaminharPagina("categoria/pesquisaCategoria.jsp", request, response);
         }
 
-        if (param.equals("pesquisarProd") || param2.equals(categ)) {
-            System.out.println(param2);
-            String criterio = request.getParameter("searchProd");
-
-            ArrayList<Produto> produtos = new ProdutoDao().consultar(criterio);
-
-            request.setAttribute("campoProd", produtos);
-
-            encaminharPagina("index.jsp", request, response);
-        }
     }
 
     /**
