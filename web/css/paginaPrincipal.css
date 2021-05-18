@@ -23,6 +23,21 @@ body {
         "sideBar produtos" 1fr / 
         205px 1fr;
 }
+.coment {
+    
+    color: #f1f1f1;
+}
+
+div.range {
+    display: flex;
+    
+}
+
+input.range {
+    width: 100%;
+    margin-right: 10px;
+    margin-left: 10px;
+}
 
 .sideBar {
     grid-area: sideBar;

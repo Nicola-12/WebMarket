@@ -100,7 +100,8 @@
 
             <%
                 String msg = String.valueOf(request.getAttribute("erroCadastro"));
-
+                String msgs = String.valueOf(request.getAttribute("cadastro"));
+                System.out.println(msgs);
                 if (msg.equals("erro")) {
             %>
             <script>
@@ -110,20 +111,21 @@
                     icon: "warning",
                     button: "Tentar Novamente"
                 })
-            </script>
-            <% } else {%>
-            <script>
-                event.preventDefault();
+
+                <% } else if (msgs.equals("certo")) {%>
+
                 swal({
                     title: "Cadastro Concluido!",
                     text: "Todos Os Campos Estão Corretos",
-                    icon: "sucess",
+                    icon: "success",
                     button: "OK!"
                 })
-            </script>
-            <% }%>
-        </main>
 
+            </script>
+            <%
+                }
+            %>
+        </main>
     </body>
 
 </html>

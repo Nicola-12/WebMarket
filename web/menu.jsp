@@ -4,6 +4,7 @@
     Author     : pretto
 --%>
 
+<%@page import="dao.PessoaDao"%>
 <%@page import="entidade.Pessoa"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -23,6 +24,7 @@
                 align-items: center;
                 color: #D3D3D3;
                 margin-left: 7px;
+                margin-right: 40px;
             }
             .bd-placeholder-img {
                 font-size: 1.125rem;
@@ -46,7 +48,9 @@
     </head>
     <body>
         <%
-            Pessoa p = new Pessoa();
+            HttpSession sessao = ((HttpServletRequest) request).getSession();
+            Pessoa f = (Pessoa) sessao.getAttribute("usuarioLogado");
+            f = new PessoaDao().consultarEmail(f.email);
         %>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Fourth navbar example">
             <div class="container-fluid">
@@ -81,7 +85,8 @@
                     <div>
                         <li class="nav-item dropdown center">
                             <a class="nav-link dropdown-toggle center" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user-alt center"></i></a>
+                                <i class="fas fa-user-alt "></i></a>
+                            <label><%=f.nome%></label>
                             <ul class="dropdown-menu data" aria-labelledby="dropdown04">
                                 <li><a class="dropdown-item" href="/WebMarket/pessoa/dadosConta.jsp">Dados</a></li>
                                 <li><a class="dropdown-item" href="/WebMarket/acao?param=logout">Deslogar</a></li>

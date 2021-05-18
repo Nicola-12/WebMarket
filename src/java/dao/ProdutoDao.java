@@ -123,10 +123,10 @@ public class ProdutoDao implements IDAO<Produto> {
 
     @Override
     public ArrayList<Produto> consultar(String criterio) {
-        return consultarProdAndCateg(criterio, null);
+        return consultarProdAndCategAndPreco(criterio, null, null);
     }
 
-    public ArrayList<Produto> consultarProdAndCateg(String pesquisa, String id_categoria) {
+    public ArrayList<Produto> consultarProdAndCategAndPreco(String pesquisa, String id_categoria, String valor) {
         String sql = "SELECT * "
                 + "FROM produto p "
                 + "WHERE p.nome ILIKE '%" + pesquisa + "%' ";
@@ -134,9 +134,13 @@ public class ProdutoDao implements IDAO<Produto> {
         if (id_categoria != null && id_categoria.matches("^\\d+$")) {
             sql += " AND p.id_categoria =" + id_categoria;
         }
+        if (valor != null && valor.matches("^\\d+$") && Integer.parseInt(valor) > 0) {
+            sql += " AND valor > " + valor;
+        }
         ArrayList<Produto> produto = new ArrayList<>();
 
         try {
+
             result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
             while (result.next()) {
                 produto.add(Produto.from(result));

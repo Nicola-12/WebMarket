@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Usuario
  */
-@WebFilter("/")
+@WebFilter("/*")
 public class Filtro extends HttpServlet implements Filter {
 
     List<String> uriPublicas = new ArrayList<>();
@@ -127,7 +127,7 @@ public class Filtro extends HttpServlet implements Filter {
             // caso não pertença a lista, verifica se há usuário na sessão
             // se não houver, encaminha para o Login
             if (sessao.getAttribute("usuarioLogado") == null) {
-                ((HttpServletResponse) response).sendRedirect("login.jsp");
+                ((HttpServletResponse) response).sendRedirect("/WebMarket/login.jsp");
             } else {
                 // se usuário estiver logado, apenas abra a página solicitada
                 System.out.println("Destino: " + req.getRequestURI());

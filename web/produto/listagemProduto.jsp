@@ -29,7 +29,7 @@
         %>
 
         <div class="table-responsive">
-            <table class="table table-striped table-sm">
+            <table class="table table-bordered table-sm table-dark">
                 <th>Editar</th>
                 <th>Excluir</th>
                 <th>Id</th>
@@ -46,7 +46,7 @@
                                 Produto c = listProd.get(i);
                     %>
 
-                <tr>
+                <tr class="table-light">
                     <td><a href='./cadastroProduto.jsp?id=<%= c.id%>'><i class="far fa-edit center"></i></a></td>
                     <td><a href='/WebMarket/Produto?param=exProduto&id=<%= c.id%>'><i class="far fa-trash-alt"></i></a></td>
                     <td><%= c.id%></td>                

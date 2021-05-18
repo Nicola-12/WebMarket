@@ -15,7 +15,7 @@
               integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" 
               crossorigin="anonymous" />
         <link href="/WebMarket/css/paginaPrincipal.css" rel="stylesheet">
-
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
         <title>Página Inicial</title>
     </head>
@@ -24,6 +24,13 @@
         <%            Produto pd = new Produto();
             ArrayList<Categoria> c = new CategoriaDao().consultarTodos();
             ArrayList<Produto> product = new ProdutoDao().consultarTodos();
+            String pesquisa = request.getParameter("pesquisa");
+            if (pesquisa == null) {
+                pesquisa = "";
+            }
+            String pesquisaPreco = request.getParameter("preco");
+            if (pesquisaPreco == null)
+                pesquisaPreco = "0";
         %>
 
 
@@ -31,10 +38,15 @@
 
             <form class="pesquisa text-center" onsubmit="sub(event)">
 
-                <input style=" margin: auto;" class="form-control inpPes" type="text" name="pesquisa" placeholder="Digite o que deseja pesquisar">
+                <input style=" margin: auto;" class="form-control inpPes" type="text" value="<%= pesquisa%>" name="pesquisa" placeholder="Digite o que deseja pesquisar">
 
                 <button style=" margin: auto; margin-top: 15px; " type="submit" class=" btn btn-lg btn-success">Pesquisar</button>
 
+                <div class="range">
+                    <label class="coment">0</label>
+                    <input class="range" type="range" name="preco" min="0" max="5000" value="<%= pesquisaPreco%>">
+                    <label class="coment">5000</label>
+                </div>
             </form>
             <button class="dropdown-btnn btn-sucess">Categorias
                 <i class="fa fa-caret-down"></i>
@@ -47,17 +59,6 @@
                 <% }%>
             </div>
 
-            <button class="dropdown-btnn btn-sucess">Preço
-                <i class="fa fa-caret-down"></i>
-            </button>
-            <div class="dropdown-container">
-                <%for (int x = 0; x < product.size(); x++) {
-                        pd = product.get(x);
-                %>
-                <a onclick="setPrecoProduto('25')" href="#"><%= pd.valor%>(<%= pd.estoque%>)</a>
-                <% }%>
-            </div>
-
         </div>
 
 
@@ -65,7 +66,7 @@
     <script>
         var dropdown = document.getElementsByClassName("dropdown-btnn");
         var i;
-
+        
         for (i = 0; i < dropdown.length; i++) {
             dropdown[i].addEventListener("click", function () {
                 this.classList.toggle("active");
@@ -77,54 +78,75 @@
                 }
             });
         }
-
+        
         function setCategoria(categoria) {
-
+            
             const url = new URL(location.href);
-
+            
             url.searchParams.set("categoria", categoria);
-
+            
             location.href = url.toString();
         }
-
+        
         function sub(evt) {
             evt.preventDefault();
             const fd = new FormData(evt.target);
-
+            
             const url = new URL(location.href);
-
+            
             url.searchParams.set("pesquisa", fd.get('pesquisa'));
-
+            url.searchParams.set("preco", fd.get('preco'));
+            
             location.href = url.toString();
         }
-
-        function setPrecoProduto() {
-
+        
+        function setPrecoProduto(value) {
+            
+            const url = new URL(location.href);
+            
+            url.searchParams.set("preco", value);
+            
+            location.href = url.toString();
         }
     </script>
     <main>
 
-        <%            String pesquisa = request.getParameter("pesquisa");
-
-            product = new ProdutoDao().consultarProdAndCateg(
-                    pesquisa == null ? "" : pesquisa, request.getParameter("categoria")
+        <%
+            
+            product = new ProdutoDao().consultarProdAndCategAndPreco(
+                    pesquisa, request.getParameter("categoria"), request.getParameter("preco")
             );
-
+            
             if (product.size() == 0) {
-                out.print("Nenhum Produto Cadastrado");
-            } else {
-                for (int i = 0; i < product.size(); i++) {
-                    pd = product.get(i);
-                    String parcela = "";
-                    double parcelas = 0.0;
-                    int vezes = 0;
-                    if (pd.valor >= 2000) {
-                        parcela = String.format("%.2f", parcelas = pd.valor / 12);
-                        vezes = 12;
-                    } else {
-                        parcela = String.format("%.2f", parcelas = pd.valor / 6);
-                        vezes = 6;
-                    }
+        %>
+        <script>
+            
+            swal({
+                title: "Oopa!",
+                text: "Nenhum Produto Cadastrado!",
+                icon: "warning",
+                button: "ok!"
+            })
+                    .then(() => {
+                        history.back();
+                    })
+            
+            
+        </script>        
+        <%    
+        } else {
+            for (int i = 0; i < product.size(); i++) {
+                pd = product.get(i);
+                String parcela = "";
+                double parcelas = 0.0;
+                int vezes = 0;
+                if (pd.valor >= 2000) {
+                    parcela = String.format("%.2f", parcelas = pd.valor / 12);
+                    vezes = 12;
+                } else {
+                    parcela = String.format("%.2f", parcelas = pd.valor / 6);
+                    vezes = 6;
+                }
         %>          
         <div class="card">
             <img src="http://localhost:7777/images/<%=pd.file%>" alt="Alguma Coisa" style="width:100%; height: 250px">

@@ -80,7 +80,6 @@ public class pesquisa extends HttpServlet {
             throws ServletException, IOException {
         String param = request.getParameter("param");
         String param2 = request.getParameter("nome");
-        System.out.println(param2);
 
         CategoriaDao categ = new CategoriaDao();
         categ.consultarTodos();
