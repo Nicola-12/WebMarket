@@ -113,6 +113,7 @@ public class srvAcao extends HttpServlet {
         // SALVAR PESSOA  
         if (param.equals("cadastroPessoa")) {
             Pessoa p = new Pessoa();
+            PessoaDao pd = new PessoaDao();
             int id = Integer.parseInt(request.getParameter("id"));
             String nome = request.getParameter("nome");
             String email = request.getParameter("email");
@@ -121,20 +122,16 @@ public class srvAcao extends HttpServlet {
             String telefone = request.getParameter("telefone");
 
             if (!nome.matches("^[A-Za-z ]{3,45}$") || nome.isEmpty()) {
-                request.setAttribute("erroCadastro", "erro");
-                encaminharPagina("/WebMarket/pessoa/cadastroLogin.jsp", request, response);
+                response.sendRedirect("/WebMarket/pessoa/cadastroLogin.jsp?erro=NOME_INVALIDO");
                 return;
             } else if (!Validacao.isEmail(email)) {
-                request.setAttribute("erroCadastro", "erro");
-                encaminharPagina("/WebMarket/pessoa/cadastroLogin.jsp", request, response);
+                response.sendRedirect("/WebMarket/pessoa/cadastroLogin.jsp?erro=EMAIL_INVALIDO");
                 return;
             } else if (!senha.matches("^.{8,22}$")) {
-                request.setAttribute("erroCadastro", "erro");
-                encaminharPagina("/WebMarket/pessoa/cadastroLogin.jsp", request, response);
+                response.sendRedirect("/WebMarket/pessoa/cadastroLogin.jsp?erro=SENHA_INVALIDA");
                 return;
             } else if (!telefone.matches("^((\\+\\d{1,2})?\\d{2})?\\d{9}$")) {
-                request.setAttribute("erroCadastro", "erro");
-                encaminharPagina("/WebMarket/pessoa/cadastroLogin.jsp", request, response);
+                response.sendRedirect("/WebMarket/pessoa/cadastroLogin.jsp?erro=TELEFONE_INVALIDO");
                 return;
             } else if (!nome.isEmpty() && !senha.isEmpty() && !email.isEmpty() && !telefone.isEmpty()) {
                 p.id = id;
@@ -144,11 +141,15 @@ public class srvAcao extends HttpServlet {
                 p.endereco = endereco;
                 p.telefone = telefone;
             }
-            String retorno = null;
+
             if (id == 0) {
-                retorno = new PessoaDao().salvar(p);
-                request.setAttribute("cadastro", "certo");
-                response.sendRedirect("/WebMarket/login.jsp");
+                if (pd.salvar(p) == null) {
+
+                    response.sendRedirect("/WebMarket/pessoa/cadastroLogin.jsp?certo=TRUE");
+                } else {
+                    response.sendRedirect("/WebMarket/pessoa/cadastroLogin.jsp?erro=ERRO");
+                }
+
             }
         } else if (param.equals("editarPessoa")) {
             PessoaDao pd = new PessoaDao();

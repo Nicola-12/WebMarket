@@ -98,33 +98,35 @@
                 <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
             </form>
 
-            <%
-                String msg = String.valueOf(request.getAttribute("erroCadastro"));
-                String msgs = String.valueOf(request.getAttribute("cadastro"));
-                System.out.println(msgs);
-                if (msg.equals("erro")) {
-            %>
             <script>
-                swal({
-                    title: "Ooops!",
-                    text: "Algum Campo Foi Preenchido Incorretamente",
-                    icon: "warning",
-                    button: "Tentar Novamente"
+
+                document.addEventListener('readystatechange', () => {
+
+                    if (document.readyState !== 'complete')
+                        return;
+
+                    const params = new URL(location.href).searchParams
+
+                    if (params.get('erro') === 'ERRO') {
+                        swal({
+                            title: "Ooops!",
+                            text: "Algum Campo Foi Preenchido Incorretamente",
+                            icon: "warning",
+                            button: "Tentar Novamente"
+                        })
+
+                    } else if (params.get('certo') === 'TRUE') {
+                        swal({
+                            title: "Cadastro Concluido!",
+                            text: "Todos Os Campos Estão Corretos",
+                            icon: "success",
+                            button: "OK!"
+                        })
+                    }
                 })
 
-                <% } else if (msgs.equals("certo")) {%>
-
-                swal({
-                    title: "Cadastro Concluido!",
-                    text: "Todos Os Campos Estão Corretos",
-                    icon: "success",
-                    button: "OK!"
-                })
 
             </script>
-            <%
-                }
-            %>
         </main>
     </body>
 

@@ -62,11 +62,17 @@ public class ProdutoDao implements IDAO<Produto> {
                     + "descricao='" + o.descricao + "',"
                     + "nome ='" + o.nome + "', "
                     + "valor='" + o.valor + "',"
-                    + "quantidade='" + o.estoque + "',"
+                    + "estoque='" + o.estoque + "',"
                     + "id_categoria='" + o.id_categoria + "',"
                     + "ativo='" + o.ativo + "', "
-                    + "updated_at= now() "
-                    + "WHERE id= " + o.id;
+                    + "updated_at= now()";
+            System.out.println(o.file);
+            if (o.file == null || o.file.length() >= 0) {
+                sql += ", file = '" + o.file + "'"
+                        + " WHERE id= " + o.id;
+            } else {
+                sql += " WHERE id = " + o.id;
+            }
 
             System.out.println("SQL: " + sql);
 

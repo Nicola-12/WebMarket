@@ -111,12 +111,13 @@ public class srvCategoria extends HttpServlet {
 
         // SALVAR CATEGORIA        
         if (param.equals("salvarCategoria")) {
+            CategoriaDao categDao = new CategoriaDao();
             categoria = new Categoria();
             int id = Integer.parseInt(request.getParameter("id"));
             String descricao = request.getParameter("descricao");
 
-            if (!descricao.matches("^.{3,45}$")) {
-                encaminharPagina("categoria/categoria.jsp", request, response);
+            if (descricao.isEmpty() && !descricao.matches("^.(a-zA-Z){3,45}$")) {
+                response.sendRedirect("categoria/categoria.jsp?erro=DESCRICAO_INVALIDA");
                 return;
             } else {
 
@@ -124,15 +125,15 @@ public class srvCategoria extends HttpServlet {
                 categoria.descricao = descricao;
 
             }
-            String retorno = null;
 
             if (id == 0) {
-                retorno = new CategoriaDao().salvar(categoria);
-                System.out.println("SALVOU");
-                encaminharPagina("categoria/categoria.jsp", request, response);
+                if (categDao.salvar(categoria) == null) {
+                    response.sendRedirect("categoria/categoria.jsp");
+                } else {
+                    response.sendRedirect("categoria/categoria.jsp?erro=ERRO");
+                }
             } else {
-                retorno = new CategoriaDao().atualizar(categoria);
-                System.out.println("ATUALIZOU");
+                categDao.atualizar(categoria);
                 encaminharPagina("categoria/categoria.jsp", request, response);
             }
         }

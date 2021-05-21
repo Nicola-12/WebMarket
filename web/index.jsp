@@ -38,7 +38,7 @@
 
             <form class="pesquisa text-center" onsubmit="sub(event)">
 
-                <input style=" margin: auto;" class="form-control inpPes" type="text" value="<%= pesquisa%>" name="pesquisa" placeholder="Digite o que deseja pesquisar">
+                <input style=" margin: auto;" class="form-control inpPes" type="text" value="<%= pesquisa%>" name="pesquisa" placeholder="Pesquisar...">
 
                 <button style=" margin: auto; margin-top: 15px; " type="submit" class=" btn btn-lg btn-success">Pesquisar</button>
 
@@ -153,7 +153,15 @@
             <h1><%= pd.nome%></h1>
             <p class="price"><%= pd.valor%> R$</p>
             <p class="parcela" style="color: grey; font-size: 15px" ><%= vezes%>x de <%= parcela%> no cartão sem juros</p>
+            <%
+                if (pd.estoque == 0 || pd.ativo.equals("false")) {
+            %>
+            <p><button>Produto Indisponivel</button></p>
+            <%} else { %>
             <p><button>Add to Cart</button></p>
+            <%
+                }
+            %>
         </div>
         <% }
             }

@@ -66,6 +66,7 @@
 
         Produto p = new Produto();
         ProdutoDao pdao = new ProdutoDao();
+        p.id = Integer.parseInt(params.get("id"));
         p.nome = params.get("nome");
         p.descricao = params.get("descricao");
         p.valor = Double.parseDouble(params.get("valor"));
@@ -73,7 +74,14 @@
         p.estoque = Integer.parseInt(params.get("estoque"));
         p.id_categoria = Integer.parseInt(params.get("comboCategoria"));
         p.ativo = params.containsKey("checkbox") ? "ativo" : "inativo";
-        pdao.salvar(p);
+
+        if (p.id == 0 || p.id == null) {
+
+            pdao.salvar(p);
+        } else if (p.id != 0) {
+            pdao.atualizar(p);
+        }
+
         response.sendRedirect("/WebMarket/produto/cadastroProduto.jsp");
         out.println("</body>");
         out.println("</html>");

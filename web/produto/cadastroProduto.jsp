@@ -67,10 +67,19 @@
                 text-align: center;
             }
 
-            button {
+            .cadastro {
                 width: 100%;
                 margin-bottom: 2em;
             }
+
+            .lista {
+                width: 15%;
+            }
+
+            a{
+                text-decoration: none;
+            }
+
             button:hover {
                 transition: 2s;
                 opacity: 0.8;
@@ -93,13 +102,17 @@
                 padding: 5px;
             }
 
+            .table-responsive {
+                width: 90%;
+            }
+
         </style>
 
         <main class="mainProd">
             <%                Produto prod = null;
-
+                
                 String id = request.getParameter("id");
-
+                
                 if (id != null) {
                     try {
                         prod = new ProdutoDao().consultarId(Integer.parseInt(id));
@@ -146,7 +159,7 @@
                         <option value="0">Selecione</option>
                         <%
                             ArrayList<Categoria> categorias = new CategoriaDao().consultarTodos();
-
+                            
                             for (Categoria categ : categorias) {
                         %>
 
@@ -158,9 +171,11 @@
                         %>
                     </select>
                 </label>
-                <label class="checkBox">Ativo: <input type="checkbox" class="Cheeck" name="checkbox"></input></label>
+                <label class="checkBox">Ativo:
+                    <input  <%= prod.id != 0 && prod.ativo.equals("ativo") ? "checked" : "!"%>
+                        type="checkbox" class="Cheeck" name="checkbox"></input></label>
 
-                <button class="btn btn-lg btn-dark" type="submit" value="Salvar" >Cadastrar</button>
+                <button class="btn btn-lg btn-dark cadastro" type="submit" value="Salvar" >Cadastrar</button>
 
             </form>
 

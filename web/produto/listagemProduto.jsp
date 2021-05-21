@@ -19,7 +19,6 @@
     </head>
     <body>
 
-
         <h1 class="h3 mb-3 fw-normal" >Listagem de Produtos</h1>
 
         <%
@@ -64,8 +63,7 @@
 
             </table>
         </div>
-        <br>
-        <br>
-        <a href='../index.jsp'>Voltar</a>
+
+        <button class="btn btn-dark lista" value="Voltar"><a href="/WebMarket/index.jsp" class="link-light">Voltar</a></button>
     </body>
 </html>

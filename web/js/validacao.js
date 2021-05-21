@@ -17,12 +17,6 @@ function validardados() {
         document.formCateg.descricao.style.borderColor = "white";
     }
 
-    if (erro > 0) {
-        window.alert("Minimo de 3 Caracteres");
-        return false;
-    } else {
-        return true;
-    }
 }
 
 function validarLogin() {
@@ -38,11 +32,5 @@ function validarLogin() {
         document.main.formLog.email.style.borderColor = "white";
     }
 
-    if (erro > 0) {
-        alert("Preencha os campos corretamente");
-        return false;
-    } else {
-        return true;
-    }
 }
 

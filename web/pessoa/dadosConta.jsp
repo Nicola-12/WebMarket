@@ -41,7 +41,6 @@
 
             f = new PessoaDao().consultarEmail(f.email);
 
-            System.out.println(f);
         %>   
 
         <style>
@@ -185,21 +184,25 @@
                 const params = new URL(location.href).searchParams
 
                 if (params.get('erro') === 'ERRO') {
+
                     swal({
                         title: "Erro!",
-                        text: "Erro ao Mudar os Dados da Conta!",
+                        text: "Erro ao Cadastrar Conta!",
                         icon: "warning",
                         button: "Oops!"
                     })
-                } else if (params.get('certo') === 'TRUE') {
 
+                } else if (params.get('certo') === 'TRUE') {
 
                     swal({
                         title: "Sucesso!",
-                        text: "Sucesso ao Mudar os Dados da Conta!",
+                        text: "Sucesso ao Cadastrar sua Conta!",
                         icon: "success",
                         button: "OK!"
                     })
+                            .then(() => {
+                                history.back();
+                            })
                 }
             })
 

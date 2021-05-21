@@ -15,12 +15,12 @@ public class VendaDao implements IDAO<Venda> {
         try {
             Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
 
-            String sql = "INSERT INTO venda"
-                    + "default,"
+            String sql = "INSERT INTO venda values"
+                    + "(default,"
                     + "'" + o.valor + "',"
                     + "'" + o.parcelas + "',"
                     + "'" + o.id_pessoa + "',"
-                    + "'" + o.id_carrinho + "'";
+                    + "'" + o.id_carrinho + "')";
 
             System.out.println("SQL: " + sql);
 
