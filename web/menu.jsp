@@ -50,7 +50,10 @@
         <%
             HttpSession sessao = ((HttpServletRequest) request).getSession();
             Pessoa f = (Pessoa) sessao.getAttribute("usuarioLogado");
-            f = new PessoaDao().consultarEmail(f.email);
+            if (f != null) {
+                f = new PessoaDao().consultarEmail(f.email);
+
+            }
         %>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Fourth navbar example">
             <div class="container-fluid">
@@ -78,6 +81,12 @@
                                 <li><a class="dropdown-item" href="/WebMarket/categoria/pesquisaCategoria.jsp">Pesquisar</a></li>
                             </ul>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">Relatórios</a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdown04">
+                                <li><a class="dropdown-item" href="/WebMarket/relatorios/listaUsuarios.jsp">Listagem de Usuários</a></li>
+                            </ul>
+                        </li>
                     </ul>
                     <form>
                         <input class="form-control" type="text" placeholder="Search" aria-label="Search">
@@ -86,11 +95,12 @@
                         <li class="nav-item dropdown center">
                             <a class="nav-link dropdown-toggle center" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-user-alt "></i></a>
-                            <label><%=f.nome%></label>
                             <ul class="dropdown-menu data" aria-labelledby="dropdown04">
                                 <li><a class="dropdown-item" href="/WebMarket/pessoa/dadosConta.jsp">Dados</a></li>
                                 <li><a class="dropdown-item" href="/WebMarket/acao?param=logout">Deslogar</a></li>
                             </ul>
+
+                            <label></label>
                         </li>
                     </div>
                 </div>

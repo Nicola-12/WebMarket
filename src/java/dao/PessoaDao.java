@@ -5,6 +5,11 @@ import apoio.IDAO;
 import entidade.Pessoa;
 import java.util.ArrayList;
 import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperRunManager;
 
 public class PessoaDao implements IDAO<Pessoa> {
 
@@ -70,7 +75,7 @@ public class PessoaDao implements IDAO<Pessoa> {
         try {
             Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
 
-            String sql = "UPDATE pessoa SET ativo = false WHERE id=" + id;
+            String sql = "UPDATE pessoa SET ativo = inativo WHERE id=" + id;
             System.out.println("SQL: " + sql);
 
             int resultado = stm.executeUpdate(sql);
@@ -158,6 +163,24 @@ public class PessoaDao implements IDAO<Pessoa> {
     @Override
     public boolean consultar(Pessoa o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public byte[] gerarRelatorio() {
+        try {
+            Connection conn = ConexaoBD.getInstance().getConnection();
+
+            JasperReport relatorio = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorios/ListagemUsuarios.jrxml"));
+
+            Map parameters = new HashMap();
+            parameters.put("ativo", "ativo");
+      
+            byte[] bytes = JasperRunManager.runReportToPdf(relatorio, parameters, conn);
+
+            return bytes;
+        } catch (Exception e) {
+            System.out.println("erro ao gerar relatorio: " + e);
+        }
+        return null;
     }
 
 }
