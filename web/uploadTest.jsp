@@ -40,6 +40,7 @@
         out.println("<html>");
         out.println("<head>");
         out.println("<title>JSP File upload</title>");
+        out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
         out.println("</head>");
         out.println("<body>");
 
@@ -50,7 +51,14 @@
             if (!fi.isFormField()) {
                 // Get the uploaded file parameters
                 if (fi.getContentType() != "image/png" || fi.getFieldName() != "file") {
-                    // DA ERRO   
+                    out.println("<script>");
+                    out.println("swal({"
+                            + "title: 'ERRO!',"
+                            + "text: 'Erro ao cadastrar!',"
+                            + "icon: 'warning',"
+                            + "button: 'OK!'"
+                            + "})");
+                    out.println("</script>");
                 }
 
                 String imageUrl = UUID.randomUUID().toString() + ".png";
@@ -70,7 +78,7 @@
         p.nome = params.get("nome");
         p.descricao = params.get("descricao");
         p.valor = Double.parseDouble(params.get("valor"));
-        p.file = params.get("imageUrl");
+        p.file = params.containsKey("imageUrl") ? params.get("imageUrl") : p.file;
         p.estoque = Integer.parseInt(params.get("estoque"));
         p.id_categoria = Integer.parseInt(params.get("comboCategoria"));
         p.ativo = params.containsKey("checkbox") ? "ativo" : "inativo";

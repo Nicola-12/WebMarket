@@ -93,22 +93,38 @@
                 <label for="inputPassword" class="visually-hidden">Password</label>
                 <input type="password" name="senha" id="inputPassword" pattern="^.{8,22}$" title="De 8 a 22 caracteres" class="form-control" placeholder="Senha" required>
                 <br>
-                <%
-                    String msg = String.valueOf(request.getAttribute("msgLogin"));
 
-                    if (msg.equals("erro")) {
-
-                %>
                 <script>
-                    swal({
-                        title: "Ooops!",
-                        text: "Usuário ou senha não conferem!",
-                        icon: "warning",
-                        button: "Tenta de novo!"
-                    });
+
+                    document.addEventListener('readystatechange', () => {
+                        if (document.readyState !== 'complete')
+                            return;
+
+                        const params = new URL(location.href).searchParams
+
+                        if (params.get('erro') === 'ERRO') {
+                            swal({
+                                title: "Ooops!",
+                                text: "Usuário ou senha não conferem!",
+                                icon: "warning",
+                                button: "Tenta de novo!"
+                            });
+                        } else if (params.get('certo') === 'TRUE') {
+                            swal({
+                                title: "Correto!",
+                                text: "Usuário ou senha conferem!",
+                                icon: "success",
+                                button: "OK!"
+                            }).then(() => {
+                                location = '/WebMarket/index.jsp'
+                            });
+                        }
+
+                    })
+
+
                 </script>
 
-                <% }%>
                 <button class="w-100 btn btn-lg btn-dark" type="submit" value="logar" >Acessar</button>            
 
                 <div class="text-center">

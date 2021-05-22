@@ -224,8 +224,7 @@ public class srvAcao extends HttpServlet {
                         .executeQuery("SELECT * FROM pessoa WHERE email = '" + email + "'");
 
                 if (!set.next()) {
-                    request.setAttribute("msgLogin", "erro");
-                    encaminharPagina("login.jsp", request, response);
+                    response.sendRedirect("WebMarket/login.jsp?erro=ERRO");
                 }
 
                 if (Cripto.eIgual(set.getString("senha"), new String(senha))) {
@@ -235,12 +234,10 @@ public class srvAcao extends HttpServlet {
 
                     sessao.setAttribute("usuarioLogado", pes);
 
-                    response.sendRedirect("/WebMarket/index.jsp");
+                    response.sendRedirect("WebMarket/login.jsp?certo=TRUE");
 
-                    System.out.println("DEU CERTO");
                 } else {
-                    request.setAttribute("msgLogin", "erro");
-                    encaminharPagina("login.jsp", request, response);
+                    response.sendRedirect("WebMarket/login.jsp?erro=ERRO");
                 }
 
             } catch (SQLException ex) {
