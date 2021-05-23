@@ -89,7 +89,7 @@
                             <ul class="dropdown-menu" aria-labelledby="dropdown04">
                                 <li><a class="dropdown-item listaUser" href="#">Listagem de Usuários</a></li>
                                 <li><a class="dropdown-item listaProd" href="#">Listagem de Produtos</a></li>
-
+                                <li><a class="dropdown-item relProd" href="#">Relatório de Preços</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -124,7 +124,7 @@
                     location.href = "/WebMarket/relatorios/listaUsuarios.jsp?ativo=" + ativo
                 });
             })
-            
+
             document.querySelector(".listaProd").addEventListener('click', () => {
                 swal({
                     title: "Filtrar Status",
@@ -138,6 +138,25 @@
                 });
             })
 
+            document.querySelector(".relProd").addEventListener('click', ({value: formValues}) => {
+                swal({
+                    title: "Filtrar Valores e Data",
+                    html: '<input class="valorIni" type="text" pattern="^([.0-9])*\d$" placeholder="Preço Inicial" >' +
+                            '<input class="valorFinal" type="text" pattern="^([.0-9])*\d$" placeholder="Preço Final" >' +
+                            '<input class="data" type="date" placeholder="Data" >',
+                    buttons: ["Cancel", "Gerar Relatório"],
+                    preConfirm: () => {
+                        return [
+                            document.getElementsByClassName('valorIni').value,
+                            document.getElementsByClassName('valorFinal').value,
+                            document.getElementsByClassName('data').value,
+                        ]
+                    }
+                })
+            })
+            if (formValues) {
+                swal(JSON.stringify(formValues))
+            }
         </script>
         <script src="/WebMarket/js/bootstrap.bundle.min.js"></script>
 
