@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" 
               integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" 
               crossorigin="anonymous" />
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <title>Página Principal</title>
 
         <style>
@@ -55,6 +56,8 @@
 
             }
         %>
+
+
         <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Fourth navbar example">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">WebMarket</a>
@@ -84,7 +87,9 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">Relatórios</a>
                             <ul class="dropdown-menu" aria-labelledby="dropdown04">
-                                <li><a class="dropdown-item" href="/WebMarket/relatorios/listaUsuarios.jsp">Listagem de Usuários</a></li>
+                                <li><a class="dropdown-item listaUser" href="#">Listagem de Usuários</a></li>
+                                <li><a class="dropdown-item listaProd" href="#">Listagem de Produtos</a></li>
+
                             </ul>
                         </li>
                     </ul>
@@ -106,7 +111,34 @@
                 </div>
             </div>
         </nav>
+        <script>
+            document.querySelector(".listaUser").addEventListener('click', () => {
+                swal({
+                    title: "Filtrar Status",
+                    buttons: {
+                        inativo: 'Inativo',
+                        todos: 'Todos',
+                        ativo: 'Ativo'
+                    }
+                }).then(ativo => {
+                    location.href = "/WebMarket/relatorios/listaUsuarios.jsp?ativo=" + ativo
+                });
+            })
+            
+            document.querySelector(".listaProd").addEventListener('click', () => {
+                swal({
+                    title: "Filtrar Status",
+                    buttons: {
+                        inativo: 'Inativo',
+                        todos: 'Todos',
+                        ativo: 'Ativo'
+                    }
+                }).then(ativo => {
+                    location.href = "/WebMarket/relatorios/listaProdutos.jsp?ativo=" + ativo
+                });
+            })
 
+        </script>
         <script src="/WebMarket/js/bootstrap.bundle.min.js"></script>
 
     </body>

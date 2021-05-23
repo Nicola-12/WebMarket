@@ -3,10 +3,13 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListaProduto" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="78c312e8-9db0-4134-8baf-39952a00fade">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.xml"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="ativo" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select p.*, c.descricao from produto p 
-inner join categoria c on p.id_categoria = c.id
- order by p.id]]>
+		<![CDATA[SELECT p.*, c.descricao FROM produto p 
+INNER JOIN categoria c ON p.id_categoria = c.id 
+WHERE $P{ativo} IS NULL OR
+p.ativo = $P{ativo}
+ ORDER BY p.id]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>

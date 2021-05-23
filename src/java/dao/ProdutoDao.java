@@ -183,13 +183,14 @@ public class ProdutoDao implements IDAO<Produto> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public byte[] gerarRelatorio() {
+    public byte[] gerarRelatorio(String ativo) {
         try {
             Connection conn = ConexaoBD.getInstance().getConnection();
 
             JasperReport relatorio = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorios/ListaProduto.jrxml"));
 
             Map parameters = new HashMap();
+            parameters.put("ativo", ativo);
 
             byte[] bytes = JasperRunManager.runReportToPdf(relatorio, parameters, conn);
 

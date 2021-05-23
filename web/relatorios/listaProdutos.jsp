@@ -13,8 +13,12 @@
         <title>Listagem de Produtos</title>
     </head>
     <body>
-          <%
-            byte[] bytes = new ProdutoDao().gerarRelatorio();
+        <%
+            String ativo = request.getParameter("ativo");
+            if (ativo == "todos") {
+                ativo = null;
+            }
+            byte[] bytes = new ProdutoDao().gerarRelatorio(ativo);
 
             response.setContentType("application/pdf");
             response.setContentLength(bytes.length);

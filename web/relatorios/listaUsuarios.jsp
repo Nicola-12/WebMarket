@@ -14,7 +14,11 @@
     </head>
     <body>
         <%
-            byte[] bytes = new PessoaDao().gerarRelatorio("ativo");
+            String ativo = request.getParameter("ativo");
+            if (ativo == "todos") {
+                ativo = null;
+            }
+            byte[] bytes = new PessoaDao().gerarRelatorio(ativo);
 
             response.setContentType("application/pdf");
             response.setContentLength(bytes.length);
