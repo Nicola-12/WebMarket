@@ -3,24 +3,11 @@ package dao;
 import apoio.ConexaoBD;
 import apoio.IDAO;
 import entidade.Produto;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import javax.imageio.ImageIO;
-import javax.imageio.ImageReadParam;
-import javax.imageio.ImageReader;
-import javax.imageio.stream.ImageInputStream;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.JasperRunManager;
@@ -191,6 +178,26 @@ public class ProdutoDao implements IDAO<Produto> {
 
             Map parameters = new HashMap();
             parameters.put("ativo", ativo);
+
+            byte[] bytes = JasperRunManager.runReportToPdf(relatorio, parameters, conn);
+
+            return bytes;
+        } catch (Exception e) {
+            System.out.println("erro ao gerar relatorio: " + e);
+        }
+        return null;
+    }
+
+    public byte[] gerarRelatorioValor(Double valorIni, Double valorFinal) {
+        try {
+            Connection conn = ConexaoBD.getInstance().getConnection();
+
+            JasperReport relatorio = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorios/RelatorioDePrecos.jrxml"));
+
+            Map parameters = new HashMap();
+            parameters.put("valorIni", valorIni);
+            parameters.put("valorFinal", valorFinal);
+           
 
             byte[] bytes = JasperRunManager.runReportToPdf(relatorio, parameters, conn);
 

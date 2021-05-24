@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" 
               integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" 
               crossorigin="anonymous" />
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.3.4/dist/sweetalert2.all.min.js"></script>
         <title>Página Principal</title>
 
         <style>
@@ -138,25 +138,28 @@
                 });
             })
 
-            document.querySelector(".relProd").addEventListener('click', ({value: formValues}) => {
-                swal({
-                    title: "Filtrar Valores e Data",
-                    html: '<input class="valorIni" type="text" pattern="^([.0-9])*\d$" placeholder="Preço Inicial" >' +
-                            '<input class="valorFinal" type="text" pattern="^([.0-9])*\d$" placeholder="Preço Final" >' +
-                            '<input class="data" type="date" placeholder="Data" >',
-                    buttons: ["Cancel", "Gerar Relatório"],
+            document.querySelector(".relProd").addEventListener('click', async () => {
+                const {value} = await Swal.fire({
+                    title: "Filtrar Valores",
+                    html: '<div><input class="sw-valorIni" type="text" pattern="^([.0-9])*\d$" placeholder="Preço Inicial" >' +
+                            '<input class="sw-valorFinal" type="text" pattern="^([.0-9])*\d$" placeholder="Preço Final" >' +
+                            ' </div>',
                     preConfirm: () => {
                         return [
-                            document.getElementsByClassName('valorIni').value,
-                            document.getElementsByClassName('valorFinal').value,
-                            document.getElementsByClassName('data').value,
+                            document.querySelector('.sw-valorIni').value,
+                            document.querySelector('.sw-valorFinal').value,
                         ]
                     }
                 })
+                const [valorIni, valorFinal] = value;
+                location.href = "/WebMarket/relatorios/relValorProd.jsp?"
+                        + new URLSearchParams({
+                            valorIni,
+                            valorFinal,
+                        }).toString();
             })
-            if (formValues) {
-                swal(JSON.stringify(formValues))
-            }
+
+
         </script>
         <script src="/WebMarket/js/bootstrap.bundle.min.js"></script>
 
