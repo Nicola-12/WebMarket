@@ -50,7 +50,10 @@
             FileItem fi = (FileItem) i.next();
             if (!fi.isFormField()) {
                 // Get the uploaded file parameters
-                if (fi.getContentType() != "image/png" || fi.getFieldName() != "file") {
+                if ("application/octet-stream".equals(fi.getContentType())) {
+                    continue;
+                }
+                if (!"image/png".equals(fi.getContentType()) || !"file".equals(fi.getFieldName())) {
                     out.println("<script>");
                     out.println("swal({"
                             + "title: 'ERRO!',"
@@ -59,6 +62,9 @@
                             + "button: 'OK!'"
                             + "})");
                     out.println("</script>");
+                    System.out.println(fi.getFieldName());
+                    System.out.println(fi.getContentType());
+                    return;
                 }
 
                 String imageUrl = UUID.randomUUID().toString() + ".png";
@@ -71,10 +77,15 @@
                 params.put(fi.getFieldName(), fi.getString());
             }
         }
-
-        Produto p = new Produto();
+        int id = Integer.parseInt(params.get("id"));
+        Produto p;
         ProdutoDao pdao = new ProdutoDao();
-        p.id = Integer.parseInt(params.get("id"));
+        if (id == 0) {
+            p = new Produto();
+        } else {
+            p = pdao.consultarId(id);
+        }
+        p.id = id;
         p.nome = params.get("nome");
         p.descricao = params.get("descricao");
         p.valor = Double.parseDouble(params.get("valor"));

@@ -15,11 +15,11 @@
     <body>
         <%
             String ativo = request.getParameter("ativo");
-            if (ativo == "todos") {
+            if ("todos".equals(ativo)) {
                 ativo = null;
             }
             byte[] bytes = new PessoaDao().gerarRelatorio(ativo);
-
+            
             response.setContentType("application/pdf");
             response.setContentLength(bytes.length);
             ServletOutputStream outStream = response.getOutputStream();

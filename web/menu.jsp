@@ -70,12 +70,6 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/WebMarket/index.jsp" >Início</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Menu 1</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Desabilitado</a>
-                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">Cadastros</a>
                             <ul class="dropdown-menu" aria-labelledby="dropdown04">
@@ -105,7 +99,12 @@
                                 <li><a class="dropdown-item" href="/WebMarket/acao?param=logout">Deslogar</a></li>
                             </ul>
 
-                            <label></label>
+                            <label><%=f.nome%></label>
+                            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="/WebMarket/carrinho/carrinho.jsp" ><i class="fas fa-cart-plus"></i></a>
+                                </li>
+                            </ul>
                         </li>
                     </div>
                 </div>

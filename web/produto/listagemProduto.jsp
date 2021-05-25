@@ -64,6 +64,6 @@
             </table>
         </div>
 
-        <button class="btn btn-dark lista" value="Voltar"><a href="/WebMarket/index.jsp" class="link-light">Voltar</a></button>
+        <a href="/WebMarket/index.jsp" class="link-light"><button class="btn btn-dark lista" value="Voltar">Voltar</button></a>
     </body>
 </html>

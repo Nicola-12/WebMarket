@@ -72,12 +72,9 @@
                 margin-bottom: 2em;
             }
 
-            .lista {
-                width: 15%;
-            }
-
             a{
                 text-decoration: none;
+                align-self: center;
             }
 
             button:hover {
@@ -110,9 +107,9 @@
 
         <main class="mainProd">
             <%                Produto prod = null;
-                
+
                 String id = request.getParameter("id");
-                
+
                 if (id != null) {
                     try {
                         prod = new ProdutoDao().consultarId(Integer.parseInt(id));
@@ -152,14 +149,14 @@
                     <input type="text" name="valor" pattern="\d+(?:.\d+)?" class="form-control inputt" value="<%= prod.valor%>" >
                 </label>
 
-                <input class="inputt" type = "file" name = "file" size = "50" />
+                <input class="inputt" type="file" name="file" size="50" />
 
                 <label for="inputCategoria" class="labell" >Categoria do Produto*
                     <select name="comboCategoria" class="form-select form-select-lg inputt" aria-label=".form-select-sm example">
                         <option value="0">Selecione</option>
                         <%
                             ArrayList<Categoria> categorias = new CategoriaDao().consultarTodos();
-                            
+
                             for (Categoria categ : categorias) {
                         %>
 

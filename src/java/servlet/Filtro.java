@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Usuario
  */
-@WebFilter("/")
+@WebFilter("/*")
 public class Filtro extends HttpServlet implements Filter {
 
     List<String> uriPublicas = new ArrayList<>();

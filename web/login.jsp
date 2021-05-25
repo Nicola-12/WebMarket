@@ -112,9 +112,10 @@
                         } else if (params.get('certo') === 'TRUE') {
                             swal({
                                 title: "Correto!",
-                                text: "Usuário ou senha conferem!",
+                                text: "Usuário e senha conferem!",
                                 icon: "success",
-                                button: "OK!"
+                                buttons: false,
+                                timer: 1500
                             }).then(() => {
                                 location = '/WebMarket/index.jsp'
                             });

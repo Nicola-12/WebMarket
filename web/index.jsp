@@ -47,6 +47,7 @@
                     <input class="range" type="range" name="preco" min="0" max="5000" value="<%= pesquisaPreco%>">
                     <label class="coment">5000</label>
                 </div>
+                <label style="color: white"><%= pesquisaPreco%></label>
             </form>
             <button class="dropdown-btnn btn-sucess">Categorias
                 <i class="fa fa-caret-down"></i>
@@ -66,7 +67,7 @@
     <script>
         var dropdown = document.getElementsByClassName("dropdown-btnn");
         var i;
-        
+
         for (i = 0; i < dropdown.length; i++) {
             dropdown[i].addEventListener("click", function () {
                 this.classList.toggle("active");
@@ -78,49 +79,49 @@
                 }
             });
         }
-        
+
         function setCategoria(categoria) {
-            
+
             const url = new URL(location.href);
-            
+
             url.searchParams.set("categoria", categoria);
-            
+
             location.href = url.toString();
         }
-        
+
         function sub(evt) {
             evt.preventDefault();
             const fd = new FormData(evt.target);
-            
+
             const url = new URL(location.href);
-            
+
             url.searchParams.set("pesquisa", fd.get('pesquisa'));
             url.searchParams.set("preco", fd.get('preco'));
-            
+
             location.href = url.toString();
         }
-        
+
         function setPrecoProduto(value) {
-            
+
             const url = new URL(location.href);
-            
+
             url.searchParams.set("preco", value);
-            
+
             location.href = url.toString();
         }
     </script>
     <main>
 
         <%
-            
+
             product = new ProdutoDao().consultarProdAndCategAndPreco(
                     pesquisa, request.getParameter("categoria"), request.getParameter("preco")
             );
-            
+
             if (product.size() == 0) {
         %>
         <script>
-            
+
             swal({
                 title: "Oopa!",
                 text: "Nenhum Produto Cadastrado!",
@@ -130,10 +131,10 @@
                     .then(() => {
                         history.back();
                     })
-            
-            
+
+
         </script>        
-        <%    
+        <%
         } else {
             for (int i = 0; i < product.size(); i++) {
                 pd = product.get(i);
