@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -24,7 +25,7 @@ import javax.servlet.http.HttpSession;
  * @author Usuario
  */
 public class srvAcao extends HttpServlet {
-    
+
     ConexaoBD bd = new ConexaoBD();
     ResultSet r = null;
     Categoria categoria = new Categoria();
@@ -69,7 +70,7 @@ public class srvAcao extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("ESTOU NO GET");
-        
+
         String param = request.getParameter("param");
 
         // -----------------LOGIN-----------------
@@ -83,7 +84,7 @@ public class srvAcao extends HttpServlet {
         } else if (param.equals("excluirPessoa")) {
             String id = request.getParameter("id");
             pep = new PessoaDao().consultarId(Integer.parseInt(id));
-            
+
             if (pep != null) {
                 PessoaDao exc = new PessoaDao();
                 exc.excluir(Integer.parseInt(id));
@@ -92,7 +93,7 @@ public class srvAcao extends HttpServlet {
                 encaminharPagina("erro.jsp", request, response);
             }
         }
-        
+
     }
 
     /**
@@ -107,7 +108,7 @@ public class srvAcao extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("ESTOU NO POST");
-        
+
         String param = request.getParameter("param");
 
         // SALVAR PESSOA  
@@ -120,7 +121,7 @@ public class srvAcao extends HttpServlet {
             String senha = request.getParameter("senha");
             String endereco = request.getParameter("endereco");
             String telefone = request.getParameter("telefone");
-            
+
             if (!nome.matches("^[A-Za-z ]{3,45}$") || nome.isEmpty()) {
                 response.sendRedirect("/WebMarket/pessoa/cadastroLogin.jsp?erro=NOME_INVALIDO");
                 return;
@@ -141,29 +142,29 @@ public class srvAcao extends HttpServlet {
                 p.endereco = endereco;
                 p.telefone = telefone;
             }
-            
+
             if (id == 0) {
                 if (pd.salvar(p) == null) {
-                    
+
                     response.sendRedirect("/WebMarket/pessoa/cadastroLogin.jsp?certo=TRUE");
                 } else {
                     response.sendRedirect("/WebMarket/pessoa/cadastroLogin.jsp?erro=ERRO");
                 }
-                
+
             }
         } else if (param.equals("editarPessoa")) {
             PessoaDao pd = new PessoaDao();
             HttpSession sessao = ((HttpServletRequest) request).getSession();
-            
+
             Pessoa f = (Pessoa) sessao.getAttribute("usuarioLogado");
-            
+
             f = pd.consultarEmail(f.email);
             int id = Integer.parseInt(request.getParameter("id"));
             String nome = request.getParameter("nome");
             String email = request.getParameter("email");
             String endereco = request.getParameter("endereco");
             String telefone = request.getParameter("telefone");
-            
+
             if (!nome.matches("^[A-Za-z ]{3,45}$") || nome.isEmpty()) {
                 response.sendRedirect("/WebMarket/pessoa/dadosConta.jsp?erro=NOME_INVALIDO");
                 return;
@@ -180,9 +181,9 @@ public class srvAcao extends HttpServlet {
                 f.endereco = endereco;
                 f.telefone = telefone;
             }
-            
+
             if (id != 0) {
-                
+
                 if (pd.atualizar(f) == null) {
                     response.sendRedirect("/WebMarket/pessoa/dadosConta.jsp?certo=TRUE");
                 } else {
@@ -195,13 +196,13 @@ public class srvAcao extends HttpServlet {
             String senha = request.getParameter("senha");
             String senhaNova = request.getParameter("senhaNova");
             String confirmarSenha = request.getParameter("confirmarSenha");
-            
+
             Pessoa f = (Pessoa) sessao.getAttribute("usuarioLogado");
-            
+
             f = pd.consultarEmail(f.email);
-            
+
             if (!senha.isEmpty() && !senhaNova.isEmpty() && !confirmarSenha.isEmpty()) {
-                
+
                 if (Cripto.eIgual(f.senha, senha) && senhaNova.equals(confirmarSenha)) {
                     f.senha = Cripto.criptografar(senhaNova);
                     pd.atualizar(f);
@@ -218,32 +219,32 @@ public class srvAcao extends HttpServlet {
             Pessoa pes = new Pessoa();
             String email = request.getParameter("email");
             String senha = request.getParameter("senha");
-            
+
             try {
                 ResultSet set = bd.getConnection().createStatement()
                         .executeQuery("SELECT * FROM pessoa WHERE email = '" + email + "'");
-                
+
                 if (!set.next()) {
                     response.sendRedirect("/WebMarket/login.jsp?erro=ERRO");
                 }
-                
+
                 if (Cripto.eIgual(set.getString("senha"), new String(senha))) {
                     pes.email = email;
-                    
+
                     HttpSession sessao = ((HttpServletRequest) request).getSession();
-                    
+
                     sessao.setAttribute("usuarioLogado", pes);
-                    
+                    sessao.setAttribute("cart", new ArrayList());
                     response.sendRedirect("/WebMarket/login.jsp?certo=TRUE");
-                    
+
                 } else {
                     response.sendRedirect("/WebMarket/login.jsp?erro=ERRO");
                 }
-                
+
             } catch (SQLException ex) {
                 Logger.getLogger(srvAcao.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
     }
 

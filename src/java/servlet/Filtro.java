@@ -116,21 +116,21 @@ public class Filtro extends HttpServlet implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
 
-        System.out.println("getReqURI: " + req.getRequestURI());
+        //System.out.println("getReqURI: " + req.getRequestURI());
 
         if (uriPublicas.contains(req.getRequestURI())) {
             request.setAttribute("parametro", "login");
             chain.doFilter(request, response);
         } else {
             HttpSession sessao = ((HttpServletRequest) request).getSession();
-
+            System.out.println(sessao.toString());
             // caso não pertença a lista, verifica se há usuário na sessão
             // se não houver, encaminha para o Login
             if (sessao.getAttribute("usuarioLogado") == null) {
                 ((HttpServletResponse) response).sendRedirect("/WebMarket/login.jsp");
             } else {
                 // se usuário estiver logado, apenas abra a página solicitada
-                System.out.println("Destino: " + req.getRequestURI());
+                //System.out.println("Destino: " + req.getRequestURI());
                 chain.doFilter(request, response);
             }
         }

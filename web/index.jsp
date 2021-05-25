@@ -149,7 +149,8 @@
                     vezes = 6;
                 }
         %>          
-        <div class="card">
+        <form class="card" method="post" action="/WebMarket/carrinho?param=addProd">
+            <input type="text" value="<%=pd.id%>" name="idCart" hidden >
             <img src="http://localhost:7777/images/<%=pd.file%>" alt="Alguma Coisa" style="width:100%; height: 250px">
             <h1><%= pd.nome%></h1>
             <p class="price"><%= pd.valor%> R$</p>
@@ -163,7 +164,7 @@
             <%
                 }
             %>
-        </div>
+        </form>
         <% }
             }
 
