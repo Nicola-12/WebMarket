@@ -61,7 +61,7 @@
                                     <td>In stock: <%=c.estoque%></td>
                                     <td><input class="form-control" type="text" value="<%= quant%>" /></td>
                                     <td class="text-right"><%=c.valor%> R$</td>
-                                    <td class="text-right"><button class="btn btn-sm btn-danger"><a href="/WebMarket/carrinho?param=<%=c.id%>" ><i class="fa fa-trash"></i></a> </button> </td>
+                                    <td class="text-right"><button class="btn btn-sm btn-danger"><a href="/WebMarket/cart?param=exCart&id=<%=c.id%>" ><i class="fa fa-trash"></i></a> </button> </td>
                                 </tr>
                                 <%
 

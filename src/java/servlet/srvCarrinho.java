@@ -16,11 +16,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 
-@WebServlet(name = "carrinho", urlPatterns = {"/carrinho"})
+@WebServlet(name = "cart", urlPatterns = {"/cart"})
 public class srvCarrinho extends HttpServlet {
 
     ConexaoBD bd = new ConexaoBD();
+    ProdutoDao pd = new ProdutoDao();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,7 +41,7 @@ public class srvCarrinho extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet carrinho</title>");
+            out.println("<title>Servlet cart</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet carrinho at " + request.getContextPath() + "</h1>");
@@ -60,7 +62,21 @@ public class srvCarrinho extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        HttpSession session = ((HttpServletRequest) request).getSession();
+        String param = request.getParameter("param");
+
+        ArrayList<Produto> produtos = (ArrayList<Produto>) session.getAttribute("cart");
+
+        if (param.equals("exCart")) {
+            String id = request.getParameter("id");
+            System.out.println(id);
+            Produto p = pd.consultarId(Integer.parseInt(id));
+            System.out.println(p.toString());
+            produtos.remove(p);
+
+            response.sendRedirect("/WebMarket/carrinho/carrinho.jsp");
+        }
     }
 
     /**
@@ -76,8 +92,8 @@ public class srvCarrinho extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = ((HttpServletRequest) request).getSession();
         String param = request.getParameter("param");
+
         ArrayList<Produto> produtos = (ArrayList<Produto>) session.getAttribute("cart");
-        ProdutoDao pd = new ProdutoDao();
         if (param.equals("addProd")) {
 
             String id = request.getParameter("idCart");
@@ -87,11 +103,6 @@ public class srvCarrinho extends HttpServlet {
             produtos.add(p);
 
             response.sendRedirect("/WebMarket/index.jsp");
-        } else {
-
-            int id = Integer.parseInt(param);
-
-            produtos.remove(id);
         }
     }
 
