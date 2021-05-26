@@ -1,30 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import apoio.ConexaoBD;
 import apoio.IDAO;
-import entidade.Carrinho;
-import java.sql.Statement;
+import entidade.ItemCarrinho;
 import java.util.ArrayList;
+import java.sql.*;
 
-/**
- *
- * @author Usuario
- */
-public class CarrinhoDao implements IDAO<Carrinho> {
+public class ItemCarrinhoDao implements IDAO<ItemCarrinho> {
+
+    ResultSet result;
 
     @Override
-    public String salvar(Carrinho o) {
+    public String salvar(ItemCarrinho o) {
         try {
             Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
 
-            String sql = "INSERT INTO carrinho "
-                    + "'" + o.id_compra + "',"
-                    + "'" + o.id_iten + "'";
+            String sql = "INSERT INTO itencarrinho "
+                    + "default,"
+                    + "'" + o.quant + "',"
+                    + "'" + o.total + "',"
+                    + "'" + o.id_produto + "',"
+                    + "'" + o.created_at + "',"
+                    + "'now()'";
 
             System.out.println("SQL: " + sql);
 
@@ -38,14 +35,16 @@ public class CarrinhoDao implements IDAO<Carrinho> {
     }
 
     @Override
-    public String atualizar(Carrinho o) {
+    public String atualizar(ItemCarrinho o) {
         try {
             Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
 
-            String sql = "UPDATE carrinho SET "
-                    + "id_compra='" + o.id_compra + "',"
-                    + "id_iten='" + o.id_iten + "',"
-                    + "WHERE id_compra= " + o.id_compra;
+            String sql = "UPDATE itencarrinho SET "
+                    + "quant='" + o.quant + "',"
+                    + "precoTotal='" + o.total + "',"
+                    + "id_produto='" + o.id_produto + "',"
+                    + "created_at= now() "
+                    + "WHERE id= " + o.id;
 
             System.out.println("SQL: " + sql);
 
@@ -60,32 +59,32 @@ public class CarrinhoDao implements IDAO<Carrinho> {
     }
 
     @Override
-    public String excluir(int id) {
+    public String excluir(int id) {//não é necessário
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<Carrinho> consultarTodos() {
+    public ArrayList<ItemCarrinho> consultarTodos() {//não é necessário
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean registroUnico(Carrinho o) {
+    public boolean registroUnico(ItemCarrinho o) {//não é necessário
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<Carrinho> consultar(String criterio) {
+    public ArrayList<ItemCarrinho> consultar(String criterio) {//não é necessário
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Carrinho consultarId(int id) {
+    public ItemCarrinho consultarId(int id) {//não é necessário
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean consultar(Carrinho o) {
+    public boolean consultar(ItemCarrinho o) {//não é necessário
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -3,7 +3,6 @@ package dao;
 import apoio.ConexaoBD;
 import apoio.IDAO;
 import entidade.Compra;
-import entidade.Venda;
 import java.util.ArrayList;
 import java.sql.*;
 
@@ -18,10 +17,10 @@ public class CompraDao implements IDAO<Compra> {
 
             String sql = "INSERT INTO compra"
                     + "default,"
-                    + "'" + o.valor + "',"
+                    + "'" + o.valorTotal + "',"
                     + "'" + o.parcelas + "',"
                     + "'" + o.id_pessoa + "',"
-                    + "'" + o.id_carrinho + "'";
+                    + "' now() '";
 
             System.out.println("SQL: " + sql);
 
@@ -40,10 +39,9 @@ public class CompraDao implements IDAO<Compra> {
             Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
 
             String sql = "UPDATE compra SET "
-                    + "valor=" + o.valor + ","
-                    + "parcelas=" + o.parcelas + ","
-                    + "id_pessoa=" + o.id_pessoa + ","
-                    + "id_carrinho=" + o.id_carrinho + " "
+                    + "valorTotal='" + o.valorTotal + "',"
+                    + "parcelas='" + o.parcelas + "',"
+                    + "id_pessoa='" + o.id_pessoa + "' "
                     + "WHERE id= " + o.id;
 
             System.out.println("SQL: " + sql);

@@ -1,34 +1,37 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package entidade;
 
 import java.sql.*;
 
+/**
+ *
+ * @author Usuario
+ */
 public class Carrinho {
 
-    public Integer id;
-    public double quant;
-    public double precoTotal;
-    public Integer id_produto;
+    public int id_compra;
+    public int id_iten;
 
     public static Carrinho from(ResultSet resultSet) throws SQLException {
-        Carrinho car = new Carrinho();
+        Carrinho carrinho = new Carrinho();
 
-        car.id = resultSet.getInt("id");
-        car.quant = resultSet.getDouble("quant");
-        car.precoTotal = resultSet.getDouble("precoTotal");
-        car.id_produto = resultSet.getInt("id_produto");
+        carrinho.id_compra = resultSet.getInt("id_compra");
+        carrinho.id_iten = resultSet.getInt("id_iten");
 
-        return car;
+        return carrinho;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("carrinho{id=").append(id);
-        sb.append("', quant='").append(quant);
-        sb.append("', precoTotal='").append(precoTotal);
-        sb.append("', id_produto='").append(id_produto);
+        sb.append("carrinho={id_compra=").append(id_compra);
+        sb.append("', id_iten='").append(id_iten);
         sb.append('}');
-
         return sb.toString();
     }
+
 }
