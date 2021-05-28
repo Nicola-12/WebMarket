@@ -28,7 +28,7 @@
 
         <%            HttpSession ses = ((HttpServletRequest) request).getSession();
             ArrayList<Produto> prods = (ArrayList<Produto>) ses.getAttribute("cart");
-            double total = 0.0;
+            double subTotal = 0.0;
         %>
 
         <div class="container mb-4">
@@ -61,11 +61,11 @@
                                     <td>In stock: <%=c.estoque%></td>
                                     <td><input class="form-control" type="text" value="<%= quant%>" /></td>
                                     <td class="text-right"><%=c.valor%> R$</td>
-                                    <td class="text-right"><button class="btn btn-sm btn-danger"><a href="/WebMarket/cart?param=exCart&id=<%=c.id%>" ><i class="fa fa-trash"></i></a> </button> </td>
+                                    <td class="text-right"><a href="/WebMarket/cart?param=exCart&id=<%=c.id%>" ><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button></a> </td>
                                 </tr>
                                 <%
 
-                                        total += c.valor;
+                                        subTotal += c.valor;
                                     }
 
                                 %>
@@ -75,17 +75,20 @@
                                     <td></td>
                                     <td></td>
                                     <td>Sub-Total</td>
-                                    <td class="text-right"><%=String.format("%.2f", total)%></td>
+                                    <td class="text-right"><%=String.format("%.2f", subTotal)%></td>
                                 </tr>
                                 <%                                    }
+
+                                    double taxa = subTotal * 0.05;
+                                    double totalCompra = subTotal + taxa;
                                 %>
                                 <tr class="table-light">
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td>Shipping</td>
-                                    <td class="text-right">6,90 €</td>
+                                    <td>Taxas - 5%</td>
+                                    <td class="text-right"><%=String.format("%.2f", taxa)%> R$</td>
                                 </tr>
                                 <tr class="table-light">
                                     <td></td>
@@ -93,7 +96,7 @@
                                     <td></td>
                                     <td></td>
                                     <td><strong>Total</strong></td>
-                                    <td class="text-right"><strong>346,90 €</strong></td>
+                                    <td class="text-right"><strong><%=String.format("%.2f", totalCompra)%> R$</strong></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -102,11 +105,11 @@
                 <div class="col mb-2">
                     <div class="row">
                         <div class="col-sm-12  col-md-6">
-                            <button class="btn btn-block btn-light">Continue Shopping</button>
+                            <a href="/WebMarket/index.jsp"><button class="btn btn-block btn-light">Continuar Comprando</button> </a>
                         </div>
-                        <div class="col-sm-12 col-md-6 text-right">
-                            <button class="btn btn-lg btn-block btn-success text-uppercase">Checkout</button>
-                        </div>
+                        <form method="post" action="/WebMarket/cart?param=compra" class="col-sm-12 col-md-6 text-right">
+                            <button class="btn btn-lg btn-block btn-success text-uppercase">Finalizar Compra</button>
+                        </form>
                     </div>
                 </div>
             </div>

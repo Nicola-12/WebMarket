@@ -1,9 +1,10 @@
 package entidade;
 
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Produto {
+public class Produto implements Serializable{
 
     public Integer id;
     public String nome; //nome
@@ -14,7 +15,7 @@ public class Produto {
     public String ativo; //ativo (visível) ou inativo (invisível)
     public String file; // Salva uma Img
 
-    public static Produto from(ResultSet resultSet) throws SQLException {
+    public static Produto from(ResultSet resultSet) throws SQLException  {
         Produto prod = new Produto();
 
         prod.id = resultSet.getInt("id");

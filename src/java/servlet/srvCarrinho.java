@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -70,10 +71,9 @@ public class srvCarrinho extends HttpServlet {
 
         if (param.equals("exCart")) {
             String id = request.getParameter("id");
-            System.out.println(id);
-            Produto p = pd.consultarId(Integer.parseInt(id));
-            System.out.println(p.toString());
-            produtos.remove(p);
+            int d = Integer.parseInt(id);
+
+            removeItem(produtos, p -> p.id == d);
 
             response.sendRedirect("/WebMarket/carrinho/carrinho.jsp");
         }
@@ -116,4 +116,12 @@ public class srvCarrinho extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    public static <T> void removeItem(ArrayList<T> items, Predicate<T> find) {
+        for (int i = 0; i < items.size(); i++) {
+            if (find.test(items.get(i))) {
+                items.remove(i);
+                return;
+            }
+        }
+    }
 }
