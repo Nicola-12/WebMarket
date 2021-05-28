@@ -22,9 +22,9 @@ public class CarrinhoDao implements IDAO<Carrinho> {
         try {
             Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
 
-            String sql = "INSERT INTO carrinho "
-                    + "'" + o.id_compra + "',"
-                    + "'" + o.id_iten + "'";
+            String sql = "INSERT INTO carrinho values ("
+                    + "" + o.id_compra + ","
+                    + "" + o.id_iten + ")";
 
             System.out.println("SQL: " + sql);
 

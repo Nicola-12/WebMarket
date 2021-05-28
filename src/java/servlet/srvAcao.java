@@ -5,6 +5,7 @@ import apoio.Cripto;
 import apoio.Validacao;
 import dao.PessoaDao;
 import entidade.Categoria;
+import entidade.ItemCarrinho;
 import entidade.Pessoa;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -234,7 +235,7 @@ public class srvAcao extends HttpServlet {
                     HttpSession sessao = ((HttpServletRequest) request).getSession();
 
                     sessao.setAttribute("usuarioLogado", pes);
-                    sessao.setAttribute("cart", new ArrayList());
+                    sessao.setAttribute("cart", new ArrayList<ItemCarrinho>());
                     response.sendRedirect("/WebMarket/login.jsp?certo=TRUE");
 
                 } else {

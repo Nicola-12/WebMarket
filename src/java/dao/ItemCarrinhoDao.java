@@ -15,17 +15,18 @@ public class ItemCarrinhoDao implements IDAO<ItemCarrinho> {
         try {
             Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
 
-            String sql = "INSERT INTO itencarrinho "
-                    + "default,"
-                    + "'" + o.quant + "',"
-                    + "'" + o.total + "',"
-                    + "'" + o.id_produto + "',"
-                    + "'" + o.created_at + "',"
-                    + "'now()'";
+            String sql = "INSERT INTO itencarrinho values "
+                    + "(default,"
+                    + "" + o.quant + ","
+                    + "" + o.valorU + ","
+                    + "" + o.id_produto + ","
+                    + "now()) RETURNING id";
 
             System.out.println("SQL: " + sql);
 
-            int retorno = stm.executeUpdate(sql);
+            ResultSet rs = stm.executeQuery(sql);
+            rs.next();
+            o.id = rs.getInt(1);
 
             return null;
         } catch (Exception e) {
@@ -41,7 +42,7 @@ public class ItemCarrinhoDao implements IDAO<ItemCarrinho> {
 
             String sql = "UPDATE itencarrinho SET "
                     + "quant='" + o.quant + "',"
-                    + "precoTotal='" + o.total + "',"
+                    + "precoTotal='" + o.valorU + "',"
                     + "id_produto='" + o.id_produto + "',"
                     + "created_at= now() "
                     + "WHERE id= " + o.id;

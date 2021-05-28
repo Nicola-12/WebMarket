@@ -74,3 +74,9 @@ td img {
     text-decoration: none;
     color: #f8f9fa;
 }
+
+.quant {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}

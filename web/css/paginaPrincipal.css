@@ -24,13 +24,13 @@ body {
         205px 1fr;
 }
 .coment {
-    
+
     color: #f1f1f1;
 }
 
 div.range {
     display: flex;
-    
+
 }
 
 input.range {
@@ -100,6 +100,18 @@ nav {
 }
 
 .card button {
+    border: none;
+    outline: 0;
+    padding: 12px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+}
+
+.card h5 {
     border: none;
     outline: 0;
     padding: 12px;

@@ -4,6 +4,8 @@
     Author     : Usuario
 --%>
 
+<%@page import="dao.ProdutoDao"%>
+<%@page import="entidade.ItemCarrinho"%>
 <%@page import="entidade.Produto"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -27,12 +29,12 @@
         </section>
 
         <%            HttpSession ses = ((HttpServletRequest) request).getSession();
-            ArrayList<Produto> prods = (ArrayList<Produto>) ses.getAttribute("cart");
+            ArrayList<ItemCarrinho> prods = (ArrayList<ItemCarrinho>) ses.getAttribute("cart");
             double subTotal = 0.0;
         %>
 
         <div class="container mb-4">
-            <div class="row">
+            <form method="post" action="/WebMarket/cart?param=compra" class="row">
                 <div class="col-12">
                     <div class="table-responsive">
                         <table class="table table-dark">
@@ -51,53 +53,56 @@
                                         out.print("NAO CONTEM NADA");
                                     } else {
                                         for (int i = 0; i < prods.size(); i++) {
-                                            Produto c = prods.get(i);
-
-                                            int quant = 2;
+                                            Produto c = new ProdutoDao().consultarId(prods.get(i).id_produto);
                                 %>
-                                <tr class="table-light">
-                                    <td><img src="http://localhost:7777/images/<%= c.file%>" /> </td>
-                                    <td><%=c.nome%></td>
-                                    <td>In stock: <%=c.estoque%></td>
-                                    <td><input class="form-control" type="text" value="<%= quant%>" /></td>
-                                    <td class="text-right"><%=c.valor%> R$</td>
-                                    <td class="text-right"><a href="/WebMarket/cart?param=exCart&id=<%=c.id%>" ><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button></a> </td>
-                                </tr>
-                                <%
+                            <input type="text" hidden name="idProd" value="<%=c.id%>">
+                            <tr class="table-light">
+                                <td><img src="http://localhost:7777/images/<%= c.file%>" /> </td>
+                                <td><%=c.nome%></td>
+                                <td>In stock: <%=c.estoque%></td>
+                                <td class="quant">
+                                    <a class="btn btn-outline-info" href="/WebMarket/cart?param=qrem&id=<%=c.id%>"><i class="fas fa-minus"></i></a>
+                                    <span><%=prods.get(i).quant%></span>
+                                    <a class="btn btn-outline-info" href="/WebMarket/cart?param=qadd&id=<%=c.id%>"><i class="fas fa-plus"></i></a>                                 
+                                </td>
+                                <td class="text-right"><%=c.valor * prods.get(i).quant%> R$</td>
+                                <td class="text-right"><a href="/WebMarket/cart?param=exCart&id=<%=c.id%>" class="btn btn-sm btn-danger" ><i class="fa fa-trash"></i></a> </td>
+                            </tr>
+                            <%
 
-                                        subTotal += c.valor;
-                                    }
+                                    subTotal += c.valor * prods.get(i).quant;
+                                }
 
-                                %>
-                                <tr class="table-light">
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>Sub-Total</td>
-                                    <td class="text-right"><%=String.format("%.2f", subTotal)%></td>
-                                </tr>
-                                <%                                    }
+                            %>
+                            <tr class="table-light">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Sub-Total</td>
+                                <td class="text-right"><%=String.format("%.2f", subTotal)%></td>
+                            </tr>
+                            <%                                    }
 
-                                    double taxa = subTotal * 0.05;
-                                    double totalCompra = subTotal + taxa;
-                                %>
-                                <tr class="table-light">
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>Taxas - 5%</td>
-                                    <td class="text-right"><%=String.format("%.2f", taxa)%> R$</td>
-                                </tr>
-                                <tr class="table-light">
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td><strong>Total</strong></td>
-                                    <td class="text-right"><strong><%=String.format("%.2f", totalCompra)%> R$</strong></td>
-                                </tr>
+                                double taxa = subTotal * 0.05;
+                                double totalCompra = subTotal + taxa;
+                            %>
+                            <tr class="table-light">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Taxas - 5%</td>
+                                <td class="text-right"><%=String.format("%.2f", taxa)%> R$</td>
+                            </tr>
+                            <tr class="table-light">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><strong>Total</strong></td>
+                                <td><input name="totalCompra" value="<%= totalCompra%>" hidden><strong><%=String.format("%.2f", totalCompra)%> R$ </strong></td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -105,14 +110,14 @@
                 <div class="col mb-2">
                     <div class="row">
                         <div class="col-sm-12  col-md-6">
-                            <a href="/WebMarket/index.jsp"><button class="btn btn-block btn-light">Continuar Comprando</button> </a>
+                            <a href="/WebMarket/index.jsp"><button class="btn w-100 btn-outline-secondary">Continuar Comprando</button> </a>
                         </div>
-                        <form method="post" action="/WebMarket/cart?param=compra" class="col-sm-12 col-md-6 text-right">
-                            <button class="btn btn-lg btn-block btn-success text-uppercase">Finalizar Compra</button>
-                        </form>
+                        <div class="col-sm-12 col-md-6 text-right">
+                            <button class="btn w-100 btn-success">Finalizar Compra</button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </body>
 

@@ -15,17 +15,18 @@ public class CompraDao implements IDAO<Compra> {
         try {
             Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
 
-            String sql = "INSERT INTO compra"
-                    + "default,"
-                    + "'" + o.valorTotal + "',"
-                    + "'" + o.parcelas + "',"
-                    + "'" + o.id_pessoa + "',"
-                    + "' now() '";
+            String sql = "INSERT INTO compra values "
+                    + "(default,"
+                    + "" + o.valorTotal + ","
+                    + "" + o.parcelas + ","
+                    + "" + o.id_pessoa + ","
+                    + " now()) "
+                    + "RETURNING id";
 
             System.out.println("SQL: " + sql);
-
-            int retorno = stm.executeUpdate(sql);
-
+            ResultSet rs = stm.executeQuery(sql);
+            rs.next();
+            o.id = rs.getInt(1);
             return null;
         } catch (Exception e) {
             System.out.println("Erro ao salvar compra" + e);

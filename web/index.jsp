@@ -150,17 +150,17 @@
                 }
         %>          
         <form class="card" method="post" action="/WebMarket/cart?param=addProd">
-            <input type="text" value="<%=pd.id%>" name="idCart" hidden >
+            <input type="text" value="<%=pd.id%>" name="id" hidden >
             <img src="http://localhost:7777/images/<%=pd.file%>" alt="Alguma Coisa" style="width:100%; height: 250px">
             <h1><%= pd.nome%></h1>
             <p class="price"><%= pd.valor%> R$</p>
             <p class="parcela" style="color: grey; font-size: 15px" ><%= vezes%>x de <%= parcela%> no cartão sem juros</p>
             <%
-                if (pd.estoque == 0 || pd.ativo.equals("false")) {
+                if (pd.estoque == 0 || pd.ativo.equals("inativo")) {
             %>
-            <p><button>Produto Indisponivel</button></p>
+            <p><h5>Produto Indisponivel</h5></p>
             <%} else { %>
-            <p><button>Add to Cart</button></p>
+            <p><button>Adicionar no Carrinho</button></p>
             <%
                 }
             %>

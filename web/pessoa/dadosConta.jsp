@@ -40,7 +40,6 @@
         <%            f = (Pessoa) sessao.getAttribute("usuarioLogado");
 
             f = new PessoaDao().consultarEmail(f.email);
-
         %>   
 
         <style>

@@ -1,7 +1,13 @@
 package servlet;
 
 import apoio.ConexaoBD;
+import dao.CarrinhoDao;
+import dao.CompraDao;
+import dao.ItemCarrinhoDao;
 import dao.ProdutoDao;
+import entidade.Carrinho;
+import entidade.Compra;
+import entidade.ItemCarrinho;
 import entidade.Produto;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -67,14 +73,25 @@ public class srvCarrinho extends HttpServlet {
         HttpSession session = ((HttpServletRequest) request).getSession();
         String param = request.getParameter("param");
 
-        ArrayList<Produto> produtos = (ArrayList<Produto>) session.getAttribute("cart");
+        ArrayList<ItemCarrinho> produtos = (ArrayList<ItemCarrinho>) session.getAttribute("cart");
 
         if (param.equals("exCart")) {
             String id = request.getParameter("id");
             int d = Integer.parseInt(id);
 
-            removeItem(produtos, p -> p.id == d);
+            removeItem(produtos, p -> p.id_produto == d);
 
+            response.sendRedirect("/WebMarket/carrinho/carrinho.jsp");
+        } else if (param.equals("qadd")) {
+            System.out.println(param);
+            //VERIFICAR QUANT
+            int id = Integer.parseInt(request.getParameter("id"));
+            produtos.stream().filter(p -> p.id_produto == id).findFirst().get().quant++;
+            response.sendRedirect("/WebMarket/carrinho/carrinho.jsp");
+
+        } else if (param.equals("qrem")) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            produtos.stream().filter(p -> p.id_produto == id).findFirst().get().quant--;
             response.sendRedirect("/WebMarket/carrinho/carrinho.jsp");
         }
     }
@@ -93,16 +110,70 @@ public class srvCarrinho extends HttpServlet {
         HttpSession session = ((HttpServletRequest) request).getSession();
         String param = request.getParameter("param");
 
-        ArrayList<Produto> produtos = (ArrayList<Produto>) session.getAttribute("cart");
+        ArrayList<ItemCarrinho> produtos = (ArrayList<ItemCarrinho>) session.getAttribute("cart");
         if (param.equals("addProd")) {
 
-            String id = request.getParameter("idCart");
+            int id = Integer.parseInt(request.getParameter("id"));
 
-            Produto p = pd.consultarId(Integer.parseInt(id));
-
-            produtos.add(p);
+            ItemCarrinho item = new ItemCarrinho();
+            item.id = 0;
+            item.quant = 1;
+            item.valorU = 0;
+            item.id_produto = id;
+            produtos.add(item);
+            // 2 vezes msm produto apenas aumentar quant
 
             response.sendRedirect("/WebMarket/index.jsp");
+
+        } else if (param.equals("compra")) {
+            System.out.println(param);
+            ItemCarrinhoDao icDao = new ItemCarrinhoDao();
+            CarrinhoDao carDao = new CarrinhoDao();
+            CompraDao cDao = new CompraDao();
+
+            if (produtos.size() <= 0) {
+                return;
+            }
+
+            double valorTotal = 0.0;
+            int parcelas = 0; // Fazer
+            for (ItemCarrinho item : produtos) {
+
+                Produto p = pd.consultarId(item.id_produto);
+                if (p.estoque >= item.quant) {
+                    p.estoque -= item.quant;
+                    pd.salvar(p);
+                } else {
+                    //ERRO
+                    return;
+                }
+                item.valorU = p.valor;
+                valorTotal += item.valorU * item.quant;
+
+            }
+
+            Compra c = new Compra();
+
+            c.id = 0;
+            c.parcelas = parcelas;
+            c.valorTotal = valorTotal;
+            c.id_pessoa = 1; // FAZER 
+            // Salva a compra e vê o novo id da compra
+            // Salvar os itens e pegar os novos ids e dps salvar o carrinho
+
+            cDao.salvar(c);
+
+            Carrinho car = new Carrinho();
+            car.id_compra = c.id;
+            for (ItemCarrinho item : produtos) {
+                icDao.salvar(item);
+
+                car.id_iten = item.id;
+                carDao.salvar(car);
+            }
+            session.setAttribute("cart", new ArrayList<ItemCarrinho>());
+            response.sendRedirect("/WebMarket/carrinho/carrinho.jsp");
+
         }
     }
 
