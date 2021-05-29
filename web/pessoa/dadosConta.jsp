@@ -37,7 +37,7 @@
         <%@include file="../menu.jsp" %>
     </head>
     <body>
-        <%            f = (Pessoa) sessao.getAttribute("usuarioLogado");
+        <%  f = (Pessoa) sessao.getAttribute("usuarioLogado");
 
             f = new PessoaDao().consultarEmail(f.email);
         %>   

@@ -4,6 +4,7 @@
     Author     : Usuario
 --%>
 
+<%@page import="entidade.Compra"%>
 <%@page import="dao.ProdutoDao"%>
 <%@page import="entidade.ItemCarrinho"%>
 <%@page import="entidade.Produto"%>
@@ -17,6 +18,7 @@
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <link href="/WebMarket/css/cart.css" rel="stylesheet">
     </head>
     <body>
@@ -28,8 +30,26 @@
             </div>
         </section>
 
+        <script>
+            document.addEventListener('readystatechange', () => {
+                if (document.readyState !== "complete")
+                    return
+
+                const params = new URL(location.href).searchParams
+                if (params.get('erro') === 'ERRO') {
+                    swal.fire({
+                        title: "Houve um Problema!",
+                        text: "erro ao comprar o(s) produto(s)",
+                        icon: "error",
+                        button: "OK",
+                    })
+                }
+            })
+        </script>
+
         <%            HttpSession ses = ((HttpServletRequest) request).getSession();
             ArrayList<ItemCarrinho> prods = (ArrayList<ItemCarrinho>) ses.getAttribute("cart");
+
             double subTotal = 0.0;
         %>
 
@@ -72,8 +92,18 @@
 
                                     subTotal += c.valor * prods.get(i).quant;
                                 }
-
                             %>
+                            <tr class="table-light">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Parcelas</td>
+                                <td class="text-right">                       
+                                    <input type="number" name="parcelas" class="parcelas" min="1" max="12" step="1" value="1"/>
+                                </td>
+                            </tr>
+
                             <tr class="table-light">
                                 <td></td>
                                 <td></td>
@@ -119,6 +149,8 @@
                 </div>
             </form>
         </div>
+
+
     </body>
 
     <!-- Footer -->

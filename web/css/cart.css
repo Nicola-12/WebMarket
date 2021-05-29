@@ -80,3 +80,8 @@ td img {
     align-items: center;
     justify-content: space-around;
 }
+
+.parcelas {
+    width: 32%;
+    outline-border: none;
+}

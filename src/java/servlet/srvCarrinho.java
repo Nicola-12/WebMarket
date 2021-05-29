@@ -4,10 +4,12 @@ import apoio.ConexaoBD;
 import dao.CarrinhoDao;
 import dao.CompraDao;
 import dao.ItemCarrinhoDao;
+import dao.PessoaDao;
 import dao.ProdutoDao;
 import entidade.Carrinho;
 import entidade.Compra;
 import entidade.ItemCarrinho;
+import entidade.Pessoa;
 import entidade.Produto;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,13 +19,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.sql.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.function.Predicate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
 
 @WebServlet(name = "cart", urlPatterns = {"/cart"})
 public class srvCarrinho extends HttpServlet {
@@ -111,6 +108,7 @@ public class srvCarrinho extends HttpServlet {
         String param = request.getParameter("param");
 
         ArrayList<ItemCarrinho> produtos = (ArrayList<ItemCarrinho>) session.getAttribute("cart");
+        Pessoa f = (Pessoa) session.getAttribute("usuarioLogado");
         if (param.equals("addProd")) {
 
             int id = Integer.parseInt(request.getParameter("id"));
@@ -130,13 +128,14 @@ public class srvCarrinho extends HttpServlet {
             ItemCarrinhoDao icDao = new ItemCarrinhoDao();
             CarrinhoDao carDao = new CarrinhoDao();
             CompraDao cDao = new CompraDao();
-
+            PessoaDao pDao = new PessoaDao();
+            f = pDao.consultarEmail(f.email);
             if (produtos.size() <= 0) {
                 return;
             }
 
             double valorTotal = 0.0;
-            int parcelas = 0; // Fazer
+            int parcelas = Integer.parseInt(request.getParameter("parcelas"));
             for (ItemCarrinho item : produtos) {
 
                 Produto p = pd.consultarId(item.id_produto);
@@ -144,7 +143,7 @@ public class srvCarrinho extends HttpServlet {
                     p.estoque -= item.quant;
                     pd.salvar(p);
                 } else {
-                    //ERRO
+                    response.sendRedirect("/WebMarket/carrinho/carrinho.jsp?erro=ERRO");
                     return;
                 }
                 item.valorU = p.valor;
@@ -156,8 +155,8 @@ public class srvCarrinho extends HttpServlet {
 
             c.id = 0;
             c.parcelas = parcelas;
-            c.valorTotal = valorTotal;
-            c.id_pessoa = 1; // FAZER 
+            c.valorTotal = valorTotal / parcelas;
+            c.id_pessoa = f.id;
             // Salva a compra e vê o novo id da compra
             // Salvar os itens e pegar os novos ids e dps salvar o carrinho
 
