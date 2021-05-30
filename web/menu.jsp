@@ -84,6 +84,13 @@
                                 <li><a class="dropdown-item listaUser" href="#">Listagem de Usuários</a></li>
                                 <li><a class="dropdown-item listaProd" href="#">Listagem de Produtos</a></li>
                                 <li><a class="dropdown-item relProd" href="#">Relatório de Preços</a></li>
+                                <li><a class="dropdown-item relVenda" href="#">Relatório de Vendas</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">Estatisticas</a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdown04">
+                                <li><a class="dropdown-item listaUser" href="/WebMarket/grafico/charts.jsp">Vendas da Semana por Categoria</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -122,6 +129,12 @@
                 }).then(ativo => {
                     location.href = "/WebMarket/relatorios/listaUsuarios.jsp?ativo=" + ativo
                 });
+            })
+
+            document.querySelector(".relVenda").addEventListener('click', () => {
+
+                location.href = "/WebMarket/relatorios/relVendas.jsp"
+
             })
 
             document.querySelector(".listaProd").addEventListener('click', () => {

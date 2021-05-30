@@ -149,7 +149,7 @@ public class srvCarrinho extends HttpServlet {
                 Produto p = pd.consultarId(item.id_produto);
                 if (p.estoque >= item.quant) {
                     p.estoque -= item.quant;
-                    pd.salvar(p);
+                    pd.atualizar(p);
                 } else {
                     response.sendRedirect("/WebMarket/carrinho/carrinho.jsp?erro=ERRO");
                     return;
