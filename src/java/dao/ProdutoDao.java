@@ -24,13 +24,13 @@ public class ProdutoDao implements IDAO<Produto> {
             String sql = "INSERT INTO produto VALUES "
                     + "(default,"
                     + "'" + o.descricao + "',"
-                    + "'" + o.nome + "',"
                     + "'" + o.valor + "',"
                     + "'" + o.estoque + "',"
                     + "'" + o.id_categoria + "',"
                     + "'" + o.ativo + "',"
                     + " now(),"
                     + " now(),"
+                    + "'" + o.nome + "',"
                     + "'" + o.file + "'"
                     + ")";
 

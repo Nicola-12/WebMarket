@@ -4,6 +4,8 @@
     Author     : Usuario
 --%>
 
+
+<%@page import="java.util.ArrayList"%>
 <%@page import="entidade.Pessoa"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -71,8 +73,6 @@
 
 
         </style>
-
-
         <!-- Custom styles for this template -->
         <link href="/WebMarket/css/signin.css" rel="stylesheet">
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

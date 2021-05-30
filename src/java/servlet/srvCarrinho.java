@@ -113,13 +113,21 @@ public class srvCarrinho extends HttpServlet {
 
             int id = Integer.parseInt(request.getParameter("id"));
 
-            ItemCarrinho item = new ItemCarrinho();
-            item.id = 0;
-            item.quant = 1;
-            item.valorU = 0;
-            item.id_produto = id;
-            produtos.add(item);
-            // 2 vezes msm produto apenas aumentar quant
+            ItemCarrinho item = produtos.stream().filter(p -> p.id_produto == id).findFirst().orElse(null);
+
+            if (item == null) {
+
+                item = new ItemCarrinho();
+                item.id = 0;
+                item.quant = 1;
+                item.valorU = 0;
+                item.id_produto = id;
+
+                produtos.add(item);
+            } else {
+                // 2 vezes msm produto apenas aumentar quant
+                item.quant++;
+            }
 
             response.sendRedirect("/WebMarket/index.jsp");
 
