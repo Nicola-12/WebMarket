@@ -85,6 +85,7 @@
                                 <li><a class="dropdown-item listaProd" href="#">Listagem de Produtos</a></li>
                                 <li><a class="dropdown-item relProd" href="#">Relatório de Preços</a></li>
                                 <li><a class="dropdown-item relVenda" href="#">Relatório de Vendas</a></li>
+                                <li><a class="dropdown-item relCompra" href="#">Relatório de Compras</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -148,6 +149,26 @@
                 }).then(ativo => {
                     location.href = "/WebMarket/relatorios/listaProdutos.jsp?ativo=" + ativo
                 });
+            })
+            document.querySelector(".relCompra").addEventListener('click', async () => {
+                const {value} = await Swal.fire({
+                    title: "Por favor insira uma data válida!",
+                    html: '<input class="sw-dataInicial" type="date">' +
+                            '<input class="sw-dataFinal" type="date">',
+                    preConfirm: () => {
+                        return [
+                            document.querySelector('.sw-dataInicial').value,
+                            document.querySelector('.sw-dataFinal').value,
+                        ]
+                    }
+                })
+                const [dataInicial, dataFinal] = value;
+                location.href = "/WebMarket/relatorios/relCompra.jsp?"
+                        + new URLSearchParams({
+                            dataInicial,
+                            dataFinal,
+                        }).toString();
+
             })
 
             document.querySelector(".relProd").addEventListener('click', async () => {

@@ -197,7 +197,25 @@ public class ProdutoDao implements IDAO<Produto> {
             Map parameters = new HashMap();
             parameters.put("valorIni", valorIni);
             parameters.put("valorFinal", valorFinal);
-           
+
+            byte[] bytes = JasperRunManager.runReportToPdf(relatorio, parameters, conn);
+
+            return bytes;
+        } catch (Exception e) {
+            System.out.println("erro ao gerar relatorio: " + e);
+        }
+        return null;
+    }
+
+    public byte[] gerarRelatorioData(Date dataIni, Date dataFinal) {
+        try {
+            Connection conn = ConexaoBD.getInstance().getConnection();
+
+            JasperReport relatorio = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorios/relCompra.jrxml"));
+
+            Map parameters = new HashMap();
+            parameters.put("dataIni", dataIni);
+            parameters.put("dataFin", dataFinal);
 
             byte[] bytes = JasperRunManager.runReportToPdf(relatorio, parameters, conn);
 
