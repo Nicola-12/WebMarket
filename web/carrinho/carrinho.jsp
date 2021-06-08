@@ -26,7 +26,7 @@
         <%@include file="../menu.jsp" %>
         <section class="jumbotron text-center">
             <div class="container">
-                <h1 class="jumbotron-heading">WEB MARKET CART</h1>
+                <h1 class="jumbotron-heading">WEB MARKET CARRINHO</h1>
             </div>
         </section>
 
@@ -37,11 +37,20 @@
 
                 const params = new URL(location.href).searchParams
                 if (params.get('erro') === 'ERRO') {
-                    swal.fire({
+                    Swal.fire({
                         title: "Houve um Problema!",
                         text: "erro ao comprar o(s) produto(s)",
                         icon: "error",
                         button: "OK",
+                    })
+                } else if (params.get('erro') === 'NENHUM_PRODUTO') {
+                    Swal.fire({
+                        title: "Houve um Problema!",
+                        text: "Nenhum Produto foi Adicionado ao Carrinho",
+                        icon: "error",
+                        button: "OK",
+                    }).then(() => {
+                        location.href = "/WebMarket/index.jsp"
                     })
                 }
             })
@@ -57,39 +66,42 @@
             <form method="post" action="/WebMarket/cart?param=compra" class="row">
                 <div class="col-12">
                     <div class="table-responsive">
+                        <%  if (prods.size() == 0) {
+                                out.print("<div style='text-align: center; margin: 10px;'>"
+                                        + "<span style='font-size: 35px; font-weight: bold;'>"
+                                        + "Nenhum Produto Adicionado :("
+                                        + "</span>"
+                                        + "<div>");
+                            } else {
+                                for (int i = 0; i < prods.size(); i++) {
+                                    Produto c = new ProdutoDao().consultarId(prods.get(i).id_produto);
+                        %>
                         <table class="table table-dark">
                             <thead>
                                 <tr>
                                     <th scope="col"> </th>
-                                    <th scope="col">Product</th>
-                                    <th scope="col">Available</th>
-                                    <th scope="col" class="text-center">Quantity</th>
-                                    <th scope="col" class="text-right">Price</th>
+                                    <th scope="col">Produto</th>
+                                    <th scope="col">Disponivel</th>
+                                    <th scope="col" class="text-center">Quantidade</th>
+                                    <th scope="col" class="text-right">Preço</th>
                                     <th> </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <%                                    if (prods.size() == 0) {
-                                        out.print("NAO CONTEM NADA");
-                                    } else {
-                                        for (int i = 0; i < prods.size(); i++) {
-                                            Produto c = new ProdutoDao().consultarId(prods.get(i).id_produto);
-                                %>
+                                <tr class="table-light">
                             <input type="text" hidden name="idProd" value="<%=c.id%>">
-                            <tr class="table-light">
-                                <td><img src="http://localhost:7777/images/<%= c.file%>" /> </td>
-                                <td><%=c.nome%></td>
-                                <td>In stock: <%=c.estoque%></td>
-                                <td class="quant">
-                                    <a class="btn btn-outline-info" href="/WebMarket/cart?param=qrem&id=<%=c.id%>"><i class="fas fa-minus"></i></a>
-                                    <span><%=prods.get(i).quant%></span>
-                                    <a class="btn btn-outline-info" href="/WebMarket/cart?param=qadd&id=<%=c.id%>"><i class="fas fa-plus"></i></a>                                 
-                                </td>
-                                <td class="text-right"><%=c.valor * prods.get(i).quant%> R$</td>
-                                <td class="text-right"><a href="/WebMarket/cart?param=exCart&id=<%=c.id%>" class="btn btn-sm btn-danger" ><i class="fa fa-trash"></i></a> </td>
+                            <td><img src="http://localhost:7777/images/<%= c.file%>" /> </td>
+                            <td><%=c.nome%></td>
+                            <td>Em estoque: <%=c.estoque%></td>
+                            <td class="quant">
+                                <a class="btn btn-outline-info" href="/WebMarket/cart?param=qrem&id=<%=c.id%>"><i class="fas fa-minus"></i></a>
+                                <span><%=prods.get(i).quant%></span>
+                                <a class="btn btn-outline-info" href="/WebMarket/cart?param=qadd&id=<%=c.id%>"><i class="fas fa-plus"></i></a>                                 
+                            </td>
+                            <td class="text-right"><%=c.valor * prods.get(i).quant%> R$</td>
+                            <td class="text-right"><a href="/WebMarket/cart?param=exCart&id=<%=c.id%>" class="btn btn-sm btn-danger" ><i class="fa fa-trash"></i></a> </td>
                             </tr>
                             <%
-
                                     subTotal += c.valor * prods.get(i).quant;
                                 }
                             %>
@@ -112,7 +124,7 @@
                                 <td>Sub-Total</td>
                                 <td class="text-right"><%=String.format("%.2f", subTotal)%></td>
                             </tr>
-                            <%                                    }
+                            <%
 
                                 double taxa = subTotal * 0.05;
                                 double totalCompra = subTotal + taxa;
@@ -134,6 +146,7 @@
                                 <td><input name="totalCompra" value="<%= totalCompra%>" hidden><strong><%=String.format("%.2f", totalCompra)%> R$ </strong></td>
                             </tr>
                             </tbody>
+                            <% }%>
                         </table>
                     </div>
                 </div>
@@ -201,7 +214,7 @@
                     <p class="float-left">
                         <a href="#">Back to top</a>
                     </p>
-                    <p class="text-right text-muted">created with <i class="fa fa-heart"></i> by <a href="https://t-php.fr/43-theme-ecommerce-bootstrap-4.html"><i>t-php</i></a> | <span>v. 1.0</span></p>
+
                 </div>
             </div>
         </div>

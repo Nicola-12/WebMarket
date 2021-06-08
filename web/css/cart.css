@@ -15,7 +15,7 @@ and open the template in the editor.
     font-size: 150%;
 }
 .category_block li:hover {
-    background-color: #007bff;
+    background-color: #007bff; 
 }
 .category_block li:hover a {
     color: #ffffff;
@@ -58,6 +58,7 @@ and open the template in the editor.
     margin-top: 20px;
 }
 footer {
+    margin-top: 40px;
     background: #343a40;
     padding: 40px;
 }
@@ -70,7 +71,7 @@ td img {
     width: 28px;
 }
 
- a { 
+a { 
     text-decoration: none;
     color: #f8f9fa;
 }

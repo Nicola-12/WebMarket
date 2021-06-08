@@ -117,7 +117,6 @@ public class Filtro extends HttpServlet implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
 
         //System.out.println("getReqURI: " + req.getRequestURI());
-
         if (uriPublicas.contains(req.getRequestURI())) {
             request.setAttribute("parametro", "login");
             chain.doFilter(request, response);

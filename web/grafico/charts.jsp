@@ -5,6 +5,7 @@
 --%>
 
 <%@page import="managers.ChartManager"%>
+<%@include file="../menu.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,11 +13,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Estatisticas</title>
     </head>
-    <body>
+    <body class="google">
 
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <link href="/WebMarket/css/chart.css" rel="stylesheet">
-        <main>
+        <main class="charts">
             <h2>Estatisticas</h2>
             <h5>Vendas da semana por categoria</h5>
             <div id="bar-chart"></div>
@@ -59,13 +60,13 @@
                 const chartOptions = {
                     focusTarget: "category",
                     backgroundColor: "transparent",
-                    colors: ["cornflowerblue", "tomato"],
+                    colors: ["cornflowerblue", "tomato", '#a9c413', '#e673F0'],
                     fontName: "Open Sans",
                     chartArea: {
                         left: 50,
-                        top: 10,
+                        top: 20,
                         width: "100%",
-                        height: "70%",
+                        height: "60%",
                     },
                     bar: {
                         groupWidth: "75%",
@@ -79,7 +80,7 @@
                         baselineColor: "#DDD",
                         gridlines: {
                             color: "#DDD",
-                            count: 4,
+                            count: 5,
                         },
                         textStyle: {
                             fontSize: 11,
@@ -87,6 +88,7 @@
                     },
                     legend: {
                         position: "bottom",
+                        maxLines: 3,
                         textStyle: {
                             fontSize: 12,
                         },

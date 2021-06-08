@@ -52,8 +52,12 @@
             body {
                 display: grid;
                 align-items: center;
-
             }
+
+            body::-webkit-scrollbar {
+                display: none;
+            }
+
             .prod {
                 width: 70%;
                 max-width: 700px;
@@ -181,5 +185,5 @@
         </main>
 
     </body>
-    <footer><p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p></footer>
+    <footer style="text-align: center;"><p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p></footer>
 </html>

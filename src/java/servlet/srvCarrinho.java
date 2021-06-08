@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.function.Predicate;
+import javax.servlet.RequestDispatcher;
 
 @WebServlet(name = "cart", urlPatterns = {"/cart"})
 public class srvCarrinho extends HttpServlet {
@@ -139,6 +140,7 @@ public class srvCarrinho extends HttpServlet {
             PessoaDao pDao = new PessoaDao();
             f = pDao.consultarEmail(f.email);
             if (produtos.size() <= 0) {
+                response.sendRedirect("/WebMarket/carrinho/carrinho.jsp?erro=NENHUM_PRODUTO");
                 return;
             }
 
@@ -163,7 +165,7 @@ public class srvCarrinho extends HttpServlet {
 
             c.id = 0;
             c.parcelas = parcelas;
-            c.valorTotal = valorTotal / parcelas;
+            c.valorTotal = valorTotal;
             c.id_pessoa = f.id;
             // Salva a compra e vê o novo id da compra
             // Salvar os itens e pegar os novos ids e dps salvar o carrinho
@@ -179,8 +181,9 @@ public class srvCarrinho extends HttpServlet {
                 carDao.salvar(car);
             }
             session.setAttribute("cart", new ArrayList<ItemCarrinho>());
-            response.sendRedirect("/WebMarket/carrinho/carrinho.jsp");
-
+            request.setAttribute("compra", c);
+            request.setAttribute("itens", produtos);
+            encaminharPagina("carrinho/checkout.jsp", request, response);
         }
     }
 
@@ -200,6 +203,15 @@ public class srvCarrinho extends HttpServlet {
                 items.remove(i);
                 return;
             }
+        }
+    }
+
+    private void encaminharPagina(String pagina, HttpServletRequest request, HttpServletResponse response) {
+        try {
+            RequestDispatcher rd = request.getRequestDispatcher(pagina);
+            rd.forward(request, response);
+        } catch (Exception e) {
+            System.out.println("Erro ao encaminhar: " + e);
         }
     }
 }

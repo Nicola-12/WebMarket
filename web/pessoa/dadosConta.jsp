@@ -59,7 +59,7 @@
             }
 
             .navbar {
-                margin-top: -18px;
+                margin-top: -35px;
             }
 
             main {
@@ -195,7 +195,7 @@
 
                     swal({
                         title: "Sucesso!",
-                        text: "Sucesso ao Cadastrar sua Conta!",
+                        text: "Sucesso ao Editar sua Conta!",
                         icon: "success",
                         button: "OK!"
                     })

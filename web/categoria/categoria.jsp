@@ -51,6 +51,10 @@
                 width: 30%;
             }
 
+            body::-webkit-scrollbar {
+                display: none;
+            }
+
             form {
                 display: flex;
                 flex-direction: column;

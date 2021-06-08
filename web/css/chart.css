@@ -1,11 +1,11 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
 
-body {
+.google {
     font-family: "Open Sans", Arial;
     background: #EDEDED;
 }
-main {
-    width: 500px;
+.charts {
+    width: 600px;
     margin: 10px auto;
     padding: 10px 20px 30px;
     background: #FFF;
@@ -14,6 +14,9 @@ main {
 p {
     margin-top: 2rem;
     font-size: 13px;
+}
+body::-webkit-scrollbar {
+    display: none;
 }
 #bar-chart {
     width: 500px;
