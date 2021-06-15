@@ -24,6 +24,10 @@ body {
         205px 1fr;
 }
 
+h1 {
+    font-size: 24px;
+}
+
 body::-webkit-scrollbar {
     display: none;
 }
@@ -107,12 +111,13 @@ nav {
 .card button {
     border: none;
     outline: 0;
-    padding: 12px;
+    padding: 14px;
     color: white;
     background-color: #000;
     text-align: center;
     cursor: pointer;
     width: 100%;
+    max-width: 460px;
     font-size: 18px;
 }
 

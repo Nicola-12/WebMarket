@@ -67,3 +67,22 @@ body::-webkit-scrollbar {
     border-radius: 50%;
     box-shadow: 0 0 3px 4px rgba(0,0,0,0.1);
 }
+
+.table {
+    margin-top: 18px;
+    width: 90%;
+}
+
+body {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin: auto;
+    text-align: center;
+}
+
+.navbar {
+    width: 100%;
+}

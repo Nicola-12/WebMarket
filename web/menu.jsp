@@ -4,6 +4,8 @@
     Author     : pretto
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="entidade.ItemCarrinho"%>
 <%@page import="dao.PessoaDao"%>
 <%@page import="entidade.Pessoa"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -51,9 +53,9 @@
         <%
             HttpSession sessao = ((HttpServletRequest) request).getSession();
             Pessoa f = (Pessoa) sessao.getAttribute("usuarioLogado");
+            ArrayList<ItemCarrinho> isd = (ArrayList<ItemCarrinho>) sessao.getAttribute("cart");
             if (f != null) {
                 f = new PessoaDao().consultarEmail(f.email);
-
             }
         %>
 
@@ -110,7 +112,7 @@
                             <label><%=f.nome%></label>
                             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                                 <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="/WebMarket/carrinho/carrinho.jsp" ><i class="fas fa-cart-plus"></i></a>
+                                    <a class="nav-link active" aria-current="page" href="/WebMarket/carrinho/carrinho.jsp" ><i class="fas fa-cart-plus"></i> <%=isd.size()%></a>
                                 </li>
                             </ul>
                         </li>

@@ -97,7 +97,7 @@ public class ProdutoDao implements IDAO<Produto> {
     }
 
     public ArrayList<Produto> consultarTodos() {
-        String sql = "SELECT * FROM produto";
+        String sql = "SELECT * FROM produto ORDER BY ativo DESC";
         try {
             result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
             ArrayList<Produto> produto = new ArrayList<>();

@@ -69,7 +69,7 @@
                         <%  if (prods.size() == 0) {
                                 out.print("<div style='text-align: center; margin: 10px;'>"
                                         + "<span style='font-size: 35px; font-weight: bold;'>"
-                                        + "Nenhum Produto Adicionado :("
+                                        + "Nenhum Produto Adicionado "
                                         + "</span>"
                                         + "<div>");
                             } else {
