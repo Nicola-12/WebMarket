@@ -30,6 +30,13 @@
                 <h1 class="jumbotron-heading">WEB MARKET CARRINHO</h1>
             </div>
         </section>
+        
+        <style>
+            label {
+                margin: 5px;
+                padding-bottom: 10px;
+            }
+        </style>
 
         <%            HttpSession ses = ((HttpServletRequest) request).getSession();
             ArrayList<ItemCarrinho> prods = (ArrayList<ItemCarrinho>) ses.getAttribute("cart");
@@ -121,17 +128,30 @@
                                 <td><input name="totalCompra" value="<%= totalCompra%>" hidden><strong><%=String.format("%.2f", totalCompra)%> R$ </strong></td>
                             </tr>
                             </tbody>
-                            <% }%>
+                           
                         </table>
                     </div>
                 </div>
+                <h3>Método de Pagamento:</h3>
+                <div><input type='radio' name='opt' value='1' /> Boleto Bancário</div>
+                <div><input type='radio' name='opt' value='2' /> Cartão de Crédito</div>
 
-                <div><input type='radio' name='opt' value='1' /> Option 1</div>
-                <div><input type='radio' name='opt' value='2' /> Option 2</div>
-                <div><input type='radio' name='opt' value='3' /> Option 3</div>
-                <div style="display: none;" class='info' id='info1'>Option 1 Info</div>
-                <div style="display: none;" class='info' id='info2'>Option 2 Info</div>
-                <div style="display: none;" class='info' id='info3'>Option 3 Info</div>
+                <div style="display: none;" class='info' id='info2'>
+                    <label>Numero do Cartão: 
+                        <input type="tel" class="form-control" pattern="^[0-9\s]{16}$" inputmode="numeric" autocomplete="cc-number" maxlength="16" placeholder="xxxxxxxxxxxxxxxx"/>
+                    </label>
+                    <label>Numero do Cvv: 
+                        <input type="tel" class="form-control" maxlength="3" pattern="^([0-9]{3})$" placeholder="XXX"/>
+                    </label>
+                    <label>Data de Vencimento do Cartão: 
+                        <input type="text" class="form-control" pattern="(?:0[1-9]|1[0-2])/[0-9]{2}" title="Uma data valida para MM/YY" placeholder="MM/YY"/>
+                    </label>
+                    <label style="width: 80%;">Nome Completo: 
+                        <input style="width: 80%;" class="form-control" type="text" pattern="^([a-zA-Z])$"/>
+                    </label>
+
+                </div>
+                 <% }%>
 
                 <div class="col mb-2">
                     <div class="row">
