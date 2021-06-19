@@ -126,6 +126,13 @@
                     </div>
                 </div>
 
+                <div><input type='radio' name='opt' value='1' /> Option 1</div>
+                <div><input type='radio' name='opt' value='2' /> Option 2</div>
+                <div><input type='radio' name='opt' value='3' /> Option 3</div>
+                <div style="display: none;" class='info' id='info1'>Option 1 Info</div>
+                <div style="display: none;" class='info' id='info2'>Option 2 Info</div>
+                <div style="display: none;" class='info' id='info3'>Option 3 Info</div>
+
                 <div class="col mb-2">
                     <div class="row">
                         <div class="col-sm-12  col-md-6">
@@ -140,6 +147,14 @@
         </div>
 
         <script>
+
+            var update = function () {
+                $(".info").hide();
+                $("#info" + $(this).val()).show();
+            };
+
+            $("input[type='radio']").change(update);
+
             const button = document.querySelector('#test');
 
             button.addEventListener('click', () => {
