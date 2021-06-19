@@ -53,16 +53,14 @@
                 <i class="fa fa-caret-down"></i>
             </button>
             <div class="dropdown-container">
+                <a onclick="setCategoria('')" href="#">Todos</a>
                 <%for (int x = 0; x < c.size(); x++) {
                         Categoria categ = c.get(x);
                 %>
                 <a onclick="setCategoria('<%= categ.id%>')" href="#"><%= categ.descricao%></a>
                 <% }%>
             </div>
-
         </div>
-
-
     </div>
     <script>
         var dropdown = document.getElementsByClassName("dropdown-btnn");

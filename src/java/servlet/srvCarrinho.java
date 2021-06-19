@@ -140,7 +140,7 @@ public class srvCarrinho extends HttpServlet {
             PessoaDao pDao = new PessoaDao();
             f = pDao.consultarEmail(f.email);
             if (produtos.size() <= 0) {
-                response.sendRedirect("/WebMarket/carrinho/carrinho.jsp?erro=NENHUM_PRODUTO");
+                response.sendRedirect("/WebMarket/index.jsp");
                 return;
             }
 

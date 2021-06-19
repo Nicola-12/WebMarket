@@ -17,6 +17,7 @@
         <title>Carrinho</title>
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <link href="/WebMarket/css/cart.css" rel="stylesheet">
@@ -29,32 +30,6 @@
                 <h1 class="jumbotron-heading">WEB MARKET CARRINHO</h1>
             </div>
         </section>
-
-        <script>
-            document.addEventListener('readystatechange', () => {
-                if (document.readyState !== "complete")
-                    return
-
-                const params = new URL(location.href).searchParams
-                if (params.get('erro') === 'ERRO') {
-                    Swal.fire({
-                        title: "Houve um Problema!",
-                        text: "erro ao comprar o(s) produto(s)",
-                        icon: "error",
-                        button: "OK",
-                    })
-                } else if (params.get('erro') === 'NENHUM_PRODUTO') {
-                    Swal.fire({
-                        title: "Houve um Problema!",
-                        text: "Nenhum Produto foi Adicionado ao Carrinho",
-                        icon: "error",
-                        button: "OK",
-                    }).then(() => {
-                        location.href = "/WebMarket/index.jsp"
-                    })
-                }
-            })
-        </script>
 
         <%            HttpSession ses = ((HttpServletRequest) request).getSession();
             ArrayList<ItemCarrinho> prods = (ArrayList<ItemCarrinho>) ses.getAttribute("cart");
@@ -150,20 +125,53 @@
                         </table>
                     </div>
                 </div>
+
                 <div class="col mb-2">
                     <div class="row">
                         <div class="col-sm-12  col-md-6">
-                            <a href="/WebMarket/index.jsp"><button class="btn w-100 btn-outline-secondary">Continuar Comprando</button> </a>
+                            <a href="/WebMarket/index.jsp"><button class="btn w-100 btn-outline-secondary" id="test">Continuar Comprando</button> </a>
                         </div>
                         <div class="col-sm-12 col-md-6 text-right">
-                            <button class="btn w-100 btn-success">Finalizar Compra</button>
+                            <button class="btn w-100 btn-success" id="testt">Finalizar Compra</button>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
 
+        <script>
+            const button = document.querySelector('#test');
 
+            button.addEventListener('click', () => {
+                location.href = "/Webmarket/index.jsp";
+                return;
+            })
+
+            const butt = document.querySelector('#testt');
+            butt.addEventListener('click', () => {
+                if (butt.readyState !== "complete")
+                    return;
+
+                const params = new URL(location.href).searchParams
+                if (params.get('erro') === 'ERRO') {
+                    Swal.fire({
+                        title: "Houve um Problema!",
+                        text: "erro ao comprar o(s) produto(s)",
+                        icon: "error",
+                        button: "OK",
+                    })
+                } else if (params.get('erro') === 'NENHUM_PRODUTO') {
+                    Swal.fire({
+                        title: "Houve um Problema!",
+                        text: "Nenhum Produto foi Adicionado ao Carrinho",
+                        icon: "error",
+                        button: "OK",
+                    }).then(() => {
+                        location.href = "/WebMarket/index.jsp"
+                    })
+                }
+            })
+        </script>
     </body>
 
     <!-- Footer -->
@@ -219,4 +227,5 @@
             </div>
         </div>
     </footer>
+    <script src="/WebMarket/js/bootstrap.bundle.min.js" defer></script>
 </html>
