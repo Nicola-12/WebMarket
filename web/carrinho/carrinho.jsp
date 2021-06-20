@@ -133,7 +133,7 @@
                     </div>
                 </div>
                 <h3>Método de Pagamento:</h3>
-                <div><input type='radio' name='opt' value='1' /> Boleto Bancário</div>
+                <div><input type='radio' name='opt' value='1' checked /> Boleto Bancário</div>
                 <div><input type='radio' name='opt' value='2' /> Cartão de Crédito</div>
 
                 <div style="display: none;" class='info' id='info2'>
@@ -141,13 +141,13 @@
                         <input type="tel" class="form-control" pattern="^[0-9\s]{16}$" inputmode="numeric" autocomplete="cc-number" maxlength="16" placeholder="xxxxxxxxxxxxxxxx"/>
                     </label>
                     <label>Numero do Cvv: 
-                        <input type="tel" class="form-control" maxlength="3" pattern="^([0-9]{3})$" placeholder="XXX"/>
+                        <input type="tel" class="form-control" maxlength="3" pattern="^([0-9]{3})$" title="Exigido 3 digitos - XXX" placeholder="XXX"/>
                     </label>
                     <label>Data de Vencimento do Cartão: 
                         <input type="text" class="form-control" pattern="(?:0[1-9]|1[0-2])/[0-9]{2}" title="Uma data valida para MM/YY" placeholder="MM/YY"/>
                     </label>
                     <label style="width: 80%;">Nome Completo: 
-                        <input style="width: 80%;" class="form-control" type="text" pattern="^([a-zA-Z])$"/>
+                        <input style="width: 80%;" class="form-control" type="text" pattern="^[a-zA-Z ]{0,100}$"/>
                     </label>
 
                 </div>
@@ -159,7 +159,7 @@
                             <a href="/WebMarket/index.jsp"><button class="btn w-100 btn-outline-secondary" id="test">Continuar Comprando</button> </a>
                         </div>
                         <div class="col-sm-12 col-md-6 text-right">
-                            <button class="btn w-100 btn-success" id="testt">Finalizar Compra</button>
+                            <button class="btn w-100 btn-success" type="submit" id="testt">Finalizar Compra</button>
                         </div>
                     </div>
                 </div>

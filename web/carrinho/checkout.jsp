@@ -69,6 +69,13 @@
             Pessoa pess = (Pessoa) sessao.getAttribute("usuarioLogado");
             pess = new PessoaDao().consultarEmail(pess.email);
             String total = String.format("%.2f", compra.valorTotal);
+            int opc = (int) request.getAttribute("metodo");
+            String metodo = "";
+            if (opc == 1 ) {
+                metodo = "Boleto Bancário";
+            }else if (opc == 2) {
+                metodo = "Cartão de Crédito";
+            }
         %>
 
         <h1>Obrigado Por Comprar, <%=pess.nome%>!</h1>
@@ -97,8 +104,8 @@
             %>
             <tr class="table-light">
                 <td></td>
-                <td></td>
-                <td></td>
+                <td>Método de Pagamento: </td>
+                <td><%=metodo%></td>
                 <td>Total: </td>
                 <td><%=total%></td>
             </tr>

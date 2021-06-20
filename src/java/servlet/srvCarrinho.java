@@ -139,7 +139,11 @@ public class srvCarrinho extends HttpServlet {
             CompraDao cDao = new CompraDao();
             PessoaDao pDao = new PessoaDao();
             f = pDao.consultarEmail(f.email);
-            if (produtos.size() <= 0) {
+
+            int opc = Integer.parseInt(request.getParameter("opt"));
+            System.out.println("OPORA: " +opc);
+     
+            if (produtos.size() <= 0 || produtos.equals(0)) {
                 response.sendRedirect("/WebMarket/index.jsp");
                 return;
             }
@@ -183,6 +187,7 @@ public class srvCarrinho extends HttpServlet {
             session.setAttribute("cart", new ArrayList<ItemCarrinho>());
             request.setAttribute("compra", c);
             request.setAttribute("itens", produtos);
+            request.setAttribute("metodo", opc);
             encaminharPagina("carrinho/checkout.jsp", request, response);
         }
     }

@@ -96,8 +96,9 @@ public class ProdutoDao implements IDAO<Produto> {
         }
     }
 
+    @Override
     public ArrayList<Produto> consultarTodos() {
-        String sql = "SELECT * FROM produto ORDER BY ativo DESC";
+        String sql = "SELECT * FROM produto ORDER BY estoque desc";
         try {
             result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
             ArrayList<Produto> produto = new ArrayList<>();
@@ -135,6 +136,8 @@ public class ProdutoDao implements IDAO<Produto> {
         if (valor != null && valor.matches("^\\d+$") && Integer.parseInt(valor) > 0) {
             sql += " AND valor > " + valor;
         }
+        
+            sql += " ORDER BY estoque desc, ativo";
         ArrayList<Produto> produto = new ArrayList<>();
 
         try {
