@@ -36,23 +36,13 @@
                     '<%=ChartManager.jsonVendasSemana()%>'
                     );
             const chartData = [];
-            // extract categories list
-            const categories = new Set();
-            data.flat().forEach((vendas) => {
-            categories.add(vendas["categoria"]);
-            });
-            // add categories label
-            chartData.push(["Dia da Semana", ...categories]);
+            chartData.push(["Dia da Semana", "Total"]);
             // add days
             const today = Date.now();
             for (let offset = 6; offset >= 0; offset--) {
             const date = new Date(today);
             date.setDate(date.getDate() - offset);
-            const dayData = [format(date)];
-            for (const c of categories) {
-            const vendas = data[offset].find(r => r.categoria === c);
-            dayData.push(vendas?.quantidade ?? 0);
-            }
+            const dayData = [format(date), data[offset]];                      
             chartData.push(dayData);
             }
 

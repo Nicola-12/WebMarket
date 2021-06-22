@@ -21,7 +21,7 @@
         <link href="/WebMarket/css/bootstrap.min.css" rel="stylesheet">
         <link href="/WebMarket/css/bootstrap.min.css.map">
         <link href="/WebMarket/css/navbar.css" rel="stylesheet">
-        <title>JSP Page</title>
+        <title>Checkout</title>
     </head>
 
 
@@ -105,9 +105,9 @@
             <tr class="table-light">
                 <td></td>
                 <td>Método de Pagamento: </td>
-                <td><%=metodo%></td>
+                <td><strong><%=metodo%></strong></td>
                 <td>Total: </td>
-                <td><%=total%></td>
+                <td><strong><%=total%></strong></td>
             </tr>
         </table>
 

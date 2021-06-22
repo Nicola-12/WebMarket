@@ -14,7 +14,7 @@ public class Compra {
         Compra c = new Compra();
 
         c.id = (resultSet.getInt("id"));
-        c.valorTotal = (resultSet.getDouble("valorTotal"));
+        c.valorTotal = (resultSet.getDouble("valortotal"));
         c.parcelas = (resultSet.getInt("parcelas"));
         c.id_pessoa = (resultSet.getInt("id_pessoa"));
         c.created_at = (resultSet.getDate("created_at"));
@@ -26,7 +26,7 @@ public class Compra {
         StringBuilder sb = new StringBuilder();
 
         sb.append("compra{id=").append(id);
-        sb.append("', valorTotal='").append(valorTotal);
+        sb.append("', valortotal='").append(valorTotal);
         sb.append("', parcelas='").append(parcelas);
         sb.append("', id_pessoa='").append(id_pessoa);
         sb.append("', created_at='").append(created_at);

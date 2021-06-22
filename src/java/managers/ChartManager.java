@@ -22,52 +22,41 @@ import java.util.logging.Logger;
  */
 public class ChartManager {
 
-    public static List<Vendas> getVendasDoDia(String data) {
+    public static long getVendasDoDia(String data) {
         Connection conn = ConexaoBD.getInstance().getConnection();
         System.out.printf("Obtendo vendas para a data %s\n", data);
         String sql
                 = "SELECT \n"
-                + "  categoria.descricao AS categoria, \n"
-                + "  SUM(item.quant) AS quantidade\n"
+                + "  SUM(item.quant * item.total) AS quantidade\n"
                 + "FROM \n"
-                + "  categoria, \n"
                 + "  compra, \n"
                 + "  itencarrinho AS item, \n"
-                + "  carrinho, \n"
-                + "  produto\n"
+                + "  carrinho \n"
                 + "WHERE compra.created_at = '" + data + "' \n"
-                + "  AND categoria.id = produto.id_categoria \n"
-                + "  AND produto.id = item.id_produto\n"
                 + "  AND carrinho.id_compra = compra.id \n"
                 + "  AND carrinho.id_iten = item.id \n"
-                + "GROUP BY categoria.id\n"
                 + "HAVING SUM(item.quant) > 0;";
-
-        ArrayList<Vendas> vendas = new ArrayList<>();
 
         try {
             ResultSet rs = conn.createStatement().executeQuery(sql);
 
-            while (rs.next()) {
-                Vendas venda = new Vendas();
-
-                venda.categoria = rs.getString("categoria");
-                venda.quantidade = rs.getLong("quantidade");
-                vendas.add(venda);
+            if (rs.next()) {
+                return rs.getLong("quantidade");
+                
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(ChartManager.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return vendas;
+        return 0;
     }
 
-    public static List<List<Vendas>> getVendasSemana() {
+    public static List<Long> getVendasSemana() {
 
         LocalDate data = LocalDate.now();
 
-        ArrayList<List<Vendas>> vendasDaSemana = new ArrayList<>();
+        ArrayList<Long> vendasDaSemana = new ArrayList<>();
 
         for (int offset = 0; offset < 7; offset++) {
             vendasDaSemana.add(getVendasDoDia(data.minusDays(offset).toString()));
