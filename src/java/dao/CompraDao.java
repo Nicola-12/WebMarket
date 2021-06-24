@@ -131,13 +131,14 @@ public class CompraDao implements IDAO<Compra> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public byte[] gerarRelatorio() {
+    public byte[] gerarRelatorioData(Date data1, Date data2) {
         try {
             Connection conn = ConexaoBD.getInstance().getConnection();
 
             JasperReport relatorio = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorios/rvenda.jrxml"));
             Map parameters = new HashMap();
-
+            parameters.put("dataIni", data1);
+            parameters.put("dataFin", data2);
             byte[] bytes = JasperRunManager.runReportToPdf(relatorio, parameters, conn);
 
             return bytes;

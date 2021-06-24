@@ -4,6 +4,9 @@
     Author     : STI
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Locale"%>
+<%@page import="java.sql.Date"%>
 <%@page import="dao.CompraDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -15,7 +18,15 @@
     <body>
         <%
 
-            byte[] bytes = new CompraDao().gerarRelatorio();
+            String dataIni = request.getParameter("dataInicial");
+            String dataFinal = request.getParameter("dataFinal");
+
+            Date v1 = dataIni == null || dataIni.isEmpty() ? null : Date.valueOf(dataIni);
+            Date v2 = dataFinal == null || dataFinal.isEmpty() ? null : Date.valueOf(dataFinal);
+            System.out.println(v1);
+            System.out.println(v2);
+
+            byte[] bytes = new CompraDao().gerarRelatorioData(v1, v2);
 
             response.setContentType("application/pdf");
             response.setContentLength(bytes.length);

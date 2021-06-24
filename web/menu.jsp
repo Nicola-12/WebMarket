@@ -93,7 +93,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">Estatisticas</a>
                             <ul class="dropdown-menu" aria-labelledby="dropdown04">
-                                <li><a class="dropdown-item listaUser" href="/WebMarket/grafico/charts.jsp">Vendas da Semana por Categoria</a></li>
+                                <li><a class="dropdown-item" href="/WebMarket/grafico/charts.jsp">Vendas da Semana por Categoria</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -125,36 +125,56 @@
             document.querySelector(".listaUser").addEventListener('click', () => {
                 swal({
                     title: "Filtrar Status",
+                    allowOutsideClick: false,
                     buttons: {
                         inativo: 'Inativo',
                         todos: 'Todos',
                         ativo: 'Ativo'
                     }
                 }).then(ativo => {
-                    location.href = "/WebMarket/relatorios/listaUsuarios.jsp?ativo=" + ativo
+                    location.href = "/WebMarket/relatorios/listaUsuarios.jsp?ativo=" + ativo;
                 });
             })
 
-            document.querySelector(".relVenda").addEventListener('click', () => {
+            document.querySelector(".relVenda").addEventListener('click', async () => {
 
-                location.href = "/WebMarket/relatorios/relVendas.jsp"
+                const {value} = await Swal.fire({
+                    title: "Por favor insira uma data válida!",
+                    allowOutsideClick: false,
+                    html: '<input class="sw-dataInicial" type="date">' +
+                            '<input class="sw-dataFinal" type="date">',
+                    preConfirm: () => {
+                        return [
+                            document.querySelector('.sw-dataInicial').value,
+                            document.querySelector('.sw-dataFinal').value,
+                        ];
+                    }
+                });
+                const [dataInicial, dataFinal] = value;
+                location.href = "/WebMarket/relatorios/relVendas.jsp?"
+                        + new URLSearchParams({
+                            dataInicial,
+                            dataFinal,
+                        }).toString();
+            });
 
-            })
 
             document.querySelector(".listaProd").addEventListener('click', () => {
                 swal({
                     title: "Filtrar Status",
+                    allowOutsideClick: false,
                     buttons: {
                         inativo: 'Inativo',
                         todos: 'Todos',
                         ativo: 'Ativo'
                     }
                 }).then(ativo => {
-                    location.href = "/WebMarket/relatorios/listaProdutos.jsp?ativo=" + ativo
+                    location.href = "/WebMarket/relatorios/listaProdutos.jsp?ativo=" + ativo;
                 });
-            })
+            });
             document.querySelector(".relCompra").addEventListener('click', async () => {
                 const {value} = await Swal.fire({
+                    allowOutsideClick: false,
                     title: "Por favor insira uma data válida!",
                     html: '<input class="sw-dataInicial" type="date">' +
                             '<input class="sw-dataFinal" type="date">',
@@ -162,21 +182,21 @@
                         return [
                             document.querySelector('.sw-dataInicial').value,
                             document.querySelector('.sw-dataFinal').value,
-                        ]
+                        ];
                     }
-                })
+                });
                 const [dataInicial, dataFinal] = value;
                 location.href = "/WebMarket/relatorios/relCompra.jsp?"
                         + new URLSearchParams({
                             dataInicial,
-                            dataFinal,
+                            dataFinal
                         }).toString();
-
-            })
+            });
 
             document.querySelector(".relProd").addEventListener('click', async () => {
                 const {value} = await Swal.fire({
                     title: "Filtrar Valores",
+                    allowOutsideClick: false,
                     html: '<div><input class="sw-valorIni" type="text" pattern="^([.0-9])*\d$" placeholder="Preço Inicial" >' +
                             '<input class="sw-valorFinal" type="text" pattern="^([.0-9])*\d$" placeholder="Preço Final" >' +
                             ' </div>',
@@ -184,16 +204,16 @@
                         return [
                             document.querySelector('.sw-valorIni').value,
                             document.querySelector('.sw-valorFinal').value,
-                        ]
+                        ];
                     }
-                })
+                });
                 const [valorIni, valorFinal] = value;
                 location.href = "/WebMarket/relatorios/relValorProd.jsp?"
                         + new URLSearchParams({
                             valorIni,
-                            valorFinal,
+                            valorFinal
                         }).toString();
-            })
+            });
 
 
         </script>
