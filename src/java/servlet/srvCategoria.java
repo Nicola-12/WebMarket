@@ -70,7 +70,7 @@ public class srvCategoria extends HttpServlet {
 
             String id = request.getParameter("id");
 
-            Categoria categoria = (Categoria) new CategoriaDao().consultarId(Integer.parseInt(id));
+            Categoria categoria = (Categoria) new CategoriaDao().getById(Integer.parseInt(id));
             System.out.println(categoria);
 
             if (categoria != null) {
@@ -84,11 +84,11 @@ public class srvCategoria extends HttpServlet {
 
         } else if (param.equals("exCategoria")) {
             String id = request.getParameter("id");
-            categoria = new CategoriaDao().consultarId(Integer.parseInt(id));
+            categoria = new CategoriaDao().getById(Integer.parseInt(id));
 
             if (categoria != null) {
                 CategoriaDao excluir = new CategoriaDao();
-                excluir.excluir(Integer.parseInt(id));
+                excluir.remove(Integer.parseInt(id));
                 encaminharPagina("categoria/categoria.jsp", request, response);
             } else {
                 encaminharPagina("error.jsp", request, response);
@@ -127,13 +127,13 @@ public class srvCategoria extends HttpServlet {
             }
 
             if (id == 0) {
-                if (categDao.salvar(categoria) == null) {
+                if (categDao.save(categoria) == null) {
                     response.sendRedirect("categoria/categoria.jsp");
                 } else {
                     response.sendRedirect("categoria/categoria.jsp?erro=ERRO");
                 }
             } else {
-                categDao.atualizar(categoria);
+                categDao.update(categoria);
                 encaminharPagina("categoria/categoria.jsp", request, response);
             }
         }

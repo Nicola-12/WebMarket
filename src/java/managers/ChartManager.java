@@ -5,7 +5,7 @@
  */
 package managers;
 
-import apoio.ConexaoBD;
+import apoio.Database;
 import entidade.Vendas;
 import groovy.json.JsonBuilder;
 import java.sql.*;
@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 public class ChartManager {
 
     public static long getVendasDoDia(String data) {
-        Connection conn = ConexaoBD.getInstance().getConnection();
+        Connection conn = Database.getInstance().getConnection();
         System.out.printf("Obtendo vendas para a data %s\n", data);
         String sql
                 = "SELECT \n"

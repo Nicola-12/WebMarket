@@ -1,6 +1,6 @@
 package dao;
 
-import apoio.ConexaoBD;
+import apoio.Database;
 import apoio.IDAO;
 import entidade.Produto;
 import java.sql.*;
@@ -17,9 +17,9 @@ public class ProdutoDao implements IDAO<Produto> {
     ResultSet result;
 
     @Override
-    public String salvar(Produto o) {
+    public String save(Produto o) {
         try {
-            Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
+            Statement stm = Database.getInstance().getConnection().createStatement();
 
             String sql = "INSERT INTO produto VALUES "
                     + "(default,"
@@ -46,9 +46,9 @@ public class ProdutoDao implements IDAO<Produto> {
     }
 
     @Override
-    public String atualizar(Produto o) {
+    public String update(Produto o) {
         try {
-            Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
+            Statement stm = Database.getInstance().getConnection().createStatement();
 
             String sql = "UPDATE produto SET "
                     + "descricao='" + o.descricao + "',"
@@ -79,9 +79,9 @@ public class ProdutoDao implements IDAO<Produto> {
     }
 
     @Override
-    public String excluir(int id) {
+    public String remove(int id) {
         try {
-            Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
+            Statement stm = Database.getInstance().getConnection().createStatement();
 
             String sql = "UPDATE produto SET ativo = false WHERE id=" + id;
             System.out.println("SQL: " + sql);
@@ -97,10 +97,10 @@ public class ProdutoDao implements IDAO<Produto> {
     }
 
     @Override
-    public ArrayList<Produto> consultarTodos() {
+    public ArrayList<Produto> findAll() {
         String sql = "SELECT * FROM produto ORDER BY estoque desc";
         try {
-            result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
+            result = Database.getInstance().getConnection().createStatement().executeQuery(sql);
             ArrayList<Produto> produto = new ArrayList<>();
             while (result.next()) {
                 produto.add(Produto.from(result));
@@ -116,12 +116,12 @@ public class ProdutoDao implements IDAO<Produto> {
     }
 
     @Override
-    public boolean registroUnico(Produto o) {
+    public boolean isUnique(Produto o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<Produto> consultar(String criterio) {
+    public ArrayList<Produto> getAllByValue(String criterio) {
         return consultarProdAndCategAndPreco(criterio, null, null);
     }
 
@@ -142,7 +142,7 @@ public class ProdutoDao implements IDAO<Produto> {
 
         try {
 
-            result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
+            result = Database.getInstance().getConnection().createStatement().executeQuery(sql);
             while (result.next()) {
                 produto.add(Produto.from(result));
             }
@@ -154,10 +154,10 @@ public class ProdutoDao implements IDAO<Produto> {
     }
 
     @Override
-    public Produto consultarId(int id) {
+    public Produto getById(int id) {
         String sql = "SELECT * FROM produto WHERE id=" + id;
         try {
-            result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
+            result = Database.getInstance().getConnection().createStatement().executeQuery(sql);
             if (result.next()) {
                 return Produto.from(result);
             }
@@ -169,13 +169,13 @@ public class ProdutoDao implements IDAO<Produto> {
     }
 
     @Override
-    public boolean consultar(Produto o) {
+    public boolean exists(Produto o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public byte[] gerarRelatorio(String ativo) {
         try {
-            Connection conn = ConexaoBD.getInstance().getConnection();
+            Connection conn = Database.getInstance().getConnection();
 
             JasperReport relatorio = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorios/ListaProduto.jrxml"));
 
@@ -193,7 +193,7 @@ public class ProdutoDao implements IDAO<Produto> {
 
     public byte[] gerarRelatorioValor(Double valorIni, Double valorFinal) {
         try {
-            Connection conn = ConexaoBD.getInstance().getConnection();
+            Connection conn = Database.getInstance().getConnection();
 
             JasperReport relatorio = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorios/RelatorioDePrecos.jrxml"));
 
@@ -212,7 +212,7 @@ public class ProdutoDao implements IDAO<Produto> {
 
     public byte[] gerarRelatorioData(Date dataIni, Date dataFinal) {
         try {
-            Connection conn = ConexaoBD.getInstance().getConnection();
+            Connection conn = Database.getInstance().getConnection();
 
             JasperReport relatorio = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorios/relCompra.jrxml"));
 

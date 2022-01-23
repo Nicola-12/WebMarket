@@ -32,9 +32,6 @@
 
 
         <title>Cadastro de Produto</title>
-    </head>
-    <body>
-        <%@include file="../menu.jsp" %>
 
         <style>
 
@@ -108,19 +105,27 @@
             }
 
         </style>
+    </head>
+    <body>
+        <%@include file="../menu.jsp" %>
 
         <main class="mainProd">
             <%                Produto prod = null;
 
-                String id = request.getParameter("id");
+                String id = request.getParameter( "id" );
 
-                if (id != null) {
-                    try {
-                        prod = new ProdutoDao().consultarId(Integer.parseInt(id));
-                    } catch (NumberFormatException e) {
+                if ( id != null )
+                {
+                    try
+                    {
+                        prod = new ProdutoDao().getById( Integer.parseInt( id ) );
+                    }
+                    catch ( NumberFormatException e )
+                    {
                     }
                 }
-                if (prod == null) {
+                if ( prod == null )
+                {
                     prod = new Produto();
                     prod.id = 0;
                     prod.nome = "";
@@ -159,9 +164,10 @@
                     <select name="comboCategoria" class="form-select form-select-lg inputt" aria-label=".form-select-sm example">
                         <option value="0">Selecione</option>
                         <%
-                            ArrayList<Categoria> categorias = new CategoriaDao().consultarTodos();
+                            ArrayList<Categoria> categorias = new CategoriaDao().findAll();
 
-                            for (Categoria categ : categorias) {
+                            for ( Categoria categ : categorias )
+                            {
                         %>
 
                         <option 
@@ -173,7 +179,7 @@
                     </select>
                 </label>
                 <label class="checkBox">Ativo:
-                    <input  <%= prod.id != 0 && prod.ativo.equals("ativo") ? "checked" : "!"%>
+                    <input  <%= prod.id != 0 && prod.ativo.equals( "ativo" ) ? "checked" : "!"%>
                         type="checkbox" class="Cheeck" name="checkbox"></input></label>
 
                 <button class="btn btn-lg btn-dark cadastro" type="submit" value="Salvar" >Cadastrar</button>

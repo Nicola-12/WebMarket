@@ -7,8 +7,55 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Cadastro de Categorias</title>
+        
+        <style>
+            .search {
+                justify-content: center;
+                width: 30%;
+                height: 48px;
+            }
+
+            body::-webkit-scrollbar {
+                display: none;
+            }
+
+            form {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+
+            }
+
+            h1 {
+                text-align: center;
+                margin-bottom: 15px;
+            }
+
+            .btn {
+                margin-top: 0.5em;
+                margin-bottom: 1.5em;
+                width: 30%;
+            }
+
+            .table-responsive {
+                width: 80%;
+            }
+
+            input:invalid:not(:placeholder-shown){
+                box-shadow: 0px 0px 0px 0.25rem rgba(255,0,0,.25);
+                border-color: red;
+                z-index:2;
+            }
+
+            a:hover {
+                opacity: 0.8;
+                color: #212529;
+            }
+        </style>
     </head>
     <body >
+            
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <%@include file="../menu.jsp" %>
 
@@ -39,55 +86,6 @@
             })
 
         </script>
-
-        <style>
-            .search {
-                justify-content: center;
-                width: 30%;
-                height: 48px;
-            }
-
-            button { 
-                width: 30%;
-            }
-
-            body::-webkit-scrollbar {
-                display: none;
-            }
-
-            form {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-
-            }
-
-            h1 {
-                text-align: center;
-                margin-bottom: 15px;
-            }
-
-            button {
-                margin-top: 0.5em;
-                margin-bottom: 1.5em;
-            }
-
-            .table-responsive {
-                width: 80%;
-            }
-
-            input:invalid:not(:placeholder-shown){
-                box-shadow: 0px 0px 0px 0.25rem rgba(255,0,0,.25);
-                border-color: red;
-                z-index:2;
-            }
-
-            a:hover {
-                opacity: 0.8;
-                color: #212529;
-            }
-        </style>
         <h1>Cadastro de Categorias</h1>
 
         <form name='formCateg' method='post' action='/WebMarket/Categoria?param=salvarCategoria'>

@@ -68,7 +68,7 @@ public class srvProduto extends HttpServlet {
 
             String id = request.getParameter("id");
 
-            Produto produto = (Produto) new ProdutoDao().consultarId(Integer.parseInt(id));
+            Produto produto = (Produto) new ProdutoDao().getById(Integer.parseInt(id));
 
             if (produto != null) {
 
@@ -84,11 +84,11 @@ public class srvProduto extends HttpServlet {
 
             String id = request.getParameter("id");
 
-            p = new ProdutoDao().consultarId(Integer.parseInt(id));
+            p = new ProdutoDao().getById(Integer.parseInt(id));
 
             if (p != null) {
                 ProdutoDao ex = new ProdutoDao();
-                ex.excluir(Integer.parseInt(id));
+                ex.remove(Integer.parseInt(id));
                 encaminharPagina("/WebMarket/produto/cadastroProduto.jsp", request, response);
             } else {
                 System.out.println("DEU ERRADO");
@@ -140,11 +140,11 @@ public class srvProduto extends HttpServlet {
             String retorno = null;
 
             if (id == 0) {
-                retorno = new ProdutoDao().salvar(p);
+                retorno = new ProdutoDao().save(p);
                 System.out.println("SALVOU");
                 encaminharPagina("/WebMarket/produto/cadastroProduto.jsp", request, response);
             } else if (id != 0) {
-                retorno = new ProdutoDao().atualizar(p);
+                retorno = new ProdutoDao().update(p);
                 System.out.println("ATUALIZOU");
                 encaminharPagina("/WebMarket/produto/cadastroProduto.jsp", request, response);
             }

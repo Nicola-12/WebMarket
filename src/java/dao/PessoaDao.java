@@ -1,6 +1,6 @@
 package dao;
 
-import apoio.ConexaoBD;
+import apoio.Database;
 import apoio.IDAO;
 import entidade.Pessoa;
 import java.util.ArrayList;
@@ -16,9 +16,9 @@ public class PessoaDao implements IDAO<Pessoa> {
     ResultSet result;
 
     @Override
-    public String salvar(Pessoa o) {
+    public String save(Pessoa o) {
         try {
-            Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
+            Statement stm = Database.getInstance().getConnection().createStatement();
 
             String sql = "INSERT INTO pessoa values"
                     + "(default,"
@@ -44,9 +44,9 @@ public class PessoaDao implements IDAO<Pessoa> {
     }
 
     @Override
-    public String atualizar(Pessoa o) {
+    public String update(Pessoa o) {
         try {
-            Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
+            Statement stm = Database.getInstance().getConnection().createStatement();
 
             String sql = "UPDATE pessoa SET "
                     + "nome='" + o.nome + "',"
@@ -71,9 +71,9 @@ public class PessoaDao implements IDAO<Pessoa> {
     }
 
     @Override
-    public String excluir(int id) {
+    public String remove(int id) {
         try {
-            Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
+            Statement stm = Database.getInstance().getConnection().createStatement();
 
             String sql = "UPDATE pessoa SET ativo = inativo WHERE id=" + id;
             System.out.println("SQL: " + sql);
@@ -89,10 +89,10 @@ public class PessoaDao implements IDAO<Pessoa> {
     }
 
     @Override
-    public ArrayList<Pessoa> consultarTodos() {
+    public ArrayList<Pessoa> findAll() {
         String sql = "SELECT * FROM pessoa WHERE status <> false";
         try {
-            ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
+            ResultSet result = Database.getInstance().getConnection().createStatement().executeQuery(sql);
             ArrayList<Pessoa> pessoa = new ArrayList<>();
             while (result.next()) {
                 pessoa.add(Pessoa.from(result));
@@ -108,15 +108,15 @@ public class PessoaDao implements IDAO<Pessoa> {
     }
 
     @Override
-    public boolean registroUnico(Pessoa o) {
+    public boolean isUnique(Pessoa o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<Pessoa> consultar(String criterio) {
+    public ArrayList<Pessoa> getAllByValue(String criterio) {
         String sql = "SELECT * FROM pessoa WHERE '%" + criterio + "%' ORDER BY descricao";
         try {
-            ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
+            ResultSet result = Database.getInstance().getConnection().createStatement().executeQuery(sql);
             ArrayList<Pessoa> pessoa = new ArrayList<>();
             while (result.next()) {
                 pessoa.add(Pessoa.from(result));
@@ -132,10 +132,10 @@ public class PessoaDao implements IDAO<Pessoa> {
     }
 
     @Override
-    public Pessoa consultarId(int id) {
+    public Pessoa getById(int id) {
         String sql = "SELECT * FROM pessoa WHERE id=" + id;
         try {
-            ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
+            ResultSet result = Database.getInstance().getConnection().createStatement().executeQuery(sql);
             if (result.next()) {
                 return Pessoa.from(result);
             }
@@ -149,7 +149,7 @@ public class PessoaDao implements IDAO<Pessoa> {
     public Pessoa consultarEmail(String email) {
         String sql = "SELECT * FROM pessoa WHERE email ='" + email + "'";
         try {
-            ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
+            ResultSet result = Database.getInstance().getConnection().createStatement().executeQuery(sql);
             if (result.next()) {
                 return Pessoa.from(result);
             }
@@ -161,13 +161,13 @@ public class PessoaDao implements IDAO<Pessoa> {
     }
 
     @Override
-    public boolean consultar(Pessoa o) {
+    public boolean exists(Pessoa o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public byte[] gerarRelatorio(String ativo) {
         try {
-            Connection conn = ConexaoBD.getInstance().getConnection();
+            Connection conn = Database.getInstance().getConnection();
 
             JasperReport relatorio = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorios/ListagemUsuarios.jrxml"));
 

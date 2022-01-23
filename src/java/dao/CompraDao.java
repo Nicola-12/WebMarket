@@ -1,6 +1,6 @@
 package dao;
 
-import apoio.ConexaoBD;
+import apoio.Database;
 import apoio.IDAO;
 import entidade.Compra;
 import java.util.ArrayList;
@@ -17,9 +17,9 @@ public class CompraDao implements IDAO<Compra> {
     ResultSet result;
 
     @Override
-    public String salvar(Compra o) {
+    public String save(Compra o) {
         try {
-            Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
+            Statement stm = Database.getInstance().getConnection().createStatement();
 
             String sql = "INSERT INTO compra values "
                     + "(default,"
@@ -41,9 +41,9 @@ public class CompraDao implements IDAO<Compra> {
     }
 
     @Override
-    public String atualizar(Compra o) {
+    public String update(Compra o) {
         try {
-            Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
+            Statement stm = Database.getInstance().getConnection().createStatement();
 
             String sql = "UPDATE compra SET "
                     + "valorTotal='" + o.valorTotal + "',"
@@ -64,15 +64,15 @@ public class CompraDao implements IDAO<Compra> {
     }
 
     @Override
-    public String excluir(int id) { //não é necessário
+    public String remove(int id) { //não é necessário
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<Compra> consultarTodos() {
+    public ArrayList<Compra> findAll() {
         String sql = "SELECT * FROM compra ";
         try {
-            ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
+            ResultSet result = Database.getInstance().getConnection().createStatement().executeQuery(sql);
             ArrayList<Compra> compra = new ArrayList<>();
             while (result.next()) {
                 compra.add(Compra.from(result));
@@ -88,15 +88,15 @@ public class CompraDao implements IDAO<Compra> {
     }
 
     @Override
-    public boolean registroUnico(Compra o) {
+    public boolean isUnique(Compra o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<Compra> consultar(String criterio) {
+    public ArrayList<Compra> getAllByValue(String criterio) {
         String sql = "SELECT * FROM compra WHERE '%" + criterio + "%' ORDER BY descricao";
         try {
-            ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
+            ResultSet result = Database.getInstance().getConnection().createStatement().executeQuery(sql);
             ArrayList<Compra> compra = new ArrayList<>();
             while (result.next()) {
                 compra.add(Compra.from(result));
@@ -112,10 +112,10 @@ public class CompraDao implements IDAO<Compra> {
     }
 
     @Override
-    public Compra consultarId(int id) {
+    public Compra getById(int id) {
         String sql = "SELECT * FROM compra WHERE id=" + id;
         try {
-            ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
+            ResultSet result = Database.getInstance().getConnection().createStatement().executeQuery(sql);
             if (result.next()) {
                 return Compra.from(result);
             }
@@ -127,13 +127,13 @@ public class CompraDao implements IDAO<Compra> {
     }
 
     @Override
-    public boolean consultar(Compra o) {
+    public boolean exists(Compra o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public byte[] gerarRelatorioData(Date data1, Date data2) {
         try {
-            Connection conn = ConexaoBD.getInstance().getConnection();
+            Connection conn = Database.getInstance().getConnection();
 
             JasperReport relatorio = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorios/rvenda.jrxml"));
             Map parameters = new HashMap();

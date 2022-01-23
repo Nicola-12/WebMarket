@@ -14,18 +14,32 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <link href="/WebMarket/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/WebMarket/css/bootstrap.min.css.map">
         <title>Pedidos</title>
+        <%@include file="../menu.jsp" %>
     </head>
     <body>
         <style>
-            .btn {
-                width: 50%;
-                outline-color: black;
-                align-self: center;
+            body {
+                align-items: center;
+                justify-content: center;
+            }
+
+            .pesquisar {
+                display: flex;
+                margin: auto;
+                justify-content: center;
+                width: 25%;
+            }
+            .pesq {
+                margin: 10px;
+                text-decoration: none;
             }
         </style>
 
-        <%@include file="../menu.jsp" %>
+
 
         <%  String name = request.getParameter("nome");
             String dataIni = request.getParameter("data1");
@@ -39,7 +53,69 @@
                 name = "";
             }
         %>
-        <a class="pesq" href="#"><button class="btn btn-black">pesquisa</button></a>
+
+
+        <h1 style="text-align: center;">MEUS PEDIDOS FEITOS ATÉ O MOMENTO</h1>
+        <a class="pesq" href="#"><button class="btn btn-dark pesquisar">pesquisa</button></a>
+        <%            f = new PessoaDao().consultarEmail(f.email);
+
+            ResultSet set = ConexaoBD.getInstance().getConnection().createStatement()
+                    .executeQuery("SELECT "
+                            + "categoria.descricao AS descricao,  "
+                            + "produto.nome AS pNome,  "
+                            + "iten.quant AS quant,  "
+                            + "compra.created_at AS create,  "
+                            + "iten.total "
+                            + "FROM categoria,   "
+                            + "produto,  "
+                            + "itencarrinho AS iten,  "
+                            + "carrinho,  "
+                            + "pessoa,  "
+                            + "compra   "
+                            + "WHERE   "
+                            + "(compra.created_at IS NULL "
+                            + "OR compra.created_at BETWEEN '" + dataIni + "' AND '" + dataFinal + "') "
+                            + "AND (produto.nome IS NULL OR produto.nome ILIKE '%" + name + "%') "
+                            + "AND produto.id_categoria = categoria.id  "
+                            + "AND iten.id_produto = produto.id   "
+                            + "AND compra.id = carrinho.id_compra  "
+                            + "AND compra.id_pessoa = " + f.id
+                            + "AND carrinho.id_iten = iten.id "
+                            + "ORDER BY compra.created_at DESC ");
+        %>
+
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-sm table-dark">
+
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Quantidade</th>
+                <th>Total</th>
+                <th>Data</th>
+                    <%
+                        while (set.next()) {
+                            String descricao = set.getString("descricao");
+                            String nome = set.getString("pNome");
+                            int quant = set.getInt("quant");
+                            double total = set.getDouble("total");
+                            Date criado = set.getDate("create");
+                    %>
+
+                <tr class="table-light">            
+                    <td><%= nome%></td>
+                    <td><%= descricao%></td>
+                    <td><%= quant%></td>
+                    <td><%= total%></td>
+                    <td><%= Formatacao.ajustaDataDMA(String.valueOf(criado))%></td>
+                </tr>
+                <%
+                    }
+
+                %>
+
+            </table>
+        </div>
         <script>
 
             document.querySelector(".pesq").addEventListener('click', async () => {
@@ -75,65 +151,5 @@
             })
 
         </script>
-        <h1 style="text-align: center;">MEUS PEDIDOS FEITOS ATÉ O MOMENTO</h1>
-        <%            f = new PessoaDao().consultarEmail(f.email);
-
-            ResultSet set = ConexaoBD.getInstance().getConnection().createStatement()
-                    .executeQuery("SELECT "
-                            + "categoria.descricao AS descricao,  "
-                            + "produto.nome AS pNome,  "
-                            + "iten.quant AS quant,  "
-                            + "compra.created_at AS create,  "
-                            + "iten.total "
-                            + "FROM categoria,   "
-                            + "produto,  "
-                            + "itencarrinho AS iten,  "
-                            + "carrinho,  "
-                            + "pessoa,  "
-                            + "compra   "
-                            + "WHERE   "
-                            + "(compra.created_at IS NULL "
-                            + "OR compra.created_at BETWEEN '" + dataIni + "' AND '" + dataFinal + "') "
-                            + "AND (produto.nome IS NULL OR produto.nome ILIKE '%" + name + "%') "
-                            + "AND produto.id_categoria = categoria.id  "
-                            + "AND iten.id_produto = produto.id   "
-                            + "AND compra.id = carrinho.id_compra  "
-                            + "AND compra.id_pessoa = " + f.id
-                            + "AND carrinho.id_iten = iten.id "
-                            + "ORDER BY compra.created_at DESC ");
-        %>
-
-
-        <div class="table-responsive">
-            <table class="table table-bordered table-sm table-dark">
-
-                <th>Descrição</th>
-                <th>Nome</th>
-                <th>Quantidade</th>
-                <th>Total</th>
-                <th>Data</th>
-                    <%
-                        while (set.next()) {
-                            String descricao = set.getString("descricao");
-                            String nome = set.getString("pNome");
-                            int quant = set.getInt("quant");
-                            double total = set.getDouble("total");
-                            Date criado = set.getDate("create");
-                    %>
-
-                <tr class="table-light">            
-                    <td><%= descricao%></td>
-                    <td><%= nome%></td>
-                    <td><%= quant%></td>
-                    <td><%= total%></td>
-                    <td><%= Formatacao.ajustaDataDMA(String.valueOf(criado))%></td>
-                </tr>
-                <%
-                    }
-
-                %>
-
-            </table>
-        </div>
     </body>
 </html>

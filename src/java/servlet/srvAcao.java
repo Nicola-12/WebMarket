@@ -1,8 +1,8 @@
 package servlet;
 
-import apoio.ConexaoBD;
-import apoio.Cripto;
-import apoio.Validacao;
+import apoio.Database;
+import apoio.Cript;
+import apoio.Validator;
 import dao.PessoaDao;
 import entidade.Categoria;
 import entidade.ItemCarrinho;
@@ -27,7 +27,7 @@ import javax.servlet.http.HttpSession;
  */
 public class srvAcao extends HttpServlet {
 
-    ConexaoBD bd = new ConexaoBD();
+    Database bd = new Database();
     ResultSet r = null;
     Categoria categoria = new Categoria();
     Pessoa pep = new Pessoa();
@@ -84,11 +84,11 @@ public class srvAcao extends HttpServlet {
             //PESSOA
         } else if (param.equals("excluirPessoa")) {
             String id = request.getParameter("id");
-            pep = new PessoaDao().consultarId(Integer.parseInt(id));
+            pep = new PessoaDao().getById(Integer.parseInt(id));
 
             if (pep != null) {
                 PessoaDao exc = new PessoaDao();
-                exc.excluir(Integer.parseInt(id));
+                exc.remove(Integer.parseInt(id));
                 encaminharPagina("login.jsp", request, response);
             } else {
                 encaminharPagina("erro.jsp", request, response);
@@ -126,7 +126,7 @@ public class srvAcao extends HttpServlet {
             if (!nome.matches("^[A-Za-z ]{3,45}$") || nome.isEmpty()) {
                 response.sendRedirect("/WebMarket/pessoa/cadastroLogin.jsp?erro=NOME_INVALIDO");
                 return;
-            } else if (!Validacao.isEmail(email)) {
+            } else if (!Validator.isEmail(email)) {
                 response.sendRedirect("/WebMarket/pessoa/cadastroLogin.jsp?erro=EMAIL_INVALIDO");
                 return;
             } else if (!senha.matches("^.{8,22}$")) {
@@ -139,13 +139,13 @@ public class srvAcao extends HttpServlet {
                 p.id = id;
                 p.nome = nome;
                 p.email = email;
-                p.senha = Cripto.criptografar(senha);
+                p.senha = Cript.encryptPassword(senha);
                 p.endereco = endereco;
                 p.telefone = telefone;
             }
 
             if (id == 0) {
-                if (pd.salvar(p) == null) {
+                if (pd.save(p) == null) {
 
                     response.sendRedirect("/WebMarket/pessoa/cadastroLogin.jsp?certo=TRUE");
                 } else {
@@ -169,7 +169,7 @@ public class srvAcao extends HttpServlet {
             if (!nome.matches("^[A-Za-z ]{3,45}$") || nome.isEmpty()) {
                 response.sendRedirect("/WebMarket/pessoa/dadosConta.jsp?erro=NOME_INVALIDO");
                 return;
-            } else if (!Validacao.isEmail(email)) {
+            } else if (!Validator.isEmail(email)) {
                 response.sendRedirect("/WebMarket/pessoa/dadosConta.jsp?erro=EMAIL_INVALIDO");
                 return;
             } else if (!telefone.matches("^((\\+\\d{1,2})?\\d{2})?\\d{9}$")) {
@@ -185,7 +185,7 @@ public class srvAcao extends HttpServlet {
 
             if (id != 0) {
 
-                if (pd.atualizar(f) == null) {
+                if (pd.update(f) == null) {
                     response.sendRedirect("/WebMarket/pessoa/dadosConta.jsp?certo=TRUE");
                 } else {
                     response.sendRedirect("/WebMarket/pessoa/dadosConta.jsp?erro=ERRO");
@@ -204,9 +204,9 @@ public class srvAcao extends HttpServlet {
 
             if (!senha.isEmpty() && !senhaNova.isEmpty() && !confirmarSenha.isEmpty()) {
 
-                if (Cripto.eIgual(f.senha, senha) && senhaNova.equals(confirmarSenha)) {
-                    f.senha = Cripto.criptografar(senhaNova);
-                    pd.atualizar(f);
+                if (Cript.isEquals(f.senha, senha) && senhaNova.equals(confirmarSenha)) {
+                    f.senha = Cript.encryptPassword(senhaNova);
+                    pd.update(f);
                     response.sendRedirect("/WebMarket/pessoa/dadosConta.jsp");
                 }
             } else {
@@ -229,7 +229,7 @@ public class srvAcao extends HttpServlet {
                     response.sendRedirect("/WebMarket/login.jsp?erro=ERRO");
                 }
 
-                if (Cripto.eIgual(set.getString("senha"), new String(senha))) {
+                if (Cript.isEquals(set.getString("senha"), new String(senha))) {
                     pes.email = email;
 
                     HttpSession sessao = ((HttpServletRequest) request).getSession();

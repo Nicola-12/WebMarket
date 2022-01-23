@@ -15,8 +15,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" 
               integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" 
               crossorigin="anonymous" />
-    </head>
-    <body>
 
         <style>
             a {
@@ -31,10 +29,12 @@
             }
 
         </style>
+    </head>
+    <body>
         <h1>Listagem de Categorias</h1>
 
         <%
-            ArrayList<Categoria> listCateg = new CategoriaDao().consultarTodos();
+            ArrayList<Categoria> listCateg = new CategoriaDao().findAll();
 
 
         %>
@@ -48,11 +48,15 @@
                 <th>Criado Em</th>
                 <th>Atualizado Em</th>
                 <th>Ativo</th>
-                    <%                        if (listCateg == null) {
-                            out.print("NAO CONTEM NADA");
-                        } else {
-                            for (int i = 0; i < listCateg.size(); i++) {
-                                Categoria c = listCateg.get(i);
+                    <%                        if ( listCateg == null )
+                        {
+                            out.print( "NAO CONTEM NADA" );
+                        }
+                        else
+                        {
+                            for ( int i = 0; i < listCateg.size(); i++ )
+                            {
+                                Categoria c = listCateg.get( i );
                     %>
 
                 <tr class="table-light">

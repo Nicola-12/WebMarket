@@ -5,7 +5,7 @@
  */
 package dao;
 
-import apoio.ConexaoBD;
+import apoio.Database;
 import apoio.IDAO;
 import entidade.Carrinho;
 import java.sql.Statement;
@@ -13,14 +13,14 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Usuario
+ * @author ne
  */
 public class CarrinhoDao implements IDAO<Carrinho> {
 
     @Override
-    public String salvar(Carrinho o) {
+    public String save(Carrinho o) {
         try {
-            Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
+            Statement stm = Database.getInstance().getConnection().createStatement();
 
             String sql = "INSERT INTO carrinho values ("
                     + "" + o.id_compra + ","
@@ -38,9 +38,9 @@ public class CarrinhoDao implements IDAO<Carrinho> {
     }
 
     @Override
-    public String atualizar(Carrinho o) {
+    public String update(Carrinho o) {
         try {
-            Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
+            Statement stm = Database.getInstance().getConnection().createStatement();
 
             String sql = "UPDATE carrinho SET "
                     + "id_compra='" + o.id_compra + "',"
@@ -60,32 +60,32 @@ public class CarrinhoDao implements IDAO<Carrinho> {
     }
 
     @Override
-    public String excluir(int id) {
+    public String remove(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<Carrinho> consultarTodos() {
+    public ArrayList<Carrinho> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean registroUnico(Carrinho o) {
+    public boolean isUnique(Carrinho o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<Carrinho> consultar(String criterio) {
+    public ArrayList<Carrinho> getAllByValue(String criterio) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Carrinho consultarId(int id) {
+    public Carrinho getById(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean consultar(Carrinho o) {
+    public boolean exists(Carrinho o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

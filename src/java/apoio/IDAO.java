@@ -9,23 +9,23 @@ import java.util.ArrayList;
 
 /**
  *
- * @author pretto
+ * @author Nicolas
  */
-public interface IDAO <T> {
+public interface IDAO<T>
+{
+    public String save( T objeto );
 
-    public String salvar (T objeto);
+    public String update( T o );
 
-    public String atualizar(T o);
+    public String remove( int id );
 
-    public String excluir(int id);
+    public ArrayList<T> findAll();
 
-    public ArrayList<T> consultarTodos();
-   
-    public boolean registroUnico(T o);
+    public boolean isUnique( T o );
 
-    public ArrayList<T> consultar(String criterio);
+    public ArrayList<T> getAllByValue( String value );
 
-    public T consultarId(int id);
-    
-    public boolean consultar (T o);
+    public T getById( int id );
+
+    public boolean exists( T o );
 }

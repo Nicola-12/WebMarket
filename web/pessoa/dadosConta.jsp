@@ -6,47 +6,23 @@
 
 <%@page import="dao.PessoaDao"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="apoio.Cripto"%>
-<%@page import="apoio.ConexaoBD"%>
+<%@page import="apoio.Cript"%>
+<%@page import="apoio.Database"%>
 <%@page import="entidade.Pessoa"%>
 <%@page import="java.sql.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="../menu.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-        <meta name="generator" content="Hugo 0.80.0">
         <title>Dados Pessoais</title>
 
-
-
-
-
         <!-- Favicons -->
-        <link rel="apple-touch-icon" href="/docs/5.0/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-        <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-        <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-        <link rel="manifest" href="/docs/5.0/assets/img/favicons/manifest.json">
-        <link rel="mask-icon" href="/docs/5.0/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon.ico">
         <meta name="theme-color" content="#7952b3">
-        <%@include file="../menu.jsp" %>
-    </head>
-    <body>
-        <%  f = (Pessoa) sessao.getAttribute("usuarioLogado");
-
-            f = new PessoaDao().consultarEmail(f.email);
-        %>   
 
         <style>
-            html, body {
-                width: 100%;
-                height: 100vh;
-            }
 
             a, a:hover {
                 color: white;
@@ -56,10 +32,6 @@
             body {
                 display: grid;
                 align-items: center;
-            }
-
-            .navbar {
-                margin-top: -35px;
             }
 
             main {
@@ -78,29 +50,8 @@
                 margin: .45em 0;
             }
 
-            .campo {
-                margin-top: .35em;
-            }
-
-            button {
-                margin: .6em 0;
-            }
-
-            .campo + button {
-                margin-top: 1.2em;
-            }
-
-            .campo, label {
-                width: 100%;
-            }
-
             h2 {
                 margin-bottom: .5em;
-            }
-
-            button {
-                width: 100%;
-
             }
 
             @media screen and (max-width: 750px) {
@@ -124,6 +75,13 @@
             }
 
         </style>
+
+    </head>
+    <body>
+        <%  f = (Pessoa) sessao.getAttribute( "usuarioLogado" );
+
+            f = new PessoaDao().consultarEmail( f.email );
+        %>   
 
         <main >
             <form method="post" action="/WebMarket/acao?param=editarPessoa">

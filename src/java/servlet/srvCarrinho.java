@@ -1,6 +1,6 @@
 package servlet;
 
-import apoio.ConexaoBD;
+import apoio.Database;
 import dao.CarrinhoDao;
 import dao.CompraDao;
 import dao.ItemCarrinhoDao;
@@ -26,7 +26,7 @@ import javax.servlet.RequestDispatcher;
 @WebServlet(name = "cart", urlPatterns = {"/cart"})
 public class srvCarrinho extends HttpServlet {
 
-    ConexaoBD bd = new ConexaoBD();
+    Database bd = new Database();
     ProdutoDao pd = new ProdutoDao();
 
     /**
@@ -152,10 +152,10 @@ public class srvCarrinho extends HttpServlet {
             int parcelas = Integer.parseInt(request.getParameter("parcelas"));
             for (ItemCarrinho item : produtos) {
 
-                Produto p = pd.consultarId(item.id_produto);
+                Produto p = pd.getById(item.id_produto);
                 if (p.estoque >= item.quant) {
                     p.estoque -= item.quant;
-                    pd.atualizar(p);
+                    pd.update(p);
                 } else {
                     response.sendRedirect("/WebMarket/carrinho/carrinho.jsp?erro=ERRO");
                     return;
@@ -172,17 +172,17 @@ public class srvCarrinho extends HttpServlet {
             c.valorTotal = valorTotal;
             c.id_pessoa = f.id;
             // Salva a compra e vê o novo id da compra
-            // Salvar os itens e pegar os novos ids e dps salvar o carrinho
+            // Salvar os itens e pegar os novos ids e dps save o carrinho
 
-            cDao.salvar(c);
+            cDao.save(c);
 
             Carrinho car = new Carrinho();
             car.id_compra = c.id;
             for (ItemCarrinho item : produtos) {
-                icDao.salvar(item);
+                icDao.save(item);
 
                 car.id_iten = item.id;
-                carDao.salvar(car);
+                carDao.save(car);
             }
             session.setAttribute("cart", new ArrayList<ItemCarrinho>());
             request.setAttribute("compra", c);

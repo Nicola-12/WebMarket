@@ -82,11 +82,11 @@ public class pesquisa extends HttpServlet {
         String param2 = request.getParameter("nome");
 
         CategoriaDao categ = new CategoriaDao();
-        categ.consultarTodos();
+        categ.findAll();
         if (param.equals("pesquisar")) {
             String criterio = request.getParameter("campoDeBusca");
 
-            ArrayList<Categoria> categorias = new CategoriaDao().consultar(criterio);
+            ArrayList<Categoria> categorias = new CategoriaDao().getAllByValue(criterio);
 
             request.setAttribute("categoriasPesquisa", categorias);
 
